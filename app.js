@@ -67,6 +67,24 @@
         addNotification('warning', 'EPI(s) sem nome removidos (' + empty.length + ').', 'cleanup');
       }
     }
+    function isInvalidEpi(e) {
+      var nome = (e.nome || '').trim();
+      return !nome || /^\d+$/.test(nome);
+    }
+    async function cleanupEpisFromFirestore(snap) {
+      var invalidIds = snap.docs
+        .filter(function(d) { return isInvalidEpi(d.data()); })
+        .map(function(d) { return d.ref; });
+      if (invalidIds.length > 0) {
+        var batch = db.batch();
+        invalidIds.forEach(function(ref) { batch.delete(ref); });
+        try { await batch.commit(); } catch (e) { console.error('[FB] cleanup delete error:', e); }
+        addNotification('warning', invalidIds.length + ' EPI(s) inválidos removidos do servidor.', 'cleanup');
+      }
+      state.epis = snap.docs
+        .filter(function(d) { return !isInvalidEpi(d.data()); })
+        .map(function(d) { return ({ id: Number(d.id), ...d.data() }); });
+    }
     function loadPending() {
       try { return JSON.parse(localStorage.getItem(PEND_KEY)) || []; } catch (e) { return []; }
     }
@@ -229,9 +247,10 @@
         if (curScreen) go(curScreen);
       });
       db.collection('epis').onSnapshot(snap => {
-        state.epis = snap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
-        recomputeCounters();
-        try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+        cleanupEpisFromFirestore(snap).then(() => {
+          recomputeCounters();
+          try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+        });
       });
       db.collection('entregas').onSnapshot(snap => {
         state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -265,18 +284,20 @@
           try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
           if (curScreen) go(curScreen);
         });
-        db.collection('epis').onSnapshot(snap => {
-          state.epis = snap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
+      db.collection('epis').onSnapshot(snap => {
+        cleanupEpisFromFirestore(snap).then(() => {
           recomputeCounters();
           try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
         });
-        db.collection('entregas').onSnapshot(snap => {
-          state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-          try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
-        });
-        syncStatus = 'ok';
-        updateSyncBadge();
-        go(curScreen);
+      });
+      db.collection('entregas').onSnapshot(snap => {
+        state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+      });
+      syncStatus = 'ok';
+      updateSyncBadge();
+      updateNotifBadge();
+      go(curScreen);
       } catch (e) {
         console.error('[FB] Pull error:', e);
         syncStatus = 'error';
