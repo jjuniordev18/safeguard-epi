@@ -44,6 +44,28 @@
         try { localStorage.setItem(SEED_VER_KEY, String(SEED_VER)); } catch (e) { }
       }
       recomputeCounters();
+      migrateNumericEpiNames();
+      cleanupEmptyEpis();
+    }
+    function migrateNumericEpiNames() {
+      var numericOnly = state.epis.filter(function(e) { return /^\d+$/.test((e.nome || '').trim()); });
+      if (numericOnly.length > 0) {
+        state.epis = state.epis.filter(function(e) { return !/^\d+$/.test((e.nome || '').trim()); });
+        numericOnly.forEach(function(epi) { addPending('epi', 'delete', { id: epi.id }); });
+        save();
+        recomputeCounters();
+        showToast('⚠️ ' + numericOnly.length + ' EPI(s) com nome numérico removidos. Reimporte a planilha.');
+      }
+    }
+    function cleanupEmptyEpis() {
+      var empty = state.epis.filter(function(e) { return !(e.nome || '').trim(); });
+      if (empty.length > 0) {
+        state.epis = state.epis.filter(function(e) { return !!(e.nome || '').trim(); });
+        empty.forEach(function(epi) { addPending('epi', 'delete', { id: epi.id }); });
+        save();
+        recomputeCounters();
+        showToast('⚠️ ' + empty.length + ' EPI(s) sem nome removidos.');
+      }
     }
     function loadPending() {
       try { return JSON.parse(localStorage.getItem(PEND_KEY)) || []; } catch (e) { return []; }
@@ -234,7 +256,7 @@
         });
         state.epis.forEach(p => {
           const ref = db.collection('epis').doc(String(p.id));
-          ops.push({ ref, data: { id: p.id, nome: p.nome, ca: p.ca, caVal: p.caVal || '', tamanhos: p.tamanhos || ['Único'], estoque: p.estoque || {}, renovacaoDias: p.renovacaoDias || 0, estoqueMin: p.estoqueMin || 0, updatedAt: p.updatedAt || new Date().toISOString() } });
+          ops.push({ ref, data: { id: p.id, nome: p.nome, fabricante: p.fabricante || '', ca: p.ca, caVal: p.caVal || '', tamanhos: p.tamanhos || ['Único'], estoque: p.estoque || {}, renovacaoDias: p.renovacaoDias || 0, estoqueMin: p.estoqueMin || 0, updatedAt: p.updatedAt || new Date().toISOString() } });
         });
         state.entregas.forEach(d => {
           const ref = db.collection('entregas').doc(d.id);
@@ -468,7 +490,7 @@
       <div style="display:flex;justify-content:space-between;align-items:start;">
         <div>
           <div style="font-weight:600;">${esc(e.nome)}</div>
-          <div style="font-size:12px;color:var(--gray);">CA: ${esc(e.ca)} | Tam: ${e.tamanhos.join(', ')} | Est: ${estLabel}</div>
+           <div style="font-size:12px;color:var(--gray);">${e.fabricante ? esc(e.fabricante) + ' | ' : ''}CA: ${esc(e.ca)} | Tam: ${e.tamanhos.join(', ')} | Est: ${estLabel}</div>
           ${venc ? '<div style="font-size:12px;color:var(--red);font-weight:600;margin-top:4px;">🚫 CA VENCIDO — entrega bloqueada</div>'
             : e.caVal ? `<div style="font-size:12px;color:var(--green);margin-top:4px;">✓ CA válido até ${fmtDate(e.caVal)}</div>` : ''}
         </div>
@@ -875,15 +897,15 @@
         return `
     <div class="card static"><div style="display:flex;justify-content:space-between;align-items:center;">
       <div><div style="font-weight:600;">${esc(e.nome)} ${venc ? '<span class="badge badge-danger">CA vencido</span>' : ''}</div>
-      <div style="font-size:12px;color:var(--gray);">CA: ${esc(e.ca)} | Estoque: ${estLabel} | Válido: ${fmtDate(e.caVal) || '-'}</div></div>
+      <div style="font-size:12px;color:var(--gray);">CA: ${esc(e.ca)} | ${e.fabricante ? 'Fab: ' + esc(e.fabricante) + ' | ' : ''}Estoque: ${estLabel} | Válido: ${fmtDate(e.caVal) || '-'}</div></div>
       <div style="display:flex;gap:6px;align-items:center;">
         <button class="btn btn-primary small" onclick="editEpi(${e.id})">✏️</button>
         <button class="delete-btn" onclick="delEpi(${e.id})" title="Excluir">${TRASH_SVG}</button>
       </div></div></div>`;
       }).join('') || '<p class="empty">Nenhum EPI</p>';
     }
-    function clearEpiForm() { ['epiId', 'eNome', 'eCA', 'eEstoque', 'eRenov', 'eEstoqueMin'].forEach(k => document.getElementById(k).value = ''); document.getElementById('eCAVal').value = ''; document.getElementById('eTamanhos').value = ''; document.getElementById('epiTitle').textContent = '➕ Novo EPI'; }
-    function editEpi(id) { const e = state.epis.find(x => x.id === id); document.getElementById('epiId').value = e.id; document.getElementById('eNome').value = e.nome; document.getElementById('eCA').value = e.ca; document.getElementById('eCAVal').value = e.caVal || ''; document.getElementById('eTamanhos').value = (e.tamanhos || []).join(', '); document.getElementById('eEstoque').value = Object.entries(e.estoque || {}).map(([t, n]) => t + '=' + n).join(', '); document.getElementById('eRenov').value = e.renovacaoDias || ''; document.getElementById('eEstoqueMin').value = e.estoqueMin || ''; document.getElementById('epiTitle').textContent = '✏️ Editar'; go('addepi'); }
+    function clearEpiForm() { ['epiId', 'eNome', 'eFabricante', 'eCA', 'eEstoque', 'eRenov', 'eEstoqueMin'].forEach(k => document.getElementById(k).value = ''); document.getElementById('eCAVal').value = ''; document.getElementById('eTamanhos').value = ''; document.getElementById('epiTitle').textContent = '➕ Novo EPI'; }
+    function editEpi(id) { const e = state.epis.find(x => x.id === id); document.getElementById('epiId').value = e.id; document.getElementById('eNome').value = e.nome; document.getElementById('eFabricante').value = e.fabricante || ''; document.getElementById('eCA').value = e.ca; document.getElementById('eCAVal').value = e.caVal || ''; document.getElementById('eTamanhos').value = (e.tamanhos || []).join(', '); document.getElementById('eEstoque').value = Object.entries(e.estoque || {}).map(([t, n]) => t + '=' + n).join(', '); document.getElementById('eRenov').value = e.renovacaoDias || ''; document.getElementById('eEstoqueMin').value = e.estoqueMin || ''; document.getElementById('epiTitle').textContent = '✏️ Editar'; go('addepi'); }
     function delEpi(id) { if (!confirmDelete('Excluir este EPI?')) return; const epi = state.epis.find(e => e.id === id); state.deletedEpis = state.deletedEpis || []; if (epi) state.deletedEpis.push({ ...epi }); state.epis = state.epis.filter(e => e.id !== id); addPending('epi', 'delete', { id }); save(); renderEpiMgmt(''); showToast('🗑 EPI excluído'); }
     function parseEstoque(str) {
       const out = {};
@@ -895,7 +917,7 @@
     }
     function saveEpi() {
       const id = document.getElementById('epiId').value;
-      const nome = document.getElementById('eNome').value.trim(), ca = document.getElementById('eCA').value.trim();
+      const nome = document.getElementById('eNome').value.trim(), fabricante = document.getElementById('eFabricante').value.trim(), ca = document.getElementById('eCA').value.trim();
       if (!nome || !ca) { showToast('⚠️ Nome e CA obrigatórios'); return; }
       const tamanhos = (document.getElementById('eTamanhos').value || 'Único').split(',').map(t => t.trim()).filter(Boolean);
       const caVal = document.getElementById('eCAVal').value;
@@ -904,8 +926,8 @@
       const estoqueMin = parseInt(document.getElementById('eEstoqueMin').value) || 0;
       const updatedAt = new Date().toISOString();
       let epi;
-      if (id) { epi = state.epis.find(x => x.id == id); epi.nome = nome; epi.ca = ca; epi.caVal = caVal; epi.tamanhos = tamanhos; epi.estoque = estoque; epi.renovacaoDias = renovacaoDias; epi.estoqueMin = estoqueMin; epi.updatedAt = updatedAt; }
-      else { epi = { id: counters.epi++, nome, ca, caVal, tamanhos, estoque, renovacaoDias, estoqueMin, updatedAt }; state.epis.push(epi); }
+      if (id) { epi = state.epis.find(x => x.id == id); epi.nome = nome; epi.fabricante = fabricante; epi.ca = ca; epi.caVal = caVal; epi.tamanhos = tamanhos; epi.estoque = estoque; epi.renovacaoDias = renovacaoDias; epi.estoqueMin = estoqueMin; epi.updatedAt = updatedAt; }
+      else { epi = { id: counters.epi++, nome, fabricante, ca, caVal, tamanhos, estoque, renovacaoDias, estoqueMin, updatedAt }; state.epis.push(epi); }
       addPending('epi', 'upsert', { ...epi });
       save(); go('epis'); renderEpiMgmt('');
     }
@@ -1304,22 +1326,126 @@
     }
     function processExcel(data, filename) {
       const wb = XLSX.read(data, { type: 'array' });
-      const ws = wb.Sheets[wb.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(ws);
-      if (!rows.length) { showToast('⚠️ Planilha vazia'); return; }
-      let imported = 0;
-      rows.forEach(r => {
-        const nome = r['NOME'] || r['nome'] || r['Nome'] || r['COLABORADOR'] || '';
-        const matricula = String(r['MATRICULA'] || r['matricula'] || r['Matrícula'] || r['MAT'] || '');
-        if (!nome || !matricula) return;
-        const exists = state.employees.find(e => e.matricula === matricula);
-        if (!exists) {
-          state.employees.push({ id: counters.emp++, nome: nome.toUpperCase().trim(), matricula, cargo: r['CARGO'] || r['cargo'] || 'Operacional', admissao: r['ADMISSAO'] || r['admissao'] || '', telefone: r['TELEFONE'] || r['telefone'] || '' });
-          imported++;
+      if (!wb.SheetNames.length) { showToast('⚠️ Planilha vazia'); return; }
+      let importedEpis = 0, linkedPeriodicidades = 0, importedEmployees = 0;
+      function excelDateToISO(val) {
+        if (!val) return '';
+        if (typeof val === 'number') { var d = new Date((val - 25569) * 86400000); return isNaN(d.getTime()) ? '' : d.toISOString().split('T')[0]; }
+        var s = String(val).trim();
+        if (!s || s.toUpperCase() === 'NA') return '';
+        var d2 = new Date(s);
+        return isNaN(d2.getTime()) ? s : d2.toISOString().split('T')[0];
+      }
+      var estoqueSheetName = wb.SheetNames.find(function(n) { return n.toUpperCase().replace(/\s+/g,' ').includes('ESTOQUE') && n.toUpperCase().replace(/\s+/g,' ').includes('CA'); });
+      if (estoqueSheetName) {
+        var wsEst = wb.Sheets[estoqueSheetName];
+        var rowsEst = XLSX.utils.sheet_to_json(wsEst, { header: 1 });
+        var caGroups = {};
+        for (var i = 5; i < rowsEst.length; i++) {
+          var row = rowsEst[i]; if (!row || row.length < 8) continue;
+          var descricao = String(row[1] || '').trim();
+          if (!descricao) continue;
+          var fabricante = String(row[2] || '').trim();
+          var caRaw = String(row[7] || '').trim();
+          var vencimento = excelDateToISO(row[9]);
+          var qtdEstoque = parseInt(row[4]) || 0;
+          var estoqueMinVal = parseInt(row[5]) || 0;
+          if (!caRaw || caRaw.toUpperCase() === 'NA') continue;
+          if (/[a-z]/i.test(caRaw)) continue;
+          var caNum = caRaw.replace(/[^\d]/g, '');
+          if (!caNum) continue;
+          var tamanho = 'Único';
+          var sizeMatch = descricao.match(/(?:^|[\s-])[Nn][ºo°]\.?\s*\.?\s*([A-Za-z0-9]+)/);
+          if (sizeMatch) { tamanho = sizeMatch[1]; }
+          if (!caGroups[caNum]) {
+            var nomeLimpo = descricao.replace(/(?:^|[\s-])[Nn][ºo°]\.?\s*\.?\s*[A-Za-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+            caGroups[caNum] = { nome: nomeLimpo, fabricante: fabricante, ca: caNum, caVal: vencimento.toUpperCase() !== 'NA' ? vencimento : '', tamanhos: [], estoque: {}, estoqueMin: estoqueMinVal };
+          }
+          var g = caGroups[caNum];
+          if (g.tamanhos.indexOf(tamanho) === -1) g.tamanhos.push(tamanho);
+          g.estoque[tamanho] = (g.estoque[tamanho] || 0) + qtdEstoque;
+          if (estoqueMinVal > g.estoqueMin) g.estoqueMin = estoqueMinVal;
         }
-      });
-      if (imported > 0) { save(); recomputeCounters(); showToast('✅ ' + imported + ' colaborador(es) importado(s) de ' + filename); }
-      else showToast('⚠️ Nenhum novo colaborador encontrado na planilha');
+        var importedCAKeys = Object.keys(caGroups);
+        importedCAKeys.forEach(function(caKey) {
+          var grp = caGroups[caKey];
+          var existing = state.epis.find(function(e) { return e.ca === caKey; });
+          if (existing) {
+            existing.nome = grp.nome || existing.nome;
+            existing.fabricante = grp.fabricante || existing.fabricante;
+            existing.caVal = grp.caVal || existing.caVal;
+            if (grp.tamanhos.length) existing.tamanhos = grp.tamanhos;
+            if (Object.keys(grp.estoque).length) existing.estoque = grp.estoque;
+            if (grp.estoqueMin) existing.estoqueMin = grp.estoqueMin;
+            existing.updatedAt = new Date().toISOString();
+            addPending('epi', 'upsert', Object.assign({}, existing));
+          } else {
+            var epi = { id: counters.epi++, nome: grp.nome, fabricante: grp.fabricante, ca: caKey, caVal: grp.caVal, tamanhos: grp.tamanhos, estoque: grp.estoque, renovacaoDias: 0, estoqueMin: grp.estoqueMin, updatedAt: new Date().toISOString() };
+            state.epis.push(epi);
+            addPending('epi', 'upsert', Object.assign({}, epi));
+          }
+          importedEpis++;
+        });
+      }
+      var periodSheetName = wb.SheetNames.find(function(n) { return n.toUpperCase().includes('PERIODICIDADE'); });
+      if (periodSheetName) {
+        var wsPer = wb.Sheets[periodSheetName];
+        var rowsPer = XLSX.utils.sheet_to_json(wsPer, { header: 1 });
+        var periodicidades = [];
+        for (var j = 9; j < rowsPer.length; j++) {
+          var rPer = rowsPer[j]; if (!rPer || rPer.length < 5) continue;
+          var descPer = String(rPer[1] || '').trim();
+          var mediaPer = String(rPer[3] || '').trim();
+          if (!descPer || !mediaPer) continue;
+          var pm = mediaPer.match(/(\d+)\s*(DIA|DIAS|MÊS|MESES|ANO|ANOS)/i);
+          if (!pm) continue;
+          var pNum = parseInt(pm[1]);
+          var pUnit = pm[2].toUpperCase();
+          var pDays = 0;
+          if (pUnit === 'DIA' || pUnit === 'DIAS') pDays = pNum;
+          else if (pUnit === 'MÊS' || pUnit === 'MESES') pDays = pNum * 30;
+          else if (pUnit === 'ANO' || pUnit === 'ANOS') pDays = pNum * 365;
+          if (pDays > 0) periodicidades.push({ desc: descPer.toLowerCase(), days: pDays });
+        }
+        if (periodicidades.length) {
+          var epiSearchPool = importedCAKeys && importedCAKeys.length ? state.epis.filter(function(e) { return importedCAKeys.indexOf(e.ca) !== -1; }) : state.epis;
+          epiSearchPool.forEach(function(epi) {
+            if (epi.renovacaoDias && epi.renovacaoDias > 0) return;
+            var epiWords = (epi.nome || '').toLowerCase().split(/[\s\-/]+/).filter(function(w) { return w.length > 3; });
+            if (!epiWords.length) return;
+            var best = null, bestScore = 0;
+            for (var p = 0; p < periodicidades.length; p++) {
+              var per = periodicidades[p];
+              var score = 0;
+              epiWords.forEach(function(w) { if (per.desc.indexOf(w) !== -1) score++; });
+              var isValid = score >= 2 || per.desc.indexOf(epiWords[0]) !== -1;
+              if (isValid && score > bestScore) { bestScore = score; best = per; }
+            }
+            if (best) {
+              epi.renovacaoDias = best.days;
+              epi.updatedAt = new Date().toISOString();
+              addPending('epi', 'upsert', Object.assign({}, epi));
+              linkedPeriodicidades++;
+            }
+          });
+        }
+      }
+      var wsFirst = wb.Sheets[wb.SheetNames[0]];
+      var rowsFirst = XLSX.utils.sheet_to_json(wsFirst);
+      if (rowsFirst.length) {
+        rowsFirst.forEach(function(r) {
+          var nome = r['NOME'] || r['nome'] || r['Nome'] || r['COLABORADOR'] || '';
+          var matricula = String(r['MATRICULA'] || r['matricula'] || r['Matrícula'] || r['MAT'] || '');
+          if (!nome || !matricula) return;
+          var exists = state.employees.find(function(e) { return e.matricula === matricula; });
+          if (!exists) {
+            state.employees.push({ id: counters.emp++, nome: nome.toUpperCase().trim(), matricula, cargo: r['CARGO'] || r['cargo'] || 'Operacional', admissao: r['ADMISSAO'] || r['admissao'] || '', telefone: r['TELEFONE'] || r['telefone'] || '' });
+            importedEmployees++;
+          }
+        });
+      }
+      if (importedEpis > 0 || importedEmployees > 0) { save(); recomputeCounters(); }
+      showToast('✅ ' + importedEpis + ' EPIs importados, ' + linkedPeriodicidades + ' periodicidades vinculadas, ' + importedEmployees + ' colaboradores importados');
     }
 
     // ==================== QR CODE / FICHA DO COLABORADOR ====================
