@@ -19,7 +19,7 @@
     const PEND_KEY = 'epi_pending_v1';
     const SEED_VER_KEY = 'epi_seed_ver';
     const SEED_VER = 3; // bump para forçar reseed quando o seed mudar
-    let state = { employees: [], epis: [], entregas: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [] };
+    let state = { employees: [], epis: [], entregas: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: [] };
     let counters = { emp: 1, epi: 1 };
     let syncStatus = 'idle'; // idle | syncing | ok | error | offline
     let _wasSeeded = false;
@@ -54,7 +54,7 @@
         numericOnly.forEach(function(epi) { addPending('epi', 'delete', { id: epi.id }); });
         save();
         recomputeCounters();
-        showToast('⚠️ ' + numericOnly.length + ' EPI(s) com nome numérico removidos. Reimporte a planilha.');
+        addNotification('warning', 'EPI(s) com nome numérico removidos (' + numericOnly.length + '). Reimporte a planilha.', 'cleanup');
       }
     }
     function cleanupEmptyEpis() {
@@ -64,7 +64,7 @@
         empty.forEach(function(epi) { addPending('epi', 'delete', { id: epi.id }); });
         save();
         recomputeCounters();
-        showToast('⚠️ ' + empty.length + ' EPI(s) sem nome removidos.');
+        addNotification('warning', 'EPI(s) sem nome removidos (' + empty.length + ').', 'cleanup');
       }
     }
     function loadPending() {
@@ -84,6 +84,43 @@
     function recomputeCounters() {
       counters.emp = state.employees.reduce((m, e) => Math.max(m, e.id || 0), 0) + 1;
       counters.epi = state.epis.reduce((m, e) => Math.max(m, e.id || 0), 0) + 1;
+    }
+    function addNotification(type, msg, tag) {
+      state.notifications = state.notifications || [];
+      state.notifications.push({ type, msg, tag, ts: Date.now(), unread: true });
+      save();
+      updateNotifBadge();
+    }
+    function updateNotifBadge() {
+      var count = (state.notifications || []).filter(function(n) { return n.unread; }).length;
+      var b = document.getElementById('notifCount');
+      if (!b) return;
+      if (count > 0) {
+        b.textContent = count > 99 ? '99+' : count;
+        b.style.display = 'flex';
+      } else {
+        b.style.display = 'none';
+      }
+    }
+    function renderNotifications() {
+      var notif = state.notifications || [];
+      var container = document.getElementById('notifList');
+      if (!container) return;
+      if (notif.length === 0) {
+        container.innerHTML = '<p class="empty">Nenhuma notificação.</p>';
+        return;
+      }
+      container.innerHTML = notif.slice().reverse().map(function(n) {
+        return '<div class="card static" style="border-left:3px solid ' + (n.type === 'warning' ? '#d97706' : n.type === 'danger' ? '#dc2626' : '#16a34a') + ';">' +
+          '<div style="display:flex;justify-content:space-between;align-items:start;">' +
+          '<div><div style="font-size:12px;color:var(--gray);font-weight:600;">' + fmtDateTime(new Date(n.ts)) + '</div>' +
+          '<div style="font-size:13px;margin-top:4px;">' + esc(n.msg) + '</div></div>' +
+          '<div style="font-size:11px;color:var(--gray);">' + esc(n.tag || '') + '</div>' +
+          '</div></div>';
+      }).join('');
+      notif.forEach(function(n) { n.unread = false; });
+      save();
+      updateNotifBadge();
     }
     function seed() {
       state = {
@@ -131,7 +168,7 @@
           { id: 7, nome: 'Luva Anti-corte EPI', ca: '89012', caVal: '2028-04-18', tamanhos: ['P', 'M', 'G', 'GG'], estoque: { P: 20, M: 25, G: 20, GG: 10 } },
           { id: 8, nome: 'Luva Anti-impacto', ca: '90123', caVal: '2028-03-10', tamanhos: ['P', 'M', 'G', 'GG'], estoque: { P: 10, M: 12, G: 10, GG: 6 } },
           { id: 9, nome: 'Touca Balaclava Hercules', ca: '90234', caVal: '2028-05-01', tamanhos: ['Único'], estoque: { 'Único': 20 } }
-        ], entregas: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: []
+        ], entregas: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: []
       };
       save();
     }
@@ -317,6 +354,7 @@
       if (id === 'report') { if (!document.getElementById('reportFrom').value) { const d = new Date(); d.setDate(1); document.getElementById('reportFrom').value = d.toISOString().slice(0, 10); document.getElementById('reportTo').value = new Date().toISOString().slice(0, 10); } renderReport(); }
       if (id === 'devolution') renderDevolution();
       if (id === 'dashboard') renderDashboard();
+      if (id === 'notifications') renderNotifications();
       ['home', 'history', 'employees', 'epis'].forEach(s => {
         const el = document.getElementById('nv-' + s);
         if (el) el.classList.toggle('active', s === id);
@@ -957,7 +995,8 @@
             cur: {},
             sig1: null,
             sig2: null,
-            itemSigs: []
+            itemSigs: [],
+            notifications: state.notifications || []
           };
           save();
           recomputeCounters();
@@ -1752,6 +1791,7 @@
     load();
     setLogo();
     updateSyncBadge();
+    updateNotifBadge();
     const fbReady = initFirebase();
     (function () {
       const qp = new URLSearchParams(location.search);
