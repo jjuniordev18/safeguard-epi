@@ -250,11 +250,13 @@
         cleanupEpisFromFirestore(snap).then(() => {
           recomputeCounters();
           try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+          if (curScreen === 'epis' || curScreen === 'selectepi') go(curScreen);
         });
       });
       db.collection('entregas').onSnapshot(snap => {
         state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+        if (curScreen === 'history' || curScreen === 'employee' || curScreen === 'empview' || curScreen === 'dashboard' || curScreen === 'delivered' || curScreen === 'report') go(curScreen);
       });
       syncStatus = 'ok';
       updateSyncBadge();
@@ -288,11 +290,13 @@
         cleanupEpisFromFirestore(snap).then(() => {
           recomputeCounters();
           try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+          if (curScreen === 'epis' || curScreen === 'selectepi') go(curScreen);
         });
       });
       db.collection('entregas').onSnapshot(snap => {
         state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+        if (curScreen === 'history' || curScreen === 'employee' || curScreen === 'empview' || curScreen === 'dashboard' || curScreen === 'delivered' || curScreen === 'report') go(curScreen);
       });
       syncStatus = 'ok';
       updateSyncBadge();
