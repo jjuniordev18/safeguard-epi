@@ -551,6 +551,12 @@
       border-color: var(--color-success);
     }
 
+    .alert-info {
+      background: #eff6ff;
+      color: #1e40af;
+      border-color: var(--color-brand);
+    }
+
     /* ===== AVATAR ===== */
     .avatar {
       width: 52px;
@@ -1406,6 +1412,11 @@
     html.dark .alert-success {
       background: rgba(16, 185, 129, .1);
       color: #6ee7b7;
+    }
+
+    html.dark .alert-info {
+      background: rgba(99, 102, 241, .1);
+      color: #a5b4fc;
     }
 
     html.dark .badge-info {

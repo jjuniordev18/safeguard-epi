@@ -448,9 +448,15 @@
         if (estoqueLimitado(e) && total === 0) alerts.push({ t: 'danger', msg: `🚫 Sem estoque: ${esc(e.nome)}` });
         else if (estoqueLimitado(e) && e.estoqueMin && total > 0 && total <= e.estoqueMin) alerts.push({ t: 'warning', msg: `⚠️ Estoque baixo: ${esc(e.nome)} — ${total} un. (mín: ${e.estoqueMin})` });
       });
-      document.getElementById('homeAlerts').innerHTML = alerts.length
-        ? alerts.map(a => `<div class="alert alert-${a.t}">${a.msg}</div>`).join('')
-        : '<div class="alert alert-success">✅ Tudo sob controle!</div>';
+      const notifCount = (state.notifications || []).filter(function(n) { return n.unread; }).length;
+      const el = document.getElementById('homeAlerts');
+      if (alerts.length === 0 && notifCount === 0) {
+        el.innerHTML = '<div class="alert alert-success">✅ Tudo sob controle!</div>';
+      } else if (alerts.length === 0 && notifCount > 0) {
+        el.innerHTML = '<div class="alert alert-info" style="cursor:pointer;" onclick="go(\'notifications\')"><span onclick="event.stopPropagation()">🔔 ' + notifCount + ' notificação(ões) não lidas — clique para ver →</span></div>';
+      } else {
+        el.innerHTML = '<div class="alert alert-warning" style="font-size:12px;">' + alerts.length + ' alerta(s) de EPI(s). <span style="color:var(--color-brand);cursor:pointer;" onclick="go(\'notifications\')">Ver detalhes →</span></div>';
+      }
     }
 
     // ==================== BUSCA ====================
