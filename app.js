@@ -89,6 +89,41 @@
       try { return JSON.parse(localStorage.getItem(PEND_KEY)) || []; } catch (e) { return []; }
     }
     function savePending(p) { try { localStorage.setItem(PEND_KEY, JSON.stringify(p)); } catch (e) { } }
+    async function processPending() {
+      if (!db) return;
+      const p = loadPending();
+      if (!p.length) return;
+      const ops = [];
+      p.forEach(({ type, action, data }) => {
+        if (type === 'employee') {
+          const ref = db.collection('employees').doc(String(data.id));
+          if (action === 'delete') ops.push({ ref, type: 'delete' });
+          else ops.push({ ref, data: { ...data, updatedAt: new Date().toISOString() } });
+        }
+        if (type === 'epi') {
+          const ref = db.collection('epis').doc(String(data.id));
+          if (action === 'delete') ops.push({ ref, type: 'delete' });
+          else ops.push({ ref, data: { ...data, updatedAt: new Date().toISOString() } });
+        }
+        if (type === 'entrega') {
+          const ref = db.collection('entregas').doc(String(data.id));
+          if (action === 'delete') ops.push({ ref, type: 'delete' });
+          else ops.push({ ref, data: { ...data } });
+        }
+      });
+      if (ops.length > 0) {
+        for (let i = 0; i < ops.length; i += 500) {
+          const batch = db.batch();
+          ops.slice(i, i + 500).forEach(op => {
+            if (op.type === 'delete') batch.delete(op.ref);
+            else batch.set(op.ref, op.data);
+          });
+          await batch.commit();
+        }
+      }
+      savePending([]);
+      updateSyncBadge();
+    }
     function addPending(type, action, data) {
       const p = loadPending();
       p.push({ type, action, data, ts: Date.now() });
@@ -97,6 +132,7 @@
     }
     function save() {
       try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { showToast('⚠️ Armazenamento cheio — exporte um backup (JSON)'); }
+      processPending();
       if (db) { console.log('[FB] save() → pushToFirebase, employees:', state.employees.length); pushToFirebase(); }
     }
     function recomputeCounters() {
