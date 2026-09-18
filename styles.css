@@ -1706,3 +1706,53 @@
     html.dark .box-btn.tint-blue { background-color: rgba(59, 130, 246, .08); }
     html.dark .box-btn.tint-purple { background-color: rgba(139, 92, 246, .08); }
     html.dark .box-btn.tint-teal { background-color: rgba(20, 184, 166, .08); }
+    /* Focus visible — acessibilidade por teclado */
+    .btn:focus-visible,
+    .box-btn:focus-visible,
+    .nav-item:focus-visible,
+    .icon-btn:focus-visible,
+    .size-btn:focus-visible,
+    .radio-option:focus-visible,
+    .flip-card:focus-visible,
+    .delete-btn:focus-visible,
+    .search-bar input:focus-visible {
+      outline: 3px solid var(--color-brand, #3b82f6);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 6px rgba(59, 130, 246, .2);
+    }
+
+    /* Reduced motion — respeita preferência do sistema */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .flip-card-inner { transition: none !important; transform: none !important; }
+      .screen.active { animation: none !important; }
+    }
+    /* Touch targets — WCAG 2.5.8 mínimo 44px */
+    @media (pointer: coarse) {
+      .delete-btn,
+      .size-btn,
+      .radio-option,
+      .nav-item,
+      .btn.btn-sm,
+      .btn.btn-xs,
+      .icon-btn-sm {
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .size-btn { width: 44px !important; height: 44px !important; }
+      .delete-btn { width: 36px; height: 36px; border-radius: 50%; }
+      .icon-btn-sm { width: 32px; height: 32px; border-radius: 50%; }
+    }
+    /* Flip cards — tap to flip on touch devices */
+    @media (hover: none) and (pointer: coarse) {
+      .flip-card:hover .flip-card-inner { transform: none; }
+      .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    }

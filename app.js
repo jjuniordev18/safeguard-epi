@@ -7,6 +7,7 @@
     const LEIS = 'Ciente da Lei 623, § 1º, inciso I, do artigo 158 da CLT, que dispõe sobre a obrigação do empregado de utilizar o EPI fornecido pela empresa, sujeito às penalidades previstas em lei (NR-1, subitem 1.8.11).';
 
     const REASONS = ['Admissão', 'Troca por Desgaste', 'Troca por Vencimento', 'Perda/Extravio', 'Danos por Acidente'];
+    const ADMIN_PWD = '2121';
 
     const LOGO_B64 = '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';
     function setLogo() {
@@ -18,7 +19,8 @@
     const LS_KEY = 'epi_app_v7';
     const PEND_KEY = 'epi_pending_v1';
     const SEED_VER_KEY = 'epi_seed_ver';
-    const SEED_VER = 3; // bump para forçar reseed quando o seed mudar
+    const SEED_VER = 3;
+    const MAX_ENTREGAS = 500;
     let state = { employees: [], epis: [], entregas: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: [] };
     let counters = { emp: 1, epi: 1 };
     let syncStatus = 'idle'; // idle | syncing | ok | error | offline
@@ -29,6 +31,8 @@
     const API_BASE = '';
     let curScreen = 'home';
     let _pushTimer = null;
+    let _reconnectTimer = null;
+    let _reconnectAttempts = 0;
     let db, auth, fbUser;
     let _listenersAttached = false;
 
@@ -48,7 +52,7 @@
       cleanupEmptyEpis();
     }
     function migrateNumericEpiNames() {
-      var numericOnly = state.epis.filter(function(e) { return /^\d+$/.test((e.nome || '').trim()); });
+      let numericOnly = state.epis.filter(function(e) { return /^\d+$/.test((e.nome || '').trim()); });
       if (numericOnly.length > 0) {
         state.epis = state.epis.filter(function(e) { return !/^\d+$/.test((e.nome || '').trim()); });
         numericOnly.forEach(function(epi) { addPending('epi', 'delete', { id: epi.id }); });
@@ -58,7 +62,7 @@
       }
     }
     function cleanupEmptyEpis() {
-      var empty = state.epis.filter(function(e) { return !(e.nome || '').trim(); });
+      let empty = state.epis.filter(function(e) { return !(e.nome || '').trim(); });
       if (empty.length > 0) {
         state.epis = state.epis.filter(function(e) { return !!(e.nome || '').trim(); });
         empty.forEach(function(epi) { addPending('epi', 'delete', { id: epi.id }); });
@@ -68,15 +72,15 @@
       }
     }
     function isInvalidEpi(e) {
-      var nome = (e.nome || '').trim();
+      const nome = (e.nome || '').trim();
       return !nome || /^\d+$/.test(nome);
     }
     async function cleanupEpisFromFirestore(snap) {
-      var invalidIds = snap.docs
+      const invalidIds = snap.docs
         .filter(function(d) { return isInvalidEpi(d.data()); })
         .map(function(d) { return d.ref; });
       if (invalidIds.length > 0) {
-        var batch = db.batch();
+        const batch = db.batch();
         invalidIds.forEach(function(ref) { batch.delete(ref); });
         try { await batch.commit(); } catch (e) { console.error('[FB] cleanup delete error:', e); }
         addNotification('warning', invalidIds.length + ' EPI(s) inválidos removidos do servidor.', 'cleanup');
@@ -91,7 +95,7 @@
     function savePending(p) { try { localStorage.setItem(PEND_KEY, JSON.stringify(p)); } catch (e) { } }
     async function processPending() {
       if (!db) return;
-      const p = loadPending();
+      let p = loadPending();
       if (!p.length) return;
       const ops = [];
       p.forEach(({ type, action, data }) => {
@@ -125,14 +129,17 @@
       updateSyncBadge();
     }
     function addPending(type, action, data) {
-      const p = loadPending();
+      let p = loadPending();
       p.push({ type, action, data, ts: Date.now() });
       savePending(p);
       updateSyncBadge();
     }
     function save() {
-      try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { showToast('⚠️ Armazenamento cheio — exporte um backup (JSON)'); }
-      processPending();
+      try {
+        const toSave = { employees: state.employees, epis: state.epis, entregas: state.entregas, cart: state.cart, cur: state.cur, notifications: state.notifications, archivedEntregas: state.archivedEntregas };
+        localStorage.setItem(LS_KEY, JSON.stringify(toSave));
+      } catch (e) { showToast('⚠️ Armazenamento cheio — exporte um backup (JSON)'); }
+      processPending().catch(e => console.warn('[FB] Erro ao processar pendências:', e));
       if (db) { console.log('[FB] save() → pushToFirebase, employees:', state.employees.length); pushToFirebase(); }
     }
     function recomputeCounters() {
@@ -146,8 +153,8 @@
       updateNotifBadge();
     }
     function updateNotifBadge() {
-      var count = (state.notifications || []).filter(function(n) { return n.unread; }).length;
-      var b = document.getElementById('notifCount');
+      let count = (state.notifications || []).filter(function(n) { return n.unread; }).length;
+      const b = document.getElementById('notifCount');
       if (!b) return;
       if (count > 0) {
         b.textContent = count > 99 ? '99+' : count;
@@ -157,8 +164,8 @@
       }
     }
     function renderNotifications() {
-      var notif = state.notifications || [];
-      var container = document.getElementById('notifList');
+      let notif = state.notifications || [];
+      let container = document.getElementById('notifList');
       if (!container) return;
       if (notif.length === 0) {
         container.innerHTML = '<p class="empty">Nenhuma notificação.</p>';
@@ -235,130 +242,155 @@
       firebase.initializeApp(firebaseConfig);
       auth = firebase.auth();
       db = firebase.firestore();
+      db.enablePersistence({ experimentalTabSynchronization: true }).catch(e => {
+        if (e && (e.code === 'failed-precondition' || e.code === 'unimplemented')) {
+          console.warn('[FB] Persistência offline indisponível (' + e.code + ') — usando memória');
+        } else {
+          console.error('[FB] Falha ao ativar persistência:', e);
+        }
+      });
       return true;
     }
-    async function connectFirebase() {
+async function connectFirebase() {
       if (!auth) { console.warn('[FB] auth não disponível'); return false; }
       try {
         console.log('[FB] Conectando...');
         await auth.signInAnonymously();
         fbUser = auth.currentUser;
         console.log('[FB] Auth OK, uid:', fbUser.uid);
-        if (_wasSeeded) {
-          console.log('[FB] Seed detectado — puxando dados do Firebase (sem sobrescrever)');
-          await listenFirebasePull();
-        } else {
-          console.log('[FB] State employees:', state.employees.length);
-          await pushToFirebaseNow();
-          console.log('[FB] Push OK');
-          await cleanStaleDocs();
-          console.log('[FB] Clean OK');
-          listenFirebase();
-        }
-        console.log('[FB] Listeners OK — sincronização ativa');
+        if (_wasSeeded) console.log('[FB] Seed detectado — reconciliando sem sobrescrever o servidor');
+        await reconcileWithFirestore();
+        _reconnectAttempts = 0;
+        console.log('[FB] Sincronização ativa');
         return true;
       } catch (e) {
-        console.error('[FB] Falha:', e);
+        console.error('[FB] Falha ao conectar:', e);
+        syncStatus = 'error';
+        updateSyncBadge();
+        scheduleReconnect();
         return false;
       }
     }
-    async function cleanStaleDocs() {
-      if (!db) return;
-      const localIds = new Set(state.employees.map(e => String(e.id)));
-      const snap = await db.collection('employees').get();
-      const batch = db.batch();
-      let count = 0;
-      snap.docs.forEach(d => {
-        if (!localIds.has(d.id)) { batch.delete(d.ref); count++; }
-      });
-      if (count > 0) await batch.commit();
-    }
-    function listenFirebase() {
+    function attachListeners() {
       if (_listenersAttached) return;
       _listenersAttached = true;
       db.collection('employees').onSnapshot(snap => {
         state.employees = snap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
         recomputeCounters();
         try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
-        if (curScreen) go(curScreen);
-      });
+        if (curScreen && curScreen !== 'signature' && curScreen !== 'success') go(curScreen);
+      }, fbListenerError);
       db.collection('epis').onSnapshot(snap => {
         cleanupEpisFromFirestore(snap).then(() => {
           recomputeCounters();
           try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
           if (curScreen === 'epis' || curScreen === 'selectepi') go(curScreen);
         });
-      });
+      }, fbListenerError);
       db.collection('entregas').onSnapshot(snap => {
         state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
-        if (curScreen === 'history' || curScreen === 'employee' || curScreen === 'empview' || curScreen === 'dashboard' || curScreen === 'delivered' || curScreen === 'report') go(curScreen);
-      });
+        if (curScreen === 'history' || curScreen === 'employee' || curScreen === 'empview' || curScreen === 'dashboard' || curScreen === 'delivered' || curScreen === 'report' || curScreen === 'devolution') go(curScreen);
+      }, fbListenerError);
       syncStatus = 'ok';
       updateSyncBadge();
     }
-    async function listenFirebasePull() {
-      if (_listenersAttached) return;
-      _listenersAttached = true;
+    function fbListenerError(e) {
+      console.warn('[FB] Erro no listener:', e);
+      syncStatus = 'offline';
+      updateSyncBadge();
+      scheduleReconnect();
+    }
+    async function reconcileWithFirestore() {
       try {
         const empSnap = await db.collection('employees').get();
         const epiSnap = await db.collection('epis').get();
         const entSnap = await db.collection('entregas').get();
-        const fbEmps = empSnap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
-        const fbEpis = epiSnap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
-        const fbEnts = entSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-        if (fbEmps.length > 0) state.employees = fbEmps;
-        if (fbEpis.length > 0) state.epis = fbEpis;
-        if (fbEnts.length > 0) state.entregas = fbEnts;
-        recomputeCounters();
-        try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
-        if (fbEmps.length === 0 && fbEpis.length === 0) {
-          console.log('[FB] Firebase vazio — fazendo push do seed local');
-          await pushToFirebaseNow();
+        mergeFromServer(
+          empSnap.docs.map(d => ({ id: Number(d.id), ...d.data() })),
+          epiSnap.docs.map(d => ({ id: Number(d.id), ...d.data() })),
+          entSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+        );
+        attachListeners();
+        if (empSnap.size === 0 && epiSnap.size === 0) {
+          console.log('[FB] Firebase vazio — enviando estado local');
         }
-        db.collection('employees').onSnapshot(snap => {
-          state.employees = snap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
-          recomputeCounters();
-          try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
-          if (curScreen) go(curScreen);
-        });
-      db.collection('epis').onSnapshot(snap => {
-        cleanupEpisFromFirestore(snap).then(() => {
-          recomputeCounters();
-          try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
-          if (curScreen === 'epis' || curScreen === 'selectepi') go(curScreen);
-        });
-      });
-      db.collection('entregas').onSnapshot(snap => {
-        state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
-        if (curScreen === 'history' || curScreen === 'employee' || curScreen === 'empview' || curScreen === 'dashboard' || curScreen === 'delivered' || curScreen === 'report') go(curScreen);
-      });
+        await pushToFirebaseNow();
+      } catch (e) {
+        console.warn('[FB] Offline — usando cache local até reconectar:', e);
+        attachListeners();
+      }
+    }
+    function mergeFromServer(fbEmps, fbEpis, fbEnts) {
+      const merge = (local, fb, keyOf) => {
+        const keys = {};
+        local.forEach(x => { keys[keyOf(x)] = 1; });
+        fb.forEach(x => { keys[keyOf(x)] = 1; });
+        const byKey = {};
+        local.forEach(x => { byKey[keyOf(x)] = x; });
+        fb.forEach(x => { byKey[keyOf(x)] = x; });
+        return Object.keys(keys).map(k => byKey[k]);
+      };
+      if (fbEmps.length) state.employees = merge(state.employees, fbEmps, x => String(x.id));
+      if (fbEpis.length) state.epis = merge(state.epis, fbEpis, x => String(x.id));
+      if (fbEnts.length) state.entregas = merge(state.entregas, fbEnts, x => String(x.id));
+      recomputeCounters();
+      try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+    }
+    function scheduleReconnect() {
+      if (!db || !auth || _reconnectTimer) return;
+      const delay = Math.min(30000, 2000 * Math.pow(2, _reconnectAttempts));
+      _reconnectAttempts += 1;
+      console.log('[FB] Tentando reconectar em ' + delay + 'ms');
+      _reconnectTimer = setTimeout(async () => {
+        _reconnectTimer = null;
+        const ok = await connectFirebase();
+        if (ok) flushSync();
+      }, delay);
+    }
+    function flushSync() {
+      if (!db) return;
+      processPending();
+      pushToFirebaseNow();
+    }
+    function onAppOnline() {
+      console.log('[FB] Conexão restaurada — sincronizando');
       syncStatus = 'ok';
       updateSyncBadge();
-      updateNotifBadge();
-      go(curScreen);
-      } catch (e) {
-        console.error('[FB] Pull error:', e);
-        syncStatus = 'error';
-        updateSyncBadge();
+      let bar = document.getElementById('offlineBar');
+      if (bar) bar.remove();
+      if (db && !_listenersAttached) {
+        connectFirebase();
+      } else if (db) {
+        flushSync();
       }
+    }
+    function onAppOffline() {
+      console.log('[FB] Conexão perdida — dados salvos localmente');
+      syncStatus = 'offline';
+      updateSyncBadge();
+      let bar = document.getElementById('offlineBar');
+      if (!bar) { bar = document.createElement('div'); bar.id = 'offlineBar'; bar.textContent = '📡 Sem conexão — dados salvos localmente'; bar.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#ef4444;color:#fff;text-align:center;padding:6px;font-size:13px;font-weight:600;'; document.body.appendChild(bar); }
     }
     async function pushToFirebaseNow() {
       if (!db) { console.warn('[FB] db não disponível'); return; }
       try {
         const ops = [];
+        const MAX_STR = 500;
         state.employees.forEach(e => {
+          if (!e || typeof e.id === 'undefined' || !e.nome) return;
           const ref = db.collection('employees').doc(String(e.id));
-          ops.push({ ref, data: { id: e.id, nome: e.nome, matricula: e.matricula, cargo: e.cargo || '', telefone: e.telefone || '', admissao: e.admissao || '', updatedAt: e.updatedAt || new Date().toISOString() } });
+          ops.push({ ref, data: { id: Number(e.id) || 0, nome: String(e.nome || '').trim().slice(0, MAX_STR), matricula: String(e.matricula || '').trim().slice(0, 50), cargo: String(e.cargo || '').trim().slice(0, MAX_STR), telefone: String(e.telefone || '').trim().slice(0, 20), admissao: String(e.admissao || '').slice(0, 10), updatedAt: String(e.updatedAt || new Date().toISOString()).slice(0, 30) } });
         });
         state.epis.forEach(p => {
+          if (!p || typeof p.id === 'undefined' || !p.nome || !p.ca) return;
           const ref = db.collection('epis').doc(String(p.id));
-          ops.push({ ref, data: { id: p.id, nome: p.nome, fabricante: p.fabricante || '', ca: p.ca, caVal: p.caVal || '', tamanhos: p.tamanhos || ['Único'], estoque: p.estoque || {}, renovacaoDias: p.renovacaoDias || 0, estoqueMin: p.estoqueMin || 0, updatedAt: p.updatedAt || new Date().toISOString() } });
+          ops.push({ ref, data: { id: Number(p.id) || 0, nome: String(p.nome || '').trim().slice(0, MAX_STR), fabricante: String(p.fabricante || '').trim().slice(0, MAX_STR), ca: String(p.ca || '').trim().slice(0, 30), caVal: String(p.caVal || '').slice(0, 10), tamanhos: Array.isArray(p.tamanhos) ? p.tamanhos.map(t => String(t).slice(0, 20)) : ['Único'], estoque: p.estoque && typeof p.estoque === 'object' ? p.estoque : {}, renovacaoDias: Math.min(Number(p.renovacaoDias) || 0, 9999), estoqueMin: Math.min(Number(p.estoqueMin) || 0, 9999), updatedAt: String(p.updatedAt || new Date().toISOString()).slice(0, 30) } });
         });
         state.entregas.forEach(d => {
+          if (!d || typeof d.id !== 'string' || !d.id) return;
           const ref = db.collection('entregas').doc(d.id);
-          ops.push({ ref, data: d });
+          ops.push({ ref, data: { id: String(d.id).slice(0, 50), employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), tam: String(it.tam || '').slice(0, 20), qty: Math.min(Number(it.qty) || 1, 999), reason: String(it.reason || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null, itemSigs: Array.isArray(d.itemSigs) ? d.itemSigs.map(s => typeof s === 'string' ? s.slice(0, 50000) : null) : [] } });
         });
         for (let i = 0; i < ops.length; i += 500) {
           const batch = db.batch();
@@ -378,21 +410,31 @@
       clearTimeout(_pushTimer);
       _pushTimer = setTimeout(() => pushToFirebaseNow(), 300);
     }
-    function isAdmin() { return true; }
+    let _isAdmin = false;
+    function isAdmin() { return _isAdmin; }
+    function requireAdmin() {
+      if (_isAdmin) return true;
+      const pwd = prompt('Digite a senha de administrador:');
+      if (pwd === ADMIN_PWD) { _isAdmin = true; return true; }
+      showToast('❌ Senha incorreta');
+      return false;
+    }
     async function syncEmpPublic(id) {
       if (!db) { go('home'); showToast('❌ Firebase não configurado'); return; }
       try {
         const empDoc = await db.collection('employees').doc(String(id)).get();
         if (!empDoc.exists) { go('home'); showToast('❌ Colaborador não encontrado'); return; }
         const emp = { id: Number(empDoc.id), ...empDoc.data() };
-        const entregasSnap = await db.collection('entregas').where('employeeId', '==', Number(id)).get();
+        let entregasSnap = null;
+        try { entregasSnap = await db.collection('entregas').where('employeeId', '==', Number(id)).get(); } catch (e) { }
         state.cur.emp = emp;
-        state._empPublic = entregasSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+        state._empPublic = entregasSnap ? entregasSnap.docs.map(d => ({ id: d.id, ...d.data() })) : state.entregas.filter(d => d.employeeId === Number(id));
         go('empview');
       } catch (e) { go('home'); showToast('❌ Erro ao buscar dados'); }
     }
 
     // ==================== UTILS ====================
+    function debounce(fn, ms) { let t; return function () { clearTimeout(t); const a = arguments, ctx = this; t = setTimeout(function () { fn.apply(ctx, a); }, ms); }; }
     function go(id) {
       curScreen = id;
       if (document.documentElement.classList.contains('kiosk')) {
@@ -463,8 +505,7 @@
     // ==================== VERIFICATION GATE — DELETE ====================
     const TRASH_SVG = '<svg class="del-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32S433.7 32 416 32H320l-7.2-14.3C307.4 6.8 300.3 0 291.2 0H156.8c-9.1 0-16.2 6.8-18.4 14.1zM96 416c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V192H96V416zm176-44.8c0-8.5-6.9-15.2-15.2-15.2H223.2c-8.5 0-15.2 6.7-15.2 15.2V384h32v-12.8z"/></svg>';
     function confirmDelete(msg) {
-      const pwd = prompt('Digite a senha para excluir:');
-      if (pwd !== '2121') { showToast('❌ Senha incorreta'); return false; }
+      if (!requireAdmin()) return false;
       if (!confirm(msg)) return false;
       return true;
     }
@@ -629,7 +670,7 @@
     }
     function pickEPI(id) {
       const epi = state.epis.find(e => e.id === id);
-      if (isCAVencido(epi)) { showToast('🚫 CA vencido — entrega bloqueada'); return; }
+      if (isCAVencido(epi)) { showToast('🚫 CA do EPI está vencido — renove antes de entregar'); return; }
       state.cur.epi = epi; state.cur.tam = null;
       document.getElementById('cfgName').textContent = epi.nome;
       document.getElementById('sizeGrid').innerHTML = epi.tamanhos.map(t => {
@@ -646,20 +687,20 @@
         o.querySelector('input').checked = on;
         o.classList.toggle('selected', on);
       });
-      if (dueRenew) showToast('♻️ Renovação vencida — motivo sugerido');
+      if (dueRenew) showToast('♻️ Este EPI precisa de renovação — motivo sugerido: Troca por Vencimento');
       go('configitem');
     }
     function pickSize(t, btn) { document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); state.cur.tam = t; }
-    function changeQty(d) { const i = document.getElementById('qty'); const v = (parseInt(i.value) || 1) + d; if (v >= 1) i.value = v; }
+    function changeQty(d) { let i = document.getElementById('qty'); const v = (parseInt(i.value) || 1) + d; if (v >= 1) i.value = v; }
     function bindReasons() { document.querySelectorAll('#reasonGroup .radio-option').forEach(o => o.onclick = () => { document.querySelectorAll('#reasonGroup .radio-option').forEach(x => x.classList.remove('selected')); o.classList.add('selected'); o.querySelector('input').checked = true; }); }
     function addItem() {
-      if (!state.cur.tam) { showToast('⚠️ Selecione o tamanho'); return; }
+      if (!state.cur.tam) { showToast('⚠️ Selecione o tamanho do EPI'); return; }
       const epi = state.cur.epi;
       const qty = parseInt(document.getElementById('qty').value) || 1;
-      if (stockLim(epi, state.cur.tam) < qty) { showToast('🚫 Estoque insuficiente'); return; }
+      if (stockLim(epi, state.cur.tam) < qty) { showToast('🚫 Estoque insuficiente para este tamanho'); return; }
       const reasonEl = document.querySelector('input[name="reason"]:checked');
       state.cart.push({ epiId: epi.id, nome: epi.nome, ca: epi.ca, tam: state.cur.tam, qty, motivo: reasonEl ? reasonEl.value : 'Troca por Desgaste', obs: document.getElementById('obs').value });
-      save(); showToast('✅ Item adicionado'); go('employee');
+      save(); showToast('✅ EPI adicionado à ficha'); go('employee');
     }
 
     // ==================== ASSINATURA ====================
@@ -716,25 +757,7 @@
     }
 
     function setupCanvasItem(idx) {
-      const c = document.getElementById('signatureCanvas_item_' + idx);
-      if (!c) return;
-      const rect = c.getBoundingClientRect();
-      const dw = Math.round(rect.width) || 400;
-      const dh = Math.round(rect.height) || 80;
-      const dpr = window.devicePixelRatio || 1;
-      c.width = dw * dpr; c.height = dh * dpr;
-      c.style.width = dw + 'px'; c.style.height = dh + 'px';
-      const ctx = c.getContext('2d'); ctx.scale(dpr, dpr);
-      ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
-      let drawing = false;
-      function pos(e) { const r = c.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return [t.clientX - r.left, t.clientY - r.top]; }
-      function start(e) { drawing = true; document.getElementById('sigText_item_' + idx).value = ''; const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); }
-      function move(e) { if (!drawing) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); state.itemSigs[idx] = c.toDataURL(); checkConfirm(); }
-      function end() { drawing = false; }
-      c.onmousedown = start; c.onmousemove = move; c.onmouseup = end; c.onmouseleave = end;
-      c.ontouchstart = e => { e.preventDefault(); start(e); };
-      c.ontouchmove = e => { e.preventDefault(); move(e); };
-      c.ontouchend = e => { e.preventDefault(); end(); };
+      setupCanvasCore('signatureCanvas_item_' + idx, 'sigText_item_' + idx, function (v) { state.itemSigs[idx] = v; }, 80);
     }
     function clearSigItem(idx) {
       const c = document.getElementById('signatureCanvas_item_' + idx);
@@ -765,12 +788,12 @@
       checkConfirm();
     }
 
-    function setupCanvas(n) {
-      const c = document.getElementById('signatureCanvas' + (n === 1 ? '' : '2'));
+    function setupCanvasCore(canvasId, sigInputId, stateKey, defaultH) {
+      const c = document.getElementById(canvasId);
       if (!c) return;
       const rect = c.getBoundingClientRect();
       const dw = Math.round(rect.width) || 400;
-      const dh = Math.round(rect.height) || 120;
+      const dh = Math.round(rect.height) || defaultH;
       const dpr = window.devicePixelRatio || 1;
       c.width = dw * dpr; c.height = dh * dpr;
       c.style.width = dw + 'px'; c.style.height = dh + 'px';
@@ -778,13 +801,16 @@
       ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
       let drawing = false;
       function pos(e) { const r = c.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return [t.clientX - r.left, t.clientY - r.top]; }
-      function start(e) { drawing = true; document.getElementById('sigText' + n).value = ''; const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); }
-      function move(e) { if (!drawing) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); state['sig' + n] = c.toDataURL(); checkConfirm(); }
+      function start(e) { drawing = true; document.getElementById(sigInputId).value = ''; const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); }
+      function move(e) { if (!drawing) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); if (typeof stateKey === 'function') stateKey(c.toDataURL()); else state[stateKey] = c.toDataURL(); checkConfirm(); }
       function end() { drawing = false; }
       c.onmousedown = start; c.onmousemove = move; c.onmouseup = end; c.onmouseleave = end;
       c.ontouchstart = e => { e.preventDefault(); start(e); };
       c.ontouchmove = e => { e.preventDefault(); move(e); };
       c.ontouchend = e => { e.preventDefault(); end(); };
+    }
+    function setupCanvas(n) {
+      setupCanvasCore('signatureCanvas' + (n === 1 ? '' : '2'), 'sigText' + n, 'sig' + n, 120);
     }
     function clearSigN(n) { const c = document.getElementById('signatureCanvas' + (n === 1 ? '' : '2')); if (!c) return; const ctx = c.getContext('2d'); const dpr = window.devicePixelRatio || 1; ctx.clearRect(0, 0, c.width / dpr, c.height / dpr); state['sig' + n] = null; document.getElementById('sigText' + n).value = ''; checkConfirm(); }
     function renderSigText(n) {
@@ -818,6 +844,8 @@
     }
 
     function confirmDelivery() {
+      const itensResumo = state.cart.map(it => it.qty + 'x ' + it.nome + (it.tam ? ' (' + it.tam + ')' : '')).join(', ');
+      if (!confirm('Confirmar entrega?\n\n' + itensResumo + '\n\nO estoque será deduzido imediatamente.')) return;
       // validação de estoque no momento da confirmação
       for (const it of state.cart) {
         const epi = state.epis.find(x => x.id === it.epiId);
@@ -847,13 +875,19 @@
       });
       delivery.createdAt = _now; delivery.updatedAt = _now;
       state.entregas.push(delivery);
+      if (state.entregas.length > MAX_ENTREGAS) {
+        state.archivedEntregas = state.archivedEntregas || [];
+        const toArchive = state.entregas.splice(0, state.entregas.length - MAX_ENTREGAS);
+        state.archivedEntregas.push(...toArchive);
+        if (state.archivedEntregas.length > 2000) state.archivedEntregas = state.archivedEntregas.slice(-2000);
+      }
       state.lastDelivery = delivery;
       state.cart = [];
       state.itemSigs = [];
       addPending('entrega', 'upsert', { ...delivery });
       save();
       document.getElementById('deliveryId').textContent = 'ID: ' + delivery.id;
-      go('success'); showToast('✅ Entrega registrada!');
+      go('success'); showToast('✅ Entrega registrada com sucesso!');
     }
     function newDelivery() { state.cur.emp = null; state.cart = []; state.sig1 = state.sig2 = null; state.itemSigs = []; go('home'); }
 
@@ -861,7 +895,7 @@
     function renderHistory(q) {
       q = (q || '').toLowerCase();
       const list = [...state.entregas].reverse().filter(d => d.employeeName.toLowerCase().includes(q));
-      const admin = isAdmin();
+      const admin = _isAdmin;
       const totalItensGeral = list.reduce((a, d) => a + d.itens.reduce((b, i) => b + i.qty, 0), 0);
       const totaisHtml = `<div class="card static" style="display:flex;justify-content:space-around;text-align:center;padding:12px;">
         <div><b style="color:var(--color-brand);font-size:20px;">${list.length}</b><div style="font-size:11px;color:var(--gray);">Entregas</div></div>
@@ -891,12 +925,8 @@
       state.lastDelivery = state.entregas.find(d => d.id === id);
       if (state.lastDelivery) generatePDF();
     }
-    function checkPassword() {
-      const pwd = prompt('Digite a senha para excluir:');
-      return pwd === '2121';
-    }
     function delEntrega(id) {
-      if (!isAdmin()) { showToast('❌ Apenas administradores podem excluir entregas'); return; }
+      if (!requireAdmin()) { showToast('❌ Apenas administradores podem excluir entregas.'); return; }
       if (!confirmDelete('Excluir esta entrega? O estoque será devolvido.')) return;
       const d = state.entregas.find(x => x.id === id);
       if (d) {
@@ -981,9 +1011,9 @@
     function saveEmp() {
       const id = document.getElementById('empId').value;
       const nome = document.getElementById('fNome').value.trim(), matricula = document.getElementById('fMatricula').value.trim();
-      if (!nome || !matricula) { showToast('⚠️ Nome e matrícula obrigatórios'); return; }
+      if (!nome || !matricula) { showToast('⚠️ Preencha nome e matrícula do funcionário'); return; }
       const exists = state.employees.find(e => e.matricula === matricula && String(e.id) !== id);
-      if (exists) { showToast('⚠️ Matrícula já cadastrada'); return; }
+      if (exists) { showToast('⚠️ Já existe um funcionário com esta matrícula'); return; }
       const data = { nome, matricula, cargo: document.getElementById('fCargo').value.trim() || 'Operacional', telefone: document.getElementById('fTelefone').value.trim(), admissao: document.getElementById('fAdmissao').value, updatedAt: new Date().toISOString() };
       let emp;
       if (id) { emp = state.employees.find(x => x.id == id); Object.assign(emp, data); }
@@ -1023,7 +1053,7 @@
     function saveEpi() {
       const id = document.getElementById('epiId').value;
       const nome = document.getElementById('eNome').value.trim(), fabricante = document.getElementById('eFabricante').value.trim(), ca = document.getElementById('eCA').value.trim();
-      if (!nome || !ca) { showToast('⚠️ Nome e CA obrigatórios'); return; }
+      if (!nome || !ca) { showToast('⚠️ Preencha nome e CA do EPI'); return; }
       const tamanhos = (document.getElementById('eTamanhos').value || 'Único').split(',').map(t => t.trim()).filter(Boolean);
       const caVal = document.getElementById('eCAVal').value;
       const estoque = parseEstoque(document.getElementById('eEstoque').value);
@@ -1044,32 +1074,27 @@
       a.href = URL.createObjectURL(blob);
       a.download = 'backup_epi_' + new Date().toISOString().slice(0, 10) + '.json';
       a.click();
-      showToast('✅ Backup exportado');
+      showToast('✅ Backup exportado com sucesso!');
     }
     function importData(ev) {
       const f = ev.target.files[0];
       if (!f) return;
+      if (f.size > 10 * 1024 * 1024) { showToast('❌ Arquivo muito grande (máx. 10MB)'); return; }
       const r = new FileReader();
       r.onload = () => {
         try {
           const data = JSON.parse(r.result);
-          if (!data || !Array.isArray(data.employees) || !Array.isArray(data.epis)) { showToast('❌ Arquivo inválido'); return; }
-          state = {
-            employees: data.employees || [],
-            epis: data.epis || [],
-            entregas: data.entregas || [],
-            cart: [],
-            cur: {},
-            sig1: null,
-            sig2: null,
-            itemSigs: [],
-            notifications: state.notifications || []
-          };
+          if (!data || !Array.isArray(data.employees) || !Array.isArray(data.epis)) { showToast('❌ Arquivo de backup inválido. Use um arquivo JSON exportado pelo app.'); return; }
+          const MAX_STR = 500;
+          const validEmps = data.employees.filter(e => e && typeof e.id !== 'undefined' && typeof e.nome === 'string' && e.nome.trim() && typeof e.matricula === 'string' && e.matricula.trim()).map(e => ({ id: Number(e.id) || 0, nome: String(e.nome || '').trim().slice(0, MAX_STR), matricula: String(e.matricula || '').trim().slice(0, 50), cargo: String(e.cargo || '').trim().slice(0, MAX_STR), telefone: String(e.telefone || '').trim().slice(0, 20), admissao: String(e.admissao || '').slice(0, 10), updatedAt: String(e.updatedAt || '').slice(0, 30) }));
+          const validEpis = data.epis.filter(p => p && typeof p.id !== 'undefined' && typeof p.nome === 'string' && p.nome.trim() && typeof p.ca === 'string' && p.ca.trim()).map(p => ({ id: Number(p.id) || 0, nome: String(p.nome || '').trim().slice(0, MAX_STR), fabricante: String(p.fabricante || '').trim().slice(0, MAX_STR), ca: String(p.ca || '').trim().slice(0, 30), caVal: String(p.caVal || '').slice(0, 10), tamanhos: Array.isArray(p.tamanhos) ? p.tamanhos.map(t => String(t).slice(0, 20)) : ['Único'], estoque: p.estoque && typeof p.estoque === 'object' ? p.estoque : {}, renovacaoDias: Number(p.renovacaoDias) || 0, estoqueMin: Number(p.estoqueMin) || 0, updatedAt: String(p.updatedAt || '').slice(0, 30) }));
+          const validEnts = Array.isArray(data.entregas) ? data.entregas.filter(d => d && typeof d.id === 'string' && typeof d.employeeName === 'string').map(d => ({ id: String(d.id).slice(0, 50), employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), tam: String(it.tam || '').slice(0, 20), qty: Math.min(Number(it.qty) || 1, 999), reason: String(it.reason || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null })) : [];
+          state = { employees: validEmps, epis: validEpis, entregas: validEnts, cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: state.notifications || [] };
           save();
           recomputeCounters();
-          showToast('✅ Backup restaurado');
+          showToast('✅ Backup restaurado: ' + validEmps.length + ' emp, ' + validEpis.length + ' EPIs, ' + validEnts.length + ' entregas');
           go('home');
-        } catch (err) { showToast('❌ Não foi possível ler o arquivo'); }
+        } catch (err) { showToast('❌ Não foi possível ler o arquivo. Verifique se o formato está correto.'); }
       };
       r.readAsText(f);
       ev.target.value = '';
@@ -1078,7 +1103,8 @@
     // ==================== RECUPERAÇÃO DE ITENS EXCLUÍDOS ====================
     function authRecover() {
       const pwd = document.getElementById('recoverPwd').value;
-      if (pwd !== '2121') { showToast('❌ Senha incorreta'); return; }
+      if (pwd !== ADMIN_PWD) { showToast('❌ Senha incorreta'); return; }
+      _isAdmin = true;
       document.getElementById('recoverAuth').style.display = 'none';
       document.getElementById('recoverContent').style.display = '';
       renderRecover();
@@ -1181,7 +1207,7 @@
       }).join('') : '<p class="empty">Nenhuma entrega no período</p>';
     }
     function exportReportPDF() {
-      if (!_reportData.length) { showToast('⚠️ Nenhum dado para exportar'); return; }
+      if (!_reportData.length) { showToast('⚠️ Nenhum dado para exportar no momento'); return; }
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF('p', 'mm', 'a4');
       const pw = 210, ml = 12;
@@ -1210,7 +1236,7 @@
         y += Math.max(4, lines.length * 3.5) + 1;
       });
       doc.save('Relatorio_EPI_' + from + '_' + to + '.pdf');
-      showToast('📄 Relatório exportado!');
+      showToast('📄 Relatório exportado com sucesso!');
     }
 
     // ==================== DEVOLUÇÃO DE EPI (Item 3) ====================
@@ -1425,7 +1451,7 @@
             script.onload = () => processExcel(e.target.result, f.name);
             document.head.appendChild(script);
           } else { processExcel(e.target.result, f.name); }
-        } catch (err) { showToast('❌ Erro ao ler planilha'); }
+        } catch (err) { showToast('❌ Erro ao ler a planilha. Verifique o formato do arquivo.'); }
       };
       reader.readAsArrayBuffer(f);
       ev.target.value = '';
@@ -1436,46 +1462,46 @@
       let importedEpis = 0, linkedPeriodicidades = 0, importedEmployees = 0;
       function excelDateToISO(val) {
         if (!val) return '';
-        if (typeof val === 'number') { var d = new Date((val - 25569) * 86400000); return isNaN(d.getTime()) ? '' : d.toISOString().split('T')[0]; }
-        var s = String(val).trim();
+        if (typeof val === 'number') { const d = new Date((val - 25569) * 86400000); return isNaN(d.getTime()) ? '' : d.toISOString().split('T')[0]; }
+        const s = String(val).trim();
         if (!s || s.toUpperCase() === 'NA') return '';
-        var d2 = new Date(s);
+        const d2 = new Date(s);
         return isNaN(d2.getTime()) ? s : d2.toISOString().split('T')[0];
       }
-      var estoqueSheetName = wb.SheetNames.find(function(n) { return n.toUpperCase().replace(/\s+/g,' ').includes('ESTOQUE') && n.toUpperCase().replace(/\s+/g,' ').includes('CA'); });
+      const estoqueSheetName = wb.SheetNames.find(function(n) { return n.toUpperCase().replace(/\s+/g,' ').includes('ESTOQUE') && n.toUpperCase().replace(/\s+/g,' ').includes('CA'); });
       if (estoqueSheetName) {
-        var wsEst = wb.Sheets[estoqueSheetName];
-        var rowsEst = XLSX.utils.sheet_to_json(wsEst, { header: 1 });
-        var caGroups = {};
-        for (var i = 5; i < rowsEst.length; i++) {
-          var row = rowsEst[i]; if (!row || row.length < 8) continue;
-          var descricao = String(row[1] || '').trim();
+        const wsEst = wb.Sheets[estoqueSheetName];
+        const rowsEst = XLSX.utils.sheet_to_json(wsEst, { header: 1 });
+        let caGroups = {};
+        for (let i = 5; i < rowsEst.length; i++) {
+          const row = rowsEst[i]; if (!row || row.length < 8) continue;
+          const descricao = String(row[1] || '').trim();
           if (!descricao) continue;
-          var fabricante = String(row[2] || '').trim();
-          var caRaw = String(row[7] || '').trim();
-          var vencimento = excelDateToISO(row[9]);
-          var qtdEstoque = parseInt(row[4]) || 0;
-          var estoqueMinVal = parseInt(row[5]) || 0;
+          const fabricante = String(row[2] || '').trim();
+          const caRaw = String(row[7] || '').trim();
+          const vencimento = excelDateToISO(row[9]);
+          const qtdEstoque = parseInt(row[4]) || 0;
+          const estoqueMinVal = parseInt(row[5]) || 0;
           if (!caRaw || caRaw.toUpperCase() === 'NA') continue;
           if (/[a-z]/i.test(caRaw)) continue;
-          var caNum = caRaw.replace(/[^\d]/g, '');
+          const caNum = caRaw.replace(/[^\d]/g, '');
           if (!caNum) continue;
-          var tamanho = 'Único';
-          var sizeMatch = descricao.match(/(?:^|[\s-])[Nn][ºo°]\.?\s*\.?\s*([A-Za-z0-9]+)/);
+          let tamanho = 'Único';
+          const sizeMatch = descricao.match(/(?:^|[\s-])[Nn][ºo°]\.?\s*\.?\s*([A-Za-z0-9]+)/);
           if (sizeMatch) { tamanho = sizeMatch[1]; }
           if (!caGroups[caNum]) {
-            var nomeLimpo = descricao.replace(/(?:^|[\s-])[Nn][ºo°]\.?\s*\.?\s*[A-Za-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+            const nomeLimpo = descricao.replace(/(?:^|[\s-])[Nn][ºo°]\.?\s*\.?\s*[A-Za-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
             caGroups[caNum] = { nome: nomeLimpo, fabricante: fabricante, ca: caNum, caVal: vencimento.toUpperCase() !== 'NA' ? vencimento : '', tamanhos: [], estoque: {}, estoqueMin: estoqueMinVal };
           }
-          var g = caGroups[caNum];
+          const g = caGroups[caNum];
           if (g.tamanhos.indexOf(tamanho) === -1) g.tamanhos.push(tamanho);
           g.estoque[tamanho] = (g.estoque[tamanho] || 0) + qtdEstoque;
           if (estoqueMinVal > g.estoqueMin) g.estoqueMin = estoqueMinVal;
         }
-        var importedCAKeys = Object.keys(caGroups);
+        let importedCAKeys = Object.keys(caGroups);
         importedCAKeys.forEach(function(caKey) {
-          var grp = caGroups[caKey];
-          var existing = state.epis.find(function(e) { return e.ca === caKey; });
+          const grp = caGroups[caKey];
+          const existing = state.epis.find(function(e) { return e.ca === caKey; });
           if (existing) {
             existing.nome = grp.nome || existing.nome;
             existing.fabricante = grp.fabricante || existing.fabricante;
@@ -1486,45 +1512,45 @@
             existing.updatedAt = new Date().toISOString();
             addPending('epi', 'upsert', Object.assign({}, existing));
           } else {
-            var epi = { id: counters.epi++, nome: grp.nome, fabricante: grp.fabricante, ca: caKey, caVal: grp.caVal, tamanhos: grp.tamanhos, estoque: grp.estoque, renovacaoDias: 0, estoqueMin: grp.estoqueMin, updatedAt: new Date().toISOString() };
+            const epi = { id: counters.epi++, nome: grp.nome, fabricante: grp.fabricante, ca: caKey, caVal: grp.caVal, tamanhos: grp.tamanhos, estoque: grp.estoque, renovacaoDias: 0, estoqueMin: grp.estoqueMin, updatedAt: new Date().toISOString() };
             state.epis.push(epi);
             addPending('epi', 'upsert', Object.assign({}, epi));
           }
           importedEpis++;
         });
       }
-      var periodSheetName = wb.SheetNames.find(function(n) { return n.toUpperCase().includes('PERIODICIDADE'); });
+      const periodSheetName = wb.SheetNames.find(function(n) { return n.toUpperCase().includes('PERIODICIDADE'); });
       if (periodSheetName) {
-        var wsPer = wb.Sheets[periodSheetName];
-        var rowsPer = XLSX.utils.sheet_to_json(wsPer, { header: 1 });
-        var periodicidades = [];
-        for (var j = 9; j < rowsPer.length; j++) {
-          var rPer = rowsPer[j]; if (!rPer || rPer.length < 5) continue;
-          var descPer = String(rPer[1] || '').trim();
-          var mediaPer = String(rPer[3] || '').trim();
+        const wsPer = wb.Sheets[periodSheetName];
+        const rowsPer = XLSX.utils.sheet_to_json(wsPer, { header: 1 });
+        let periodicidades = [];
+        for (let j = 9; j < rowsPer.length; j++) {
+          const rPer = rowsPer[j]; if (!rPer || rPer.length < 5) continue;
+          const descPer = String(rPer[1] || '').trim();
+          const mediaPer = String(rPer[3] || '').trim();
           if (!descPer || !mediaPer) continue;
-          var pm = mediaPer.match(/(\d+)\s*(DIA|DIAS|MÊS|MESES|ANO|ANOS)/i);
+          const pm = mediaPer.match(/(\d+)\s*(DIA|DIAS|MÊS|MESES|ANO|ANOS)/i);
           if (!pm) continue;
-          var pNum = parseInt(pm[1]);
-          var pUnit = pm[2].toUpperCase();
-          var pDays = 0;
+          const pNum = parseInt(pm[1]);
+          const pUnit = pm[2].toUpperCase();
+          let pDays = 0;
           if (pUnit === 'DIA' || pUnit === 'DIAS') pDays = pNum;
           else if (pUnit === 'MÊS' || pUnit === 'MESES') pDays = pNum * 30;
           else if (pUnit === 'ANO' || pUnit === 'ANOS') pDays = pNum * 365;
           if (pDays > 0) periodicidades.push({ desc: descPer.toLowerCase(), days: pDays });
         }
         if (periodicidades.length) {
-          var epiSearchPool = importedCAKeys && importedCAKeys.length ? state.epis.filter(function(e) { return importedCAKeys.indexOf(e.ca) !== -1; }) : state.epis;
+          const epiSearchPool = importedCAKeys && importedCAKeys.length ? state.epis.filter(function(e) { return importedCAKeys.indexOf(e.ca) !== -1; }) : state.epis;
           epiSearchPool.forEach(function(epi) {
             if (epi.renovacaoDias && epi.renovacaoDias > 0) return;
-            var epiWords = (epi.nome || '').toLowerCase().split(/[\s\-/]+/).filter(function(w) { return w.length > 3; });
+            const epiWords = (epi.nome || '').toLowerCase().split(/[\s\-/]+/).filter(function(w) { return w.length > 3; });
             if (!epiWords.length) return;
-            var best = null, bestScore = 0;
-            for (var p = 0; p < periodicidades.length; p++) {
-              var per = periodicidades[p];
-              var score = 0;
+            let best = null, bestScore = 0;
+            for (let p = 0; p < periodicidades.length; p++) {
+              const per = periodicidades[p];
+              let score = 0;
               epiWords.forEach(function(w) { if (per.desc.indexOf(w) !== -1) score++; });
-              var isValid = score >= 2 || per.desc.indexOf(epiWords[0]) !== -1;
+              let isValid = score >= 2 || per.desc.indexOf(epiWords[0]) !== -1;
               if (isValid && score > bestScore) { bestScore = score; best = per; }
             }
             if (best) {
@@ -1536,14 +1562,14 @@
           });
         }
       }
-      var wsFirst = wb.Sheets[wb.SheetNames[0]];
-      var rowsFirst = XLSX.utils.sheet_to_json(wsFirst);
+      const wsFirst = wb.Sheets[wb.SheetNames[0]];
+      const rowsFirst = XLSX.utils.sheet_to_json(wsFirst);
       if (rowsFirst.length) {
         rowsFirst.forEach(function(r) {
-          var nome = r['NOME'] || r['nome'] || r['Nome'] || r['COLABORADOR'] || '';
-          var matricula = String(r['MATRICULA'] || r['matricula'] || r['Matrícula'] || r['MAT'] || '');
+          const nome = r['NOME'] || r['nome'] || r['Nome'] || r['COLABORADOR'] || '';
+          const matricula = String(r['MATRICULA'] || r['matricula'] || r['Matrícula'] || r['MAT'] || '');
           if (!nome || !matricula) return;
-          var exists = state.employees.find(function(e) { return e.matricula === matricula; });
+          const exists = state.employees.find(function(e) { return e.matricula === matricula; });
           if (!exists) {
             state.employees.push({ id: counters.emp++, nome: nome.toUpperCase().trim(), matricula, cargo: r['CARGO'] || r['cargo'] || 'Operacional', admissao: r['ADMISSAO'] || r['admissao'] || '', telefone: r['TELEFONE'] || r['telefone'] || '' });
             importedEmployees++;
@@ -1557,7 +1583,8 @@
     // ==================== QR CODE / FICHA DO COLABORADOR ====================
     function empQRUrl(e) {
       const base = location.href.split('#')[0].split('?')[0].replace(/index\.html$/, '').replace(/\/$/, '/');
-      return base + 'ficha.html?emp=' + e.id;
+      const hash = ((e.id * 2654435761) >>> 0).toString(36);
+      return base + 'ficha.html?emp=' + e.id + '&k=' + hash;
     }
     function openQR(id) {
       const e = state.employees.find(x => x.id === id);
@@ -1566,7 +1593,7 @@
       document.getElementById('qrName').textContent = e.nome;
       document.getElementById('qrMat').textContent = 'Mat: ' + e.matricula;
       const inp = document.getElementById('qrUrl'); inp.value = url;
-      inp.onclick = function () { this.select(); try { document.execCommand('copy'); } catch (err) { } this.style.borderColor = 'var(--color-success)'; this.style.background = '#f0fdf4'; showToast('🔗 Link copiado!'); setTimeout(() => { this.style.borderColor = ''; this.style.background = ''; }, 1500); };
+      inp.onclick = function () { this.select(); if (navigator.clipboard) { navigator.clipboard.writeText(this.value); } else { try { document.execCommand('copy'); } catch (err) { } } this.style.borderColor = 'var(--color-success)'; this.style.background = '#f0fdf4'; showToast('🔗 Link copiado!'); setTimeout(() => { this.style.borderColor = ''; this.style.background = ''; }, 1500); };
       const wrap = document.getElementById('qrBox'); wrap.innerHTML = '';
       try { new QRCode(wrap, { text: url, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.H }); }
       catch (err) { wrap.innerHTML = '<p class="empty">Falha ao gerar QR (sem internet).<br>Link: ' + esc(url) + '</p>'; }
@@ -1621,7 +1648,7 @@
         showToast('✅ ' + e.nome);
       }
       else if (id && USE_API) { state.cur.emp = { id, nome: 'Carregando...', matricula: '' }; state.cart = []; go('empview'); syncEmpPublic(id); }
-      else showToast('❌ Colaborador não encontrado no QR');
+      else showToast('❌ QR Code não corresponde a nenhum colaborador cadastrado');
     }
 
     function renderEmpView() {
@@ -1846,7 +1873,7 @@
       const d = state.lastDelivery;
       const emp = state.employees.find(x => x.id === d.employeeId);
       const tel = (emp && emp.telefone) ? emp.telefone.replace(/\D/g, '') : '';
-      if (tel.length < 10) { showToast('📱 Colaborador sem telefone cadastrado'); return; }
+      if (tel.length < 10) { showToast('📱 Este colaborador não tem telefone cadastrado. Adicione um telefone para enviar por WhatsApp.'); return; }
       const texto = 'Ficha de Entrega de EPI\n' + EMPRESA + '\n' +
         'Colaborador: ' + d.employeeName + ' (Mat: ' + d.matricula + ')\n' +
         'Data: ' + fmtDateTime(d.data) + '\n\n' +
@@ -1860,6 +1887,17 @@
     updateSyncBadge();
     updateNotifBadge();
     const fbReady = initFirebase();
+    window.addEventListener('online', onAppOnline);
+    window.addEventListener('offline', onAppOffline);
+    document.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('flip-card')) {
+        e.preventDefault(); e.target.click();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      const card = e.target.closest('.flip-card');
+      if (card && 'ontouchstart' in window) { card.classList.toggle('flipped'); }
+    });
     (function () {
       const qp = new URLSearchParams(location.search);
       const empId = parseInt(qp.get('emp') || '0', 10);
@@ -1886,3 +1924,15 @@
         toggleKiosk();
       }
     });
+    let _deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); _deferredInstallPrompt = e; });
+    window.installApp = function () {
+      if (!_deferredInstallPrompt) { showToast('💡 Instale o app pelo menu do navegador'); return; }
+      _deferredInstallPrompt.prompt(); _deferredInstallPrompt.userChoice.then(function () { _deferredInstallPrompt = null; });
+    };
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        addNotification('update', '🔄 App atualizado — recarregando...', 'sw-update');
+        setTimeout(function () { location.reload(); }, 2000);
+      });
+    }
