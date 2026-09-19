@@ -8,12 +8,15 @@
   <link rel="manifest" href="manifest.webmanifest">
   <title>Ficha de EPI · SondaGuard</title>
   <link rel="apple-touch-icon" href="logo.png">
-  <link rel="icon"
-    href="data:image/svg+xml,<svg aria-hidden="true" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231d4ed8'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='Arial'>🦺</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg aria-hidden=" true" xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 100 100'>
+  <rect width='100' height='100' rx='22' fill='%231d4ed8' /><text x='50' y='68' font-size='50' text-anchor='middle'
+    fill='white' font-family='Arial'></text></svg>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -23,7 +26,9 @@
 </head>
 
 <body>
-  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:99999;padding:12px 24px;background:#3b82f6;color:#fff;font-weight:600;text-decoration:none;border-radius:0 0 8px 0;">Pular para o conteúdo</a>>
+  <a href="#main-content" class="skip-link"
+    style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:99999;padding:12px 24px;background:#3b82f6;color:#fff;font-weight:600;text-decoration:none;border-radius:0 0 8px 0;">Pular
+    para o conteúdo</a>>
   <div class="app">
     <div class="header">
       <div class="hdr-left">
@@ -35,11 +40,21 @@
       </div>
       <div class="hdr-btns">
         <span id="syncBadge" class="sync-badge" aria-live="polite" title="Status de sincronização"></span>
-        <button class="icon-btn" onclick="go('notifications');updateNotifBadge()" title="Notificações" aria-label="Notificações" id="notifBtn" style="position:relative;">
-          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span id="notifCount" class="notif-count" aria-live="polite" style="position:absolute;top:-4px;right:-4px;background:var(--danger);color:#fff;border-radius:999px;width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;"></span>
+        <button class="icon-btn" onclick="go('notifications');updateNotifBadge()" title="Notificações"
+          aria-label="Notificações" id="notifBtn" style="position:relative;">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span id="notifCount" class="notif-count" aria-live="polite"
+            style="position:absolute;top:-4px;right:-4px;background:var(--danger);color:#fff;border-radius:999px;width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;"></span>
         </button>
-        <button class="icon-btn" onclick="toggleDark()" title="Tema" aria-label="Alternar tema" id="themeBtn"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button class="icon-btn" onclick="toggleDark()" title="Tema" aria-label="Alternar tema" id="themeBtn"><svg
+            aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg></button>
       </div>
     </div>
 
@@ -53,7 +68,13 @@
               <span class="flip-label">Entregas hoje</span>
             </div>
             <div class="flip-card-back">
-              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                  <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg></span>
               <span class="flip-label">Entregas hoje</span>
             </div>
           </div>
@@ -65,7 +86,13 @@
               <span class="flip-label">Total entregas</span>
             </div>
             <div class="flip-card-back">
-              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                  <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg></span>
               <span class="flip-label">Total entregas</span>
             </div>
           </div>
@@ -77,7 +104,13 @@
               <span class="flip-label">Funcionários</span>
             </div>
             <div class="flip-card-back">
-              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg></span>
               <span class="flip-label">Funcionários</span>
             </div>
           </div>
@@ -89,7 +122,11 @@
               <span class="flip-label">EPIs cadastrados</span>
             </div>
             <div class="flip-card-back">
-              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+              <span class="flip-icon"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg></span>
               <span class="flip-label">EPIs cadastrados</span>
             </div>
           </div>
@@ -97,7 +134,8 @@
       </div>
       <div id="homeAlerts"></div>
       <div class="section-btn">
-        <span class="btn-letter">A</span><span class="btn-letter">Ç</span><span class="btn-letter">Õ</span><span class="btn-letter">E</span><span class="btn-letter">S</span>
+        <span class="btn-letter">A</span><span class="btn-letter">Ç</span><span class="btn-letter">Õ</span><span
+          class="btn-letter">E</span><span class="btn-letter">S</span>
       </div>
       <button class="box-btn tint-indigo" onclick="go('search')">🔍 NOVA ENTREGA</button>
       <button class="box-btn tint-green" onclick="go('delivered')">📦 EPIs entregues</button>
@@ -109,16 +147,22 @@
         onchange="importData(event)">
       <button class="box-btn tint-amber" onclick="go('recover')">♻️ Itens Excluídos</button>
       <div class="section-btn">
-        <span class="btn-letter">R</span><span class="btn-letter">E</span><span class="btn-letter">L</span><span class="btn-letter">A</span><span class="btn-letter">T</span><span class="btn-letter">Ó</span><span class="btn-letter">R</span><span class="btn-letter">I</span><span class="btn-letter">O</span><span class="btn-letter">S</span>
+        <span class="btn-letter">R</span><span class="btn-letter">E</span><span class="btn-letter">L</span><span
+          class="btn-letter">A</span><span class="btn-letter">T</span><span class="btn-letter">Ó</span><span
+          class="btn-letter">R</span><span class="btn-letter">I</span><span class="btn-letter">O</span><span
+          class="btn-letter">S</span>
       </div>
       <button class="box-btn tint-purple" onclick="go('report')">📊 Relatório Consolidado</button>
       <button class="box-btn tint-indigo" onclick="go('dashboard')">📈 Dashboard</button>
       <div class="section-btn">
-        <span class="btn-letter">O</span><span class="btn-letter">P</span><span class="btn-letter">E</span><span class="btn-letter">R</span><span class="btn-letter">A</span><span class="btn-letter">Ç</span><span class="btn-letter">Õ</span><span class="btn-letter">E</span><span class="btn-letter">S</span>
+        <span class="btn-letter">O</span><span class="btn-letter">P</span><span class="btn-letter">E</span><span
+          class="btn-letter">R</span><span class="btn-letter">A</span><span class="btn-letter">Ç</span><span
+          class="btn-letter">Õ</span><span class="btn-letter">E</span><span class="btn-letter">S</span>
       </div>
       <button class="box-btn tint-amber" onclick="go('devolution')">📥 Devolução de EPI</button>
       <button class="box-btn tint-slate" onclick="toggleKiosk()">🖥️ Modo Kiosk</button>
-      <button class="box-btn tint-teal" onclick="document.getElementById('fileExcel').click()">📋 Importar planilha</button>
+      <button class="box-btn tint-teal" onclick="document.getElementById('fileExcel').click()">📋 Importar
+        planilha</button>
       <input type="file" id="fileExcel" accept=".xlsx,.xls,.csv" style="display:none" onchange="importExcel(event)">
     </div>
 
@@ -128,8 +172,12 @@
       <h2 style="margin:14px 0;">Identificar Colaborador</h2>
       <div class="search-box">
         <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Nome, matrícula ou telefone..." oninput="debounce(renderSearch,250)(this.value)" autocomplete="off" aria-label="Buscar colaborador">
-          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <input type="text" id="searchInput" placeholder="Nome, matrícula ou telefone..."
+            oninput="debounce(renderSearch,250)(this.value)" autocomplete="off" aria-label="Buscar colaborador">
+          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></div>
         </div>
         <div class="glow"></div>
       </div>
@@ -165,8 +213,12 @@
       <h2 style="margin:14px 0;">Selecionar EPI</h2>
       <div class="search-box">
         <div class="search-bar">
-          <input type="text" id="epiSearch" placeholder="Buscar..." oninput="debounce(renderEPIs,250)(this.value)" autocomplete="off" aria-label="Buscar EPI">
-          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <input type="text" id="epiSearch" placeholder="Buscar..." oninput="debounce(renderEPIs,250)(this.value)"
+            autocomplete="off" aria-label="Buscar EPI">
+          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></div>
         </div>
         <div class="glow"></div>
       </div>
@@ -207,7 +259,8 @@
       <div class="card static" style="margin-bottom:10px;">
         <label for="deliveryDate" style="font-weight:600;font-size:13px;">📅 Data da Entrega</label>
         <input type="date" id="deliveryDate" style="margin-top:4px;">
-        <div style="font-size:11px;color:var(--gray);margin-top:2px;">Altere para registrar data retroativa se necessário.</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:2px;">Altere para registrar data retroativa se
+          necessário.</div>
       </div>
       <div id="sigSummary"></div>
       <div id="itemSigsContainer"></div>
@@ -238,8 +291,12 @@
       <h2 style="margin:14px 0;">📋 Histórico de Entregas</h2>
       <div class="search-box">
         <div class="search-bar">
-          <input type="text" placeholder="Filtrar por nome..." oninput="debounce(renderHistory,250)(this.value)" autocomplete="off" aria-label="Filtrar histórico">
-          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <input type="text" placeholder="Filtrar por nome..." oninput="debounce(renderHistory,250)(this.value)"
+            autocomplete="off" aria-label="Filtrar histórico">
+          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></div>
         </div>
         <div class="glow"></div>
       </div>
@@ -252,8 +309,12 @@
       <h2 style="margin:14px 0;">📦 EPIs Entregues</h2>
       <div class="search-box">
         <div class="search-bar">
-          <input type="text" placeholder="Buscar EPI..." oninput="debounce(renderDelivered,250)(this.value)" autocomplete="off" aria-label="Buscar EPI entregue">
-          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <input type="text" placeholder="Buscar EPI..." oninput="debounce(renderDelivered,250)(this.value)"
+            autocomplete="off" aria-label="Buscar EPI entregue">
+          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></div>
         </div>
         <div class="glow"></div>
       </div>
@@ -267,8 +328,12 @@
       <button class="btn btn-success" onclick="clearEmpForm();go('addemp')">➕ Novo</button>
       <div class="search-box">
         <div class="search-bar">
-          <input type="text" id="empMgmtSearch" placeholder="Buscar..." oninput="debounce(renderEmps,250)(this.value)" autocomplete="off" aria-label="Buscar funcionário">
-          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <input type="text" id="empMgmtSearch" placeholder="Buscar..." oninput="debounce(renderEmps,250)(this.value)"
+            autocomplete="off" aria-label="Buscar funcionário">
+          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></div>
         </div>
         <div class="glow"></div>
       </div>
@@ -301,8 +366,12 @@
       <button class="btn btn-success" onclick="clearEpiForm();go('addepi')">➕ Novo</button>
       <div class="search-box">
         <div class="search-bar">
-          <input type="text" id="epiMgmtSearch" placeholder="Buscar..." oninput="renderEpiMgmt(this.value)" autocomplete="off" aria-label="Buscar EPI">
-          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <input type="text" id="epiMgmtSearch" placeholder="Buscar..." oninput="renderEpiMgmt(this.value)"
+            autocomplete="off" aria-label="Buscar EPI">
+          <div class="search-icon"><svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></div>
         </div>
         <div class="glow"></div>
       </div>
@@ -330,7 +399,8 @@
       <input type="text" id="eEstoque" placeholder="Ex: P=5, M=10, G=8" aria-label="Estoque">
       <label for="eRenov" class="input-label">Validade de uso (dias)</label>
       <input type="number" id="eRenov" min="0" placeholder="Validade de uso (dias) — p/ sugerir troca por vencimento"
-        title="Após quantos dias de uso sugerir a troca deste EPI por vencimento (opcional)" aria-label="Validade de uso em dias">
+        title="Após quantos dias de uso sugerir a troca deste EPI por vencimento (opcional)"
+        aria-label="Validade de uso em dias">
       <label for="eEstoqueMin" class="input-label">Estoque mínimo</label>
       <input type="number" id="eEstoqueMin" min="0" placeholder="Estoque mínimo (alerta quando atingir)"
         title="Alertar quando o estoque total deste EPI atingir este valor (opcional)" aria-label="Estoque mínimo">
@@ -343,8 +413,10 @@
       <h2 style="margin:14px 0;">♻️ Itens Excluídos</h2>
       <div id="recoverAuth">
         <div class="card static" style="text-align:center;">
-          <p style="font-size:13px;color:var(--gray);">Digite a senha de administrador para acessar os itens excluídos.</p>
-          <input type="password" id="recoverPwd" placeholder="Senha" style="text-align:center;max-width:200px;" aria-label="Senha de administrador">
+          <p style="font-size:13px;color:var(--gray);">Digite a senha de administrador para acessar os itens excluídos.
+          </p>
+          <input type="password" id="recoverPwd" placeholder="Senha" style="text-align:center;max-width:200px;"
+            aria-label="Senha de administrador">
           <button class="btn btn-primary" onclick="authRecover()" style="margin-top:8px;">Entrar</button>
         </div>
       </div>
@@ -385,7 +457,8 @@
       <div id="devForm" style="display:none;">
         <div class="section-title">Motivo da devolução</div>
         <div id="devReasonGroup">
-          <label class="radio-option"><input type="radio" name="devReason" value="Desligamento" checked> Desligamento</label>
+          <label class="radio-option"><input type="radio" name="devReason" value="Desligamento" checked>
+            Desligamento</label>
           <label class="radio-option"><input type="radio" name="devReason" value="Troca"> Troca</label>
           <label class="radio-option"><input type="radio" name="devReason" value="Danificado"> Danificado</label>
           <label class="radio-option"><input type="radio" name="devReason" value="Perda"> Perda</label>
@@ -408,7 +481,7 @@
       <div id="dashTopEmps"></div>
     </div>
 
-     <!-- KIOSK (modificado via CSS) -->
+    <!-- KIOSK (modificado via CSS) -->
 
     <!-- NOTIFICATIONS -->
     <div class="screen" id="notifications">
@@ -417,45 +490,95 @@
       <div id="notifList"></div>
     </div>
 
-  <div class="modal-overlay" id="scanModal">
-    <div class="modal" style="text-align:center;">
-      <h3 style="margin-top:0;">🔳 Ler QR Code</h3>
-      <p style="font-size:12px;color:var(--gray);">Aponte para o QR Code do colaborador.</p>
-      <video id="scannerVideo" style="width:100%;border-radius:12px;background:#000;max-height:40vh;" autoplay
-        playsinline muted></video>
-      <p id="scanStatus" style="font-size:12px;color:var(--gray);margin:8px 0;"></p>
-      <button class="btn btn-danger" onclick="stopScan()">Cancelar</button>
+    <div class="modal-overlay" id="scanModal">
+      <div class="modal" style="text-align:center;">
+        <h3 style="margin-top:0;">🔳 Ler QR Code</h3>
+        <p style="font-size:12px;color:var(--gray);">Aponte para o QR Code do colaborador.</p>
+        <video id="scannerVideo" style="width:100%;border-radius:12px;background:#000;max-height:40vh;" autoplay
+          playsinline muted></video>
+        <p id="scanStatus" style="font-size:12px;color:var(--gray);margin:8px 0;"></p>
+        <button class="btn btn-danger" onclick="stopScan()">Cancelar</button>
+      </div>
     </div>
-  </div>
 
-  <button class="kiosk-back" id="kioskBack" onclick="kioskGoBack()" aria-label="Voltar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
-  <button class="kiosk-theme-toggle" id="kioskThemeBtn" onclick="toggleDark()" title="Alternar tema" aria-label="Alternar tema"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
-  <div class="kiosk-nav" id="kioskNav">
-    <button onclick="go('home')" id="kn-home"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Início</span></button>
-    <button onclick="go('history')" id="kn-history"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span>Entregas</span></button>
-    <button onclick="go('employees')" id="kn-employees"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Funcionários</span></button>
-    <button onclick="go('epis')" id="kn-epis"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span>EPIs</span></button>
-  </div>
-  <div class="toast" id="toast"></div>
+    <button class="kiosk-back" id="kioskBack" onclick="kioskGoBack()" aria-label="Voltar"><svg aria-hidden="true"
+        width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
+      </svg></button>
+    <button class="kiosk-theme-toggle" id="kioskThemeBtn" onclick="toggleDark()" title="Alternar tema"
+      aria-label="Alternar tema"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg></button>
+    <div class="kiosk-nav" id="kioskNav">
+      <button onclick="go('home')" id="kn-home"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg><span>Início</span></button>
+      <button onclick="go('history')" id="kn-history"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+          <line x1="12" y1="22.08" x2="12" y2="12" />
+        </svg><span>Entregas</span></button>
+      <button onclick="go('employees')" id="kn-employees"><svg aria-hidden="true" width="20" height="20"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg><span>Funcionários</span></button>
+      <button onclick="go('epis')" id="kn-epis"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg><span>EPIs</span></button>
+    </div>
+    <div class="toast" id="toast"></div>
 
-  <nav class="bottom-nav">
-    <button class="nav-item nav-item-press" id="nv-home" onclick="go('home')">
-      <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-      <span>Início</span>
-    </button>
-    <button class="nav-item nav-item-press" id="nv-history" onclick="go('history')">
-      <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
-      <span>Entregas</span>
-    </button>
-    <button class="nav-item nav-item-press" id="nv-employees" onclick="go('employees')">
-      <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-      <span>Funcionários</span>
-    </button>
-    <button class="nav-item nav-item-press" id="nv-epis" onclick="go('epis')">
-      <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
-      <span>EPIs</span>
-    </button>
-  </nav>
+    <nav class="bottom-nav">
+      <button class="nav-item nav-item-press" id="nv-home" onclick="go('home')">
+        <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg></span>
+        <span>Início</span>
+      </button>
+      <button class="nav-item nav-item-press" id="nv-history" onclick="go('history')">
+        <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+            <line x1="12" y1="22.08" x2="12" y2="12" />
+          </svg></span>
+        <span>Entregas</span>
+      </button>
+      <button class="nav-item nav-item-press" id="nv-employees" onclick="go('employees')">
+        <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg></span>
+        <span>Funcionários</span>
+      </button>
+      <button class="nav-item nav-item-press" id="nv-epis" onclick="go('epis')">
+        <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <path d="M9 12l2 2 4-4" />
+          </svg></span>
+        <span>EPIs</span>
+      </button>
+    </nav>
   </div>
 
   <div class="modal-overlay" id="qrModal" onclick="if(event.target===this)closeQR()">
@@ -490,7 +613,7 @@
               }
             });
           });
-        }).catch(() => {});
+        }).catch(() => { });
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           if (!refreshing) { refreshing = true; location.reload(); }
@@ -498,6 +621,7 @@
       });
     }
   </script>
+  <footer style="text-align:center;padding:16px;font-size:12px;color:var(--gray,#94a3b8);">TechArt Soluções</footer>
 </body>
 
 </html>
