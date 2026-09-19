@@ -1756,3 +1756,53 @@
       .flip-card:hover .flip-card-inner { transform: none; }
       .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
     }
+    /* ==================== TABLET (768px+) ==================== */
+    @media (min-width: 768px) {
+      .app { max-width: 720px; margin: 0 auto; }
+      .header { padding: 12px 24px; }
+      .hdr-title { font-size: 20px; }
+      .hdr-sub { font-size: 13px; }
+      .flip-cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .flip-card { height: 160px; }
+      .section-title { font-size: 16px; }
+      .card { padding: 16px; }
+      .btn { padding: 14px 28px; font-size: 15px; }
+      .bottom-nav { padding: 8px 0 10px; }
+      .nav-item { font-size: 12px; gap: 5px; }
+      .search-bar { max-width: 480px; margin: 0 auto 16px; }
+      .modal { max-width: 480px; }
+      .static-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ==================== DESKTOP (1024px+) ==================== */
+    @media (min-width: 1024px) {
+      .app { max-width: 960px; padding: 0 24px; }
+      .header { padding: 14px 32px; border-radius: 0 0 16px 16px; }
+      .hdr-title { font-size: 22px; }
+      .flip-cards { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+      .flip-card { height: 180px; }
+      .flip-card-front, .flip-card-back { font-size: 14px; }
+      .card { padding: 20px; border-radius: 14px; }
+      .section-title { font-size: 18px; margin-bottom: 12px; }
+      .btn { padding: 16px 32px; font-size: 16px; border-radius: 12px; }
+      .btn-primary { font-size: 16px; }
+      .search-bar { max-width: 560px; }
+      .search-bar input { padding: 14px 20px; font-size: 15px; }
+      .modal { max-width: 560px; border-radius: 16px; }
+      .bottom-nav { gap: 0; padding: 10px 0 12px; }
+      .nav-item { font-size: 13px; padding: 10px 0; }
+      .static-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .epi-item, .emp-item, .hist-item { padding: 16px 20px; }
+      .toast { font-size: 15px; padding: 14px 24px; bottom: 80px; }
+      .screen { padding-bottom: 80px; }
+      table { font-size: 14px; }
+      th, td { padding: 12px 16px; }
+    }
+
+    /* ==================== DESKTOP LARGE (1280px+) ==================== */
+    @media (min-width: 1280px) {
+      .app { max-width: 1120px; }
+      .flip-cards { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+      .static-grid { grid-template-columns: repeat(3, 1fr); }
+      .search-bar { max-width: 640px; }
+    }

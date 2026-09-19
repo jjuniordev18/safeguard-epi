@@ -458,6 +458,7 @@ async function connectFirebase() {
       if (id === 'devolution') renderDevolution();
       if (id === 'dashboard') renderDashboard();
       if (id === 'notifications') renderNotifications();
+      if (id === 'caExpiry') document.getElementById('caExpiryList').innerHTML = caExpirationReport();
       ['home', 'history', 'employees', 'epis'].forEach(s => {
         const el = document.getElementById('nv-' + s);
         if (el) el.classList.toggle('active', s === id);
@@ -530,13 +531,17 @@ async function connectFirebase() {
         else if (estoqueLimitado(e) && e.estoqueMin && total > 0 && total <= e.estoqueMin) alerts.push({ t: 'warning', msg: `⚠️ Estoque baixo: ${esc(e.nome)} — ${total} un. (mín: ${e.estoqueMin})` });
       });
       const notifCount = (state.notifications || []).filter(function(n) { return n.unread; }).length;
+      const caAlerts = alerts.filter(a => a.msg.includes('CA'));
       const el = document.getElementById('homeAlerts');
       if (alerts.length === 0 && notifCount === 0) {
         el.innerHTML = '<div class="alert alert-success">✅ Tudo sob controle!</div>';
       } else if (alerts.length === 0 && notifCount > 0) {
         el.innerHTML = '<div class="alert alert-info" style="cursor:pointer;" onclick="go(\'notifications\')"><span onclick="event.stopPropagation()">🔔 ' + notifCount + ' notificação(ões) não lidas — clique para ver →</span></div>';
       } else {
-        el.innerHTML = '<div class="alert alert-warning" style="font-size:12px;">' + alerts.length + ' alerta(s) de EPI(s). <span style="color:var(--color-brand);cursor:pointer;" onclick="go(\'notifications\')">Ver detalhes →</span></div>';
+        let html = '<div class="alert alert-warning" style="font-size:12px;">' + alerts.length + ' alerta(s) de EPI(s). ';
+        if (caAlerts.length > 0) html += '<span style="color:var(--color-brand);cursor:pointer;" onclick="go(\'caExpiry\')">⚠️ ' + caAlerts.length + ' CA(s) vencido(s) — ver relatório →</span> ';
+        html += '<span style="color:var(--color-brand);cursor:pointer;" onclick="go(\'notifications\')">Ver detalhes →</span></div>';
+        el.innerHTML = html;
       }
     }
 
@@ -1076,6 +1081,18 @@ async function connectFirebase() {
       a.click();
       showToast('✅ Backup exportado com sucesso!');
     }
+    function exportExcel() {
+      if (!window.XLSX) { showToast('⚠️ Biblioteca XLSX não carregada'); return; }
+      const wb = XLSX.utils.book_new();
+      const empData = state.employees.map(e => ({ ID: e.id, Nome: e.nome, Matrícula: e.matricula, Cargo: e.cargo, Telefone: e.telefone, Admissão: e.admissao }));
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(empData), 'Funcionários');
+      const epiData = state.epis.map(e => ({ ID: e.id, Nome: e.nome, Fabricante: e.fabricante, CA: e.ca, Validade: e.caVal, Estoque: e.estoque ? Object.values(e.estoque).reduce((a, b) => a + b, 0) : 0, Renovação: e.renovacaoDias }));
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(epiData), 'EPIs');
+      const entData = state.entregas.flatMap(d => d.itens.map(i => ({ Colaborador: d.employeeName, Matrícula: d.matricula, Data: d.data ? d.data.slice(0, 10) : '', EPI: i.nome, CA: i.ca, Tamanho: i.tam, Qtd: i.qty, Motivo: i.reason })));
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(entData), 'Entregas');
+      XLSX.writeFile(wb, 'entregas_epi_' + new Date().toISOString().slice(0, 10) + '.xlsx');
+      showToast('✅ Planilha Excel exportada!');
+    }
     function importData(ev) {
       const f = ev.target.files[0];
       if (!f) return;
@@ -1205,6 +1222,33 @@ async function connectFirebase() {
       <div style="font-size:11px;color:var(--gray);">${d.itens.map(i => `${i.qty}x ${esc(i.nome)} (${esc(i.tam)})`).join(' · ')}</div>
     </div>`;
       }).join('') : '<p class="empty">Nenhuma entrega no período</p>';
+    }
+    function caExpirationReport() {
+      const now = new Date();
+      const warn90 = [], warn60 = [], warn30 = [], expired = [];
+      state.epis.forEach(epi => {
+        if (!epi.caVal) return;
+        const exp = new Date(epi.caVal + 'T23:59:59');
+        const diff = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+        if (diff < 0) expired.push({ ...epi, days: diff });
+        else if (diff <= 30) warn30.push({ ...epi, days: diff });
+        else if (diff <= 60) warn60.push({ ...epi, days: diff });
+        else if (diff <= 90) warn90.push({ ...epi, days: diff });
+      });
+      let html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;">';
+      html += '<div class="card static" style="text-align:center;border-left:4px solid #dc2626;"><b style="color:#dc2626;font-size:24px;">' + expired.length + '</b><div style="font-size:11px;color:var(--gray);">VENCIDOS</div></div>';
+      html += '<div class="card static" style="text-align:center;border-left:4px solid #f59e0b;"><b style="color:#f59e0b;font-size:24px;">' + warn30.length + '</b><div style="font-size:11px;color:var(--gray);">ATÉ 30 DIAS</div></div>';
+      html += '<div class="card static" style="text-align:center;border-left:4px solid #eab308;"><b style="color:#eab308;font-size:24px;">' + warn60.length + '</b><div style="font-size:11px;color:var(--gray);">ATÉ 60 DIAS</div></div>';
+      html += '<div class="card static" style="text-align:center;border-left:4px solid #22c55e;"><b style="color:#22c55e;font-size:24px;">' + warn90.length + '</b><div style="font-size:11px;color:var(--gray);">ATÉ 90 DIAS</div></div>';
+      html += '</div>';
+      const all = [...expired, ...warn30, ...warn60, ...warn90];
+      if (all.length === 0) return html + '<p class="empty">Nenhum CA vencido ou próximo do vencimento</p>';
+      html += all.map(epi => {
+        const color = epi.days < 0 ? '#dc2626' : epi.days <= 30 ? '#f59e0b' : epi.days <= 60 ? '#eab308' : '#22c55e';
+        const label = epi.days < 0 ? 'VENCIDO há ' + Math.abs(epi.days) + ' dias' : 'Vence em ' + epi.days + ' dias';
+        return '<div class="card static" style="border-left:4px solid ' + color + ';"><div style="display:flex;justify-content:space-between;align-items:center;"><div><b style="font-size:14px;">' + esc(epi.nome) + '</b><div style="font-size:11px;color:var(--gray);">CA: ' + esc(epi.ca) + ' · Est: ' + (epi.estoque ? Object.values(epi.estoque).reduce((a, b) => a + b, 0) : 0) + '</div></div><span style="font-size:11px;font-weight:600;color:' + color + ';background:' + color + '18;padding:4px 10px;border-radius:12px;">' + label + '</span></div></div>';
+      }).join('');
+      return html;
     }
     function exportReportPDF() {
       if (!_reportData.length) { showToast('⚠️ Nenhum dado para exportar no momento'); return; }
@@ -1412,6 +1456,17 @@ async function connectFirebase() {
       entregas.forEach(function(d) { empAgg[d.employeeName] = (empAgg[d.employeeName] || 0) + d.itens.reduce(function(a, i) { return a + i.qty; }, 0); });
       const topEmps = Object.entries(empAgg).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 5);
       document.getElementById('dashTopEmps').innerHTML = topEmps.length ? topEmps.map(function(item, i) {
+        return '<div class="item-row"><span style="font-weight:600;font-size:13px;">' + (i + 1) + '. ' + esc(item[0]) + '</span><span class="badge badge-info">' + item[1] + ' EPIs</span></div>';
+      }).join('') : '<p class="empty">Sem dados</p>';
+
+      const cargoAgg = {};
+      entregas.forEach(function(d) {
+        const emp = state.employees.find(e => e.id === d.employeeId);
+        const cargo = emp && emp.cargo ? emp.cargo : 'Não informado';
+        cargoAgg[cargo] = (cargoAgg[cargo] || 0) + d.itens.reduce(function(a, i) { return a + i.qty; }, 0);
+      });
+      const topCargos = Object.entries(cargoAgg).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 5);
+      document.getElementById('dashTopCargos').innerHTML = topCargos.length ? topCargos.map(function(item, i) {
         return '<div class="item-row"><span style="font-weight:600;font-size:13px;">' + (i + 1) + '. ' + esc(item[0]) + '</span><span class="badge badge-info">' + item[1] + ' EPIs</span></div>';
       }).join('') : '<p class="empty">Sem dados</p>';
     }
