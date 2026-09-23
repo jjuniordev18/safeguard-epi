@@ -390,7 +390,7 @@ async function connectFirebase() {
         state.entregas.forEach(d => {
           if (!d || typeof d.id !== 'string' || !d.id) return;
           const ref = db.collection('entregas').doc(d.id);
-          ops.push({ ref, data: { id: String(d.id).slice(0, 50), employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), tam: String(it.tam || '').slice(0, 20), qty: Math.min(Number(it.qty) || 1, 999), reason: String(it.reason || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null, itemSigs: Array.isArray(d.itemSigs) ? d.itemSigs.map(s => typeof s === 'string' ? s.slice(0, 50000) : null) : [] } });
+          ops.push({ ref, data: { id: String(d.id).slice(0, 50), employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), matricula: String(d.matricula || '').trim().slice(0, 50), cargo: String(d.cargo || '').trim().slice(0, MAX_STR), admissao: String(d.admissao || '').slice(0, 10), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), ca: String(it.ca || '').trim().slice(0, 30), tam: String(it.tam || '').slice(0, 20), qty: Math.min(Number(it.qty) || 1, 999), motivo: String(it.motivo || it.reason || '').trim().slice(0, MAX_STR), obs: String(it.obs || '').trim().slice(0, MAX_STR), reason: String(it.reason || it.motivo || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null, itemSigs: Array.isArray(d.itemSigs) ? d.itemSigs.map(s => typeof s === 'string' ? s.slice(0, 50000) : null) : [] } });
         });
         for (let i = 0; i < ops.length; i += 500) {
           const batch = db.batch();
@@ -899,27 +899,40 @@ async function connectFirebase() {
     // ==================== HISTÓRICO ====================
     function renderHistory(q) {
       q = (q || '').toLowerCase();
-      const list = [...state.entregas].reverse().filter(d => d.employeeName.toLowerCase().includes(q));
+      const agg = {};
+      state.entregas.forEach(d => {
+        if (!agg[d.employeeId]) agg[d.employeeId] = { employeeId: d.employeeId, employeeName: d.employeeName, matricula: d.matricula, epiMap: {}, qty: 0, entregas: 0, lastData: '', lastId: d.id };
+        const a = agg[d.employeeId];
+        d.itens.forEach(it => {
+          const key = it.nome + '|' + it.tam + '|' + it.ca;
+          if (!a.epiMap[key]) a.epiMap[key] = { nome: it.nome, tam: it.tam, ca: it.ca, qty: 0 };
+          a.epiMap[key].qty += it.qty;
+          a.qty += it.qty;
+        });
+        a.entregas++;
+        if (!a.lastData || new Date(d.data) > new Date(a.lastData)) { a.lastData = d.data; a.lastId = d.id; }
+      });
+      const list = Object.values(agg).filter(a => a.employeeName.toLowerCase().includes(q));
       const admin = _isAdmin;
-      const totalItensGeral = list.reduce((a, d) => a + d.itens.reduce((b, i) => b + i.qty, 0), 0);
+      const totalUnicos = list.filter(a => a.employeeId && a.employeeName).length;
+      const totalQtyGeral = list.reduce((a, x) => a + x.qty, 0);
       const totaisHtml = `<div class="card static" style="display:flex;justify-content:space-around;text-align:center;padding:12px;">
-        <div><b style="color:var(--color-brand);font-size:20px;">${list.length}</b><div style="font-size:11px;color:var(--gray);">Entregas</div></div>
-        <div><b style="color:var(--color-brand);font-size:20px;">${totalItensGeral}</b><div style="font-size:11px;color:var(--gray);">Itens</div></div>
-        <div><b style="color:var(--color-brand);font-size:20px;">${new Set(list.map(d => d.employeeId)).size}</b><div style="font-size:11px;color:var(--gray);">Colaboradores</div></div>
+        <div><b style="color:var(--color-brand);font-size:20px;">${totalUnicos}</b><div style="font-size:11px;color:var(--gray);">Colaboradores</div></div>
+        <div><b style="color:var(--color-brand);font-size:20px;">${totalQtyGeral}</b><div style="font-size:11px;color:var(--gray);">Itens</div></div>
+        <div><b style="color:var(--color-brand);font-size:20px;">${list.length}</b><div style="font-size:11px;color:var(--gray);">EPIs entregues</div></div>
       </div>`;
-      document.getElementById('histList').innerHTML = totaisHtml + (list.length ? list.map(d => {
-        const totalItens = d.itens.reduce((a, i) => a + i.qty, 0);
+      document.getElementById('histList').innerHTML = totaisHtml + (list.length ? list.map(a => {
+        const epis = Object.values(a.epiMap).map(e => `${e.qty}x ${esc(e.nome)}${e.tam ? ' (' + esc(e.tam) + ')' : ''}`).join(' · ');
         return `
     <div class="card static">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
-          <div style="font-weight:600;">👤 ${esc(d.employeeName)} <span class="badge badge-info">${esc(d.matricula)}</span></div>
-          <div style="font-size:12px;color:var(--gray);">📅 ${fmtDateTime(d.data)} · ${totalItens} itens</div>
-          <div style="font-size:12px;color:var(--gray);">${d.itens.map(i => `${i.qty}x ${esc(i.nome)}`).join(' · ')}</div>
+          <div style="font-weight:600;">👤 ${esc(a.employeeName)}${a.matricula ? ` <span class="badge badge-info">${esc(a.matricula)}</span>` : ''}</div>
+          <div style="font-size:12px;color:var(--gray);">📅 ${fmtDateTime(a.lastData)} · ${a.entregas} entrega(s) · ${a.qty} itens</div>
+          <div style="font-size:12px;color:var(--gray);">${epis}</div>
         </div>
         <div style="display:flex;gap:6px;align-items:center;">
-          ${admin ? `<button class="delete-btn" onclick="delEntrega('${d.id}')" title="Excluir">${TRASH_SVG}</button>` : ''}
-          <button class="btn btn-primary small" onclick="viewDelivery('${d.id}')">📄 Ficha</button>
+          <button class="btn btn-primary small" onclick="viewEmployeeFicha('${a.employeeId}')">📄 Ficha</button>
         </div>
       </div>
     </div>`;
@@ -929,6 +942,19 @@ async function connectFirebase() {
     function viewDelivery(id) {
       state.lastDelivery = state.entregas.find(d => d.id === id);
       if (state.lastDelivery) generatePDF();
+    }
+    function viewEmployeeFicha(employeeId) {
+      const entregas = state.entregas.filter(d => d.employeeId === Number(employeeId));
+      if (!entregas.length) { showToast('❌ Nenhuma ficha para este colaborador'); return; }
+      const agg = {};
+      entregas.forEach(d => d.itens.forEach(it => {
+        const key = (it.nome || '') + '|' + (it.tam || '') + '|' + (it.ca || '');
+        if (!agg[key]) agg[key] = { nome: it.nome, tam: it.tam, ca: it.ca, qty: Number(it.qty) || 0, dataReceb: it.dataReceb || d.data || '', motivo: '', obs: '' };
+        else { agg[key].qty += Number(it.qty) || 0; if ((it.dataReceb || d.data) > agg[key].dataReceb) agg[key].dataReceb = it.dataReceb || d.data; }
+      }));
+      const last = entregas[entregas.length - 1];
+      state.lastDelivery = Object.assign({}, last, { id: 'FICHA-AGG-' + employeeId, itens: Object.values(agg), sig1: null });
+      generatePDF();
     }
     function delEntrega(id) {
       if (!requireAdmin()) { showToast('❌ Apenas administradores podem excluir entregas.'); return; }
@@ -976,24 +1002,30 @@ async function connectFirebase() {
       q = (q || '').toLowerCase();
       const agg = {};
       state.entregas.forEach(d => {
+        if (!agg[d.employeeId]) agg[d.employeeId] = { employeeId: d.employeeId, employeeName: d.employeeName, qty: 0, epiList: {}, lastData: '' };
+        const a = agg[d.employeeId];
         d.itens.forEach(it => {
-          if (!agg[it.epiId]) agg[it.epiId] = { epiId: it.epiId, nome: it.nome, ca: it.ca, qty: 0, empCount: new Set(), recentes: [] };
-          agg[it.epiId].qty += it.qty;
-          agg[it.epiId].empCount.add(d.employeeId);
-          agg[it.epiId].recentes.push({ data: d.data, employeeName: d.employeeName, qty: it.qty, tam: it.tam, motivo: it.motivo });
+          const key = it.nome + '|' + it.tam + '|' + it.ca;
+          if (!a.epiList[key]) a.epiList[key] = { nome: it.nome, tam: it.tam, ca: it.ca, qty: 0 };
+          a.epiList[key].qty += it.qty;
+          a.qty += it.qty;
+          if (!a.lastData || d.data > a.lastData) a.lastData = d.data;
         });
       });
-      const list = Object.values(agg).filter(a => a.nome.toLowerCase().includes(q));
+      const list = Object.values(agg).filter(a => a.employeeName.toLowerCase().includes(q));
       list.sort((a, b) => b.qty - a.qty);
-      document.getElementById('deliveredList').innerHTML = list.length ? list.map(a => `
+      document.getElementById('deliveredList').innerHTML = list.length ? list.map(a => {
+        const epis = Object.values(a.epiList).map(e => `${e.qty}x ${esc(e.nome)}${e.tam ? ' (' + esc(e.tam) + ')' : ''}`).join(' · ');
+        const totalTipos = Object.keys(a.epiList).length;
+        return `
     <div class="card static">
-      <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
-        <div style="font-weight:600;">${esc(a.nome)}</div>
-        <span class="badge badge-info">${a.qty}x</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+        <div style="font-weight:600;">👤 ${esc(a.employeeName)} <span class="badge badge-info">${a.qty}x</span></div>
+        <div style="font-size:12px;color:var(--gray);">${totalTipos} EPI(s) · últ. ${fmtDate(a.lastData)}</div>
       </div>
-      <div style="font-size:12px;color:var(--gray);margin:4px 0;">CA: ${esc(a.ca || '-')} · ${a.empCount.size} colaborador(es)</div>
-      <div style="font-size:12px;color:var(--gray);">${a.recentes.slice(-3).map(en => `${en.qty}x ${esc(en.employeeName)} (${esc(en.tam)}) — ${fmtDate(en.data)}`).join('<br>')}</div>
-    </div>`).join('') : '<p class="empty">Nenhum EPI entregue</p>';
+      <div style="font-size:12px;color:var(--gray);margin:4px 0;">${epis}</div>
+    </div>`;
+      }).join('') : '<p class="empty">Nenhum EPI entregue</p>';
     }
 
     // ==================== GERENCIAR ====================
@@ -1514,6 +1546,7 @@ async function connectFirebase() {
     function processExcel(data, filename) {
       const wb = XLSX.read(data, { type: 'array' });
       if (!wb.SheetNames.length) { showToast('⚠️ Planilha vazia'); return; }
+      if (isFichaPorColaborador(wb)) { importFichasPorColaborador(wb); return; }
       let importedEpis = 0, linkedPeriodicidades = 0, importedEmployees = 0;
       function excelDateToISO(val) {
         if (!val) return '';
@@ -1633,6 +1666,205 @@ async function connectFirebase() {
       }
       if (importedEpis > 0 || importedEmployees > 0) { save(); recomputeCounters(); }
       showToast('✅ ' + importedEpis + ' EPIs importados, ' + linkedPeriodicidades + ' periodicidades vinculadas, ' + importedEmployees + ' colaboradores importados');
+    }
+
+    // ==================== IMPORT FICHAS POR COLABORADOR ====================
+    function isFichaPorColaborador(wb) {
+      let matches = 0;
+      const sample = wb.SheetNames.slice(0, 6);
+      sample.forEach(function(name) {
+        const ws = wb.Sheets[name];
+        if (!ws) return;
+        const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
+        for (let i = 0; i < Math.min(rows.length, 10); i++) {
+          const upper = (rows[i] || []).map(function(c) { return String(c || '').trim().toUpperCase(); });
+          if (upper.some(function(c) { return c === 'EPI'; }) && upper.some(function(c) { return c.includes('DATA'); })) { matches++; break; }
+        }
+      });
+      return matches >= 2 && !wb.SheetNames.some(function(n) { return n.toUpperCase().includes('PERIODICIDADE'); });
+    }
+
+    function importFichasPorColaborador(wb) {
+      function normName(s) {
+        return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim();
+      }
+      function excelDateToISO2(val) {
+        if (!val) return '';
+        if (typeof val === 'number') { const d = new Date((val - 25569) * 86400000); return isNaN(d.getTime()) ? '' : d.toISOString().split('T')[0]; }
+        const s = String(val).trim().replace(/\s*\*+\s*$/g, '').replace(/^\s*\*+/, '');
+        if (!s || s.toUpperCase() === 'NA') return '';
+        if (/^\d{4}$/.test(s)) return s + '-01-01';
+        const d2 = new Date(s);
+        return isNaN(d2.getTime()) ? s : d2.toISOString().split('T')[0];
+      }
+      function parseCA(v) {
+        const s = String(v === null || v === undefined ? '' : v).trim();
+        if (!s || s.toUpperCase() === 'NA') return '';
+        return s.replace(/[^\d]/g, '');
+      }
+      function isQtyLike(v) {
+        if (v === null || v === undefined) return null;
+        if (typeof v === 'number') return (v >= 1 && v <= 99) ? Math.round(v) : null;
+        const s = String(v).trim();
+        if (/par/i.test(s)) { const m = s.match(/(\d+)/); return m ? Math.max(1, parseInt(m[1], 10)) : 1; }
+        if (/^\d{1,2}$/.test(s)) return parseInt(s, 10);
+        return null;
+      }
+      function isNALike(v) {
+        const s = String(v === null || v === undefined ? '' : v).trim().replace(/\s*\*+\s*$/g, '');
+        return !s || /^n\/?a$/i.test(s);
+      }
+      function fichaCols(rows) {
+        const headerRow = rows.findIndex(function(r) { return (r || []).some(function(c) { return String(c || '').toUpperCase() === 'EPI'; }); });
+        if (headerRow >= 0) {
+          const h = (rows[headerRow] || []).map(function(c) { return String(c || '').trim().toUpperCase(); });
+          const epi = h.findIndex(function(c) { return c === 'EPI' || c.includes('EPI'); });
+          if (epi === -1) return null;
+          const ca = h.findIndex(function(c) { return c === 'CA' || c.includes('C.A'); });
+          const qtyIdx = h.findIndex(function(c) { return c.includes('QUANTIDADE') || c.includes('QTD') || c === 'Q'; });
+          const data = h.findIndex(function(c) { return c.includes('DATA'); });
+          if (data === -1) return null;
+          return { headerRow: headerRow, epi: epi, ca: ca, qtyIdx: qtyIdx, data: data };
+        }
+        return { headerRow: -1, epi: 0, ca: 1, qtyIdx: 2, data: 3 };
+      }
+      function resolveCAQty(caVal, qtyVal) {
+        const q1 = isQtyLike(qtyVal);
+        const q2 = isQtyLike(caVal);
+        if (q1 !== null) return { ca: caVal, qty: q1 };
+        if (q2 !== null) return { ca: qtyVal, qty: q2 };
+        if (isNALike(caVal)) return { ca: '', qty: 1 };
+        if (isNALike(qtyVal)) return { ca: caVal, qty: 1 };
+        return { ca: caVal, qty: 1 };
+      }
+      function extractSize(nome) {
+        let m = nome.match(/[Nn][ºo°]\.?\s*[0-9]{1,3}\b/);
+        if (m) return m[0].replace(/[Nn][ºo°]\.?\s*/g, '');
+        m = nome.match(/\b[Tt]am\.?\s*([A-Za-z0-9]{1,3})\b/);
+        if (m) return m[1].toUpperCase();
+        m = nome.match(/["'']\s*([0-9]{2}|XG|GG|[PpMmGg])\s*["'']/);
+        if (m) return m[1].toUpperCase();
+        m = nome.match(/\b([0-9]{2}|XG|GG|P|M|G)\b\s*$/);
+        if (m) return m[1].toUpperCase();
+        return '';
+      }
+      function cleanEpiName(nome) {
+        let n = String(nome).replace(/\s*\*+\s*$/g, '').trim();
+        n = n.replace(/[Nn][ºo°]\.?\s*[0-9]{1,3}\b/g, ' ');
+        n = n.replace(/\b[Tt]am\.?\s*[A-Za-z0-9]{1,3}\b/g, ' ');
+        n = n.replace(/["'']\s*([0-9]{2}|XG|GG|[XMGPV]{1,2})\s*["'']/g, ' ');
+        n = n.replace(/\b(?:XG|GG|P|M|G)\b\s*$/i, ' ');
+        n = n.replace(/[/-]\s*$/g, '');
+        n = n.replace(/["'']/g, ' ');
+        return n.replace(/\s{2,}/g, ' ').trim();
+      }
+      function matchEmp(sheetName) {
+        const norm = normName(sheetName);
+        const tokens = norm.split(/\s+/).filter(function(w) { return w.length >= 1; });
+        let best = null, bestScore = 0;
+        state.employees.forEach(function(emp) {
+          const en = normName(emp.nome);
+          if (en === norm) { best = emp; bestScore = 9999; return; }
+          let score = 0;
+          tokens.forEach(function(t) { if (en.indexOf(t) !== -1) score++; });
+          if (score > bestScore) { bestScore = score; best = emp; }
+        });
+        const needed = tokens.length === 1 ? 1 : 2;
+        return best && bestScore >= needed ? best : null;
+      }
+      const caByKey = {};
+      const noCaByKey = {};
+      const groups = {};
+      let newEpis = 0, newEmps = 0, newFichas = 0, newItens = 0, skipped = 0;
+      wb.SheetNames.forEach(function(sheetName) {
+        const ws = wb.Sheets[sheetName];
+        if (!ws) return;
+        const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
+        const cols = fichaCols(rows);
+        if (!cols) return;
+        let emp = matchEmp(sheetName);
+        if (!emp) {
+          emp = { id: counters.emp++, nome: String(sheetName).trim().toUpperCase(), matricula: '', cargo: 'OPERACIONAL', admissao: '', telefone: '' };
+          state.employees.push(emp);
+          addPending('emp', 'upsert', Object.assign({}, emp));
+          newEmps++;
+        }
+        for (let i = cols.headerRow + 1; i < rows.length; i++) {
+          const row = rows[i]; if (!row) continue;
+          const nome = String(row[cols.epi] || '').trim();
+          if (!nome) continue;
+          const nn = normName(nome);
+          if (nn === 'EPI' || nn === 'QUANTIDADE' || nn === 'PRODUTO' || nn === 'QTD' || nn === 'CA') continue;
+          const r = resolveCAQty(cols.ca >= 0 ? row[cols.ca] : '', cols.qtyIdx >= 0 ? row[cols.qtyIdx] : '');
+          const ca = parseCA(r.ca);
+          const dataStr = excelDateToISO2(cols.data >= 0 ? row[cols.data] : '');
+          if (!dataStr) { skipped++; continue; }
+          const clean = cleanEpiName(nome);
+          const tam = extractSize(nome);
+          if (ca) {
+            caByKey[ca] = caByKey[ca] || { names: {} };
+            caByKey[ca].names[clean] = (caByKey[ca].names[clean] || 0) + 1;
+          } else {
+            const nk = normName(clean);
+            noCaByKey[nk] = noCaByKey[nk] || { clean: clean, count: 0 };
+            noCaByKey[nk].count++;
+          }
+          const key = emp.nome + '|' + dataStr;
+          if (!groups[key]) groups[key] = { emp: emp, dataStr: dataStr, itens: [] };
+          groups[key].itens.push({ nome: clean, ca: ca, tam: tam, qty: r.qty });
+          newItens++;
+        }
+      });
+      Object.keys(caByKey).forEach(function(ca) {
+        const best = Object.keys(caByKey[ca].names).sort(function(a, b) { return caByKey[ca].names[b] - caByKey[ca].names[a]; })[0];
+        const existing = state.epis.find(function(e) { return e.ca === ca; });
+        if (existing) {
+          existing.nome = best || existing.nome;
+          existing.updatedAt = new Date().toISOString();
+        } else {
+          state.epis.push({ id: counters.epi++, nome: best, fabricante: '', ca: ca, caVal: '', tamanhos: [], estoque: {}, renovacaoDias: 0, estoqueMin: 0, updatedAt: new Date().toISOString() });
+          newEpis++;
+        }
+      });
+      Object.keys(noCaByKey).forEach(function(nk) {
+        const info = noCaByKey[nk];
+        const existing = state.epis.find(function(e) { return !e.ca && normName(e.nome) === nk; });
+        if (!existing) {
+          state.epis.push({ id: counters.epi++, nome: info.clean, fabricante: '', ca: '', caVal: '', tamanhos: [], estoque: {}, renovacaoDias: 0, estoqueMin: 0, updatedAt: new Date().toISOString() });
+          newEpis++;
+        }
+      });
+      let seq = 0;
+      Object.keys(groups).forEach(function(key) {
+        const g = groups[key];
+        const now = new Date().toISOString();
+        const delivery = {
+          id: 'FICHA-IMP-' + Date.now() + '-' + (seq++),
+          data: new Date(g.dataStr + 'T12:00:00').toISOString(),
+          employeeId: g.emp.id,
+          employeeName: g.emp.nome,
+          matricula: g.emp.matricula,
+          cargo: g.emp.cargo,
+          admissao: g.emp.admissao,
+          itens: g.itens.map(function(it) {
+            const epi = it.ca
+              ? state.epis.find(function(e) { return e.ca === it.ca; })
+              : state.epis.find(function(e) { return !e.ca && normName(e.nome) === normName(it.nome); });
+            return { epiId: epi ? epi.id : 0, nome: it.nome, ca: it.ca, tam: it.tam, qty: it.qty, motivo: 'Cadastro inicial', obs: '' };
+          }),
+          sig1: null,
+          sig2: null,
+          itemSigs: [],
+          createdAt: now,
+          updatedAt: now
+        };
+        state.entregas.push(delivery);
+        newFichas++;
+      });
+      save();
+      recomputeCounters();
+      addNotification('success', 'Fichas importadas: ' + newFichas + ' fichas · ' + newItens + ' itens · ' + newEpis + ' novos EPIs · ' + newEmps + ' novos colaboradores', 'Import');
+      showToast('✅ ' + newFichas + ' fichas importadas (' + newItens + ' itens, ' + newEpis + ' EPIs, ' + newEmps + ' colaboradores)');
     }
 
     // ==================== QR CODE / FICHA DO COLABORADOR ====================
