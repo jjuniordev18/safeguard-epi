@@ -107,7 +107,11 @@
     function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
     function fmtDate(s) {
       if (!s) return '-';
-      try { return new Date(s).toLocaleDateString('pt-BR'); } catch (e) { return s; }
+      try {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+        if (m) return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString('pt-BR');
+        return new Date(s).toLocaleDateString('pt-BR');
+      } catch (e) { return s; }
     }
 
     function getState() {
@@ -149,7 +153,8 @@
           <div class="emp-name">${esc(emp.nome)}</div>
           <div class="emp-detail">
             <strong>Matrícula:</strong> ${esc(emp.matricula || '-')}<br>
-            <strong>Cargo:</strong> ${esc(emp.cargo || '-')}
+            <strong>Cargo:</strong> ${esc(emp.cargo || '-')}<br>
+            <strong>Admissão:</strong> ${esc(fmtDate(emp.admissao))}
           </div>
         </div>
         <div class="card">
@@ -215,6 +220,8 @@
       doc.text('Matricula: ' + (emp.matricula || '-'), 20, y);
       y += 6;
       doc.text('Cargo: ' + (emp.cargo || '-'), 20, y);
+      y += 6;
+      doc.text('Admissao: ' + (fmtDate(emp.admissao) || '-'), 20, y);
       y += 10;
 
       doc.line(20, y, pageW - 20, y);

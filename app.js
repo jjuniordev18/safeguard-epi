@@ -186,39 +186,49 @@
     function seed() {
       state = {
         employees: [
-          { id: 1, nome: 'ADRIANO DE OLIVEIRA BIULA', matricula: '418611', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '', telefone: '' },
-          { id: 2, nome: 'ANA SARAH VIEIRA DAMASCENO', matricula: '421274', cargo: 'ASSISTENTE ADMINISTRATIVO', admissao: '', telefone: '' },
-          { id: 3, nome: 'DANIEL XAVIER OLIVEIRA DOS SANTOS', matricula: '419531', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '', telefone: '' },
-          { id: 4, nome: 'EDERSON FRAZÃO DO NASCIMENTO', matricula: '410686', cargo: 'ANALISTA DE REDES JR II', admissao: '', telefone: '' },
-          { id: 5, nome: 'ERICK CLEITON DA MATTA', matricula: '401032', cargo: 'ANALISTA DE REDE SENIOR II', admissao: '', telefone: '' },
-          { id: 6, nome: 'ERISVALDO DOS SANTOS GOMES', matricula: '412100', cargo: 'TECNICO DE TELECOMUNICAÇÕES', admissao: '', telefone: '' },
-          { id: 7, nome: 'GABRIEL GARCIA DE SOUZA', matricula: '418833', cargo: 'TECNICO DE CABEAMENTO', admissao: '', telefone: '' },
+          { id: 1, nome: 'ADRIANO DE OLIVEIRA BIULA', matricula: '418611', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '2024-10-01', telefone: '' },
+          { id: 2, nome: 'ANA SARAH VIEIRA DAMASCENO', matricula: '421274', cargo: 'ASSISTENTE ADMINISTRATIVO', admissao: '2025-11-11', telefone: '' },
+          { id: 3, nome: 'DANIEL XAVIER OLIVEIRA DOS SANTOS', matricula: '419531', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '2024-11-12', telefone: '' },
+          { id: 4, nome: 'EDERSON FRAZÃO DO NASCIMENTO', matricula: '410686', cargo: 'ANALISTA DE REDES JR II', admissao: '2021-06-21', telefone: '' },
+          { id: 5, nome: 'ERICK CLEITON DA MATTA', matricula: '401032', cargo: 'ANALISTA DE REDE SENIOR II', admissao: '2018-06-15', telefone: '' },
+          { id: 6, nome: 'ERISVALDO DOS SANTOS GOMES', matricula: '412100', cargo: 'TECNICO DE TELECOMUNICAÇÕES', admissao: '2021-11-03', telefone: '' },
+          { id: 7, nome: 'GABRIEL GARCIA DE SOUZA', matricula: '418833', cargo: 'TECNICO DE CABEAMENTO', admissao: '2024-08-01', telefone: '' },
           { id: 8, nome: 'GABRIEL OLIVEIRA DA SILVA', matricula: '420444', cargo: 'ANALISTA DE REDES JR II', admissao: '', telefone: '' },
-          { id: 9, nome: 'GILBERTO FREITAS DE ALMEIDA', matricula: '370822', cargo: 'TÉCNICO DE REDE DE TELECOMUNICAÇÕES JR II', admissao: '', telefone: '' },
-          { id: 10, nome: 'JEANDERSON RAUL MEDEIROS DA COSTA', matricula: '402789', cargo: 'TÉCNICO DE FIBRA ÓPTICA', admissao: '', telefone: '' },
-          { id: 11, nome: 'JOÃO PAULO TAVARES DEMETRIO', matricula: '410687', cargo: 'TÉCNICO DE FIBRA ÓTICA', admissao: '', telefone: '' },
-          { id: 12, nome: 'JONATHA COSTA DE ALMEIDA', matricula: '419534', cargo: 'TECNICO DE AUTOMAÇÃO INDUSTRIAL PLENO', admissao: '', telefone: '' },
-          { id: 13, nome: 'JOSUE MARIANO GOMES JUNIOR', matricula: '419366', cargo: 'TÉCNICO DE AUTOMAÇÃO INDUSTRIAL SÊNIOR', admissao: '', telefone: '' },
+          { id: 9, nome: 'GILBERTO FREITAS DE ALMEIDA', matricula: '370822', cargo: 'TÉCNICO DE REDE DE TELECOMUNICAÇÕES JR II', admissao: '2012-11-12', telefone: '' },
+          { id: 10, nome: 'JEANDERSON RAUL MEDEIROS DA COSTA', matricula: '402789', cargo: 'TÉCNICO DE FIBRA ÓPTICA', admissao: '2018-11-23', telefone: '' },
+          { id: 11, nome: 'JOÃO PAULO TAVARES DEMETRIO', matricula: '410687', cargo: 'TÉCNICO DE FIBRA ÓTICA', admissao: '2021-06-21', telefone: '' },
+          { id: 12, nome: 'JONATHA COSTA DE ALMEIDA', matricula: '419534', cargo: 'TECNICO DE AUTOMAÇÃO INDUSTRIAL PLENO', admissao: '2024-11-12', telefone: '' },
+          { id: 13, nome: 'JOSUE MARIANO GOMES JUNIOR', matricula: '419366', cargo: 'TÉCNICO DE AUTOMAÇÃO INDUSTRIAL SÊNIOR', admissao: '2024-11-01', telefone: '' },
           { id: 14, nome: 'JANE MEIRE LEITE LIMA', matricula: '', cargo: 'ASSISTENTE ADMINISTRATIVO', admissao: '', telefone: '' },
-          { id: 15, nome: 'KELLYANE DA SILVA MELO', matricula: '418279', cargo: 'ANALISTA DE REDES JR II', admissao: '', telefone: '' },
-          { id: 16, nome: 'LENO OSÓRIO SOUSA DIAS', matricula: '409868', cargo: 'TECNICO DE AUTOMAÇÃO INDUSTRIAL', admissao: '', telefone: '' },
-          { id: 17, nome: 'LUCAS DA CRUZ SILVA', matricula: '412568', cargo: 'TÉCNICO DE AUTOMAÇÃO INDUSTRIAL PLENO', admissao: '', telefone: '' },
-          { id: 18, nome: 'MARILENE DE SOUZA CARVALHO', matricula: '370955', cargo: 'LÍDER OPERACIONAL', admissao: '', telefone: '' },
-          { id: 19, nome: 'MATEUS CARDOSO DA SILVA', matricula: '420353', cargo: 'ANALISTA DE REDES SR II', admissao: '', telefone: '' },
-          { id: 20, nome: 'MELQUISEDEC EMERSON SOUSA RESENDE', matricula: '409869', cargo: 'TÉCNICO DE AUTOMAÇÃO INDUSTRIAL PLENO', admissao: '', telefone: '' },
-          { id: 21, nome: 'MATHEUS SANTOS CAMPOS', matricula: '421444', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL PLENO', admissao: '', telefone: '' },
-          { id: 22, nome: 'MARCOS DALLIF OLIVEIRA DOS SANTOS FURTADO', matricula: '419292', cargo: 'TECNICO EM SEGURANÇA DO TRABALHO', admissao: '', telefone: '' },
-          { id: 23, nome: 'PAULO DAVI MONTEIRO', matricula: '420624', cargo: 'ASSISTENTE ADMINISTRATIVO 1A', admissao: '', telefone: '' },
-          { id: 24, nome: 'RAIMUNDO CHARLES MARTINS DE SOUSA', matricula: '408537', cargo: 'COORDENADOR DE TI', admissao: '', telefone: '' },
-          { id: 25, nome: 'RAMIRO LOPES DE SOUZA', matricula: '', cargo: 'TECNICO DE CABEAMENTO', admissao: '', telefone: '' },
-          { id: 26, nome: 'RENATO PEREIRA RAMALHO', matricula: '416193', cargo: 'TÉCNICO DE FIBRA ÓTICA', admissao: '', telefone: '' },
+          { id: 15, nome: 'KELLYANE DA SILVA MELO', matricula: '418279', cargo: 'ANALISTA DE REDES JR II', admissao: '2024-05-08', telefone: '' },
+          { id: 16, nome: 'LENO OSÓRIO SOUSA DIAS', matricula: '409868', cargo: 'TECNICO DE AUTOMAÇÃO INDUSTRIAL', admissao: '2021-10-22', telefone: '' },
+          { id: 17, nome: 'LUCAS DA CRUZ SILVA', matricula: '412568', cargo: 'TÉCNICO DE AUTOMAÇÃO INDUSTRIAL PLENO', admissao: '2022-10-14', telefone: '' },
+          { id: 18, nome: 'MARILENE DE SOUZA CARVALHO', matricula: '370955', cargo: 'LÍDER OPERACIONAL', admissao: '2013-01-02', telefone: '' },
+          { id: 19, nome: 'MATEUS CARDOSO DA SILVA', matricula: '420353', cargo: 'ANALISTA DE REDES SR II', admissao: '2025-05-14', telefone: '' },
+          { id: 20, nome: 'MELQUISEDEC EMERSON SOUSA RESENDE', matricula: '409869', cargo: 'TÉCNICO DE AUTOMAÇÃO INDUSTRIAL PLENO', admissao: '2021-10-13', telefone: '' },
+          { id: 21, nome: 'MATHEUS SANTOS CAMPOS', matricula: '421444', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL PLENO', admissao: '2025-11-12', telefone: '' },
+          { id: 22, nome: 'MARCOS DALLIF OLIVEIRA DOS SANTOS FURTADO', matricula: '419292', cargo: 'TECNICO EM SEGURANÇA DO TRABALHO', admissao: '2024-10-11', telefone: '' },
+          { id: 23, nome: 'PAULO DAVI MONTEIRO', matricula: '420624', cargo: 'ASSISTENTE ADMINISTRATIVO 1A', admissao: '2025-07-08', telefone: '' },
+          { id: 24, nome: 'RAIMUNDO CHARLES MARTINS DE SOUSA', matricula: '408537', cargo: 'COORDENADOR DE TI', admissao: '2020-11-01', telefone: '' },
+          { id: 25, nome: 'RAMIRO LOPES DE SOUZA', matricula: '', cargo: 'TECNICO DE CABEAMENTO', admissao: '2025-09-18', telefone: '' },
+          { id: 26, nome: 'RENATO PEREIRA RAMALHO', matricula: '416193', cargo: 'TÉCNICO DE FIBRA ÓTICA', admissao: '2023-10-20', telefone: '' },
           { id: 27, nome: 'RONALD LUIZ DE SOUZA DA SILVA CORREA', matricula: '419872', cargo: 'TECNICO DE FIBRA OPTICA', admissao: '', telefone: '' },
-          { id: 28, nome: 'ROSIVALDO DE OLIVEIRA CORREA', matricula: '412380', cargo: 'TÉCNICO DE FIBRA ÓTICA', admissao: '', telefone: '' },
-          { id: 29, nome: 'SILVIA LETICIA ALEXANDRINO DE SOUZA', matricula: '411010', cargo: 'ASSISTENTE ADMINISTRATIVO 1A', admissao: '', telefone: '' },
+          { id: 28, nome: 'ROSIVALDO DE OLIVEIRA CORREA', matricula: '412380', cargo: 'TÉCNICO DE FIBRA ÓTICA', admissao: '2022-10-02', telefone: '' },
+          { id: 29, nome: 'SILVIA LETICIA ALEXANDRINO DE SOUZA', matricula: '411010', cargo: 'ASSISTENTE ADMINISTRATIVO 1A', admissao: '2023-11-02', telefone: '' },
           { id: 30, nome: 'THAMIRES LAYLA MATOS CARDOSO', matricula: '419887', cargo: 'ASSISTENTE ADMINISTRATIVO 1A', admissao: '', telefone: '' },
-          { id: 31, nome: 'WALDECYR CYCERO MACQUADE FERREIRA SOUZA', matricula: '409873', cargo: 'ANALISTA DE REDE SR II', admissao: '', telefone: '' },
-          { id: 32, nome: 'WILLIAN FERNANDO DOS SANTOS', matricula: '418572', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '', telefone: '' },
-          { id: 33, nome: 'WUEDER TRINDADE ALHO', matricula: '418106', cargo: 'ANALISTA DE REDE SENIOR', admissao: '', telefone: '' }
+          { id: 31, nome: 'WALDECYR CYCERO MACQUADE FERREIRA SOUZA', matricula: '409873', cargo: 'ANALISTA DE REDE SR II', admissao: '2021-03-18', telefone: '' },
+          { id: 32, nome: 'WILLIAN FERNANDO DOS SANTOS', matricula: '418572', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '2024-06-21', telefone: '' },
+          { id: 33, nome: 'WUEDER TRINDADE ALHO', matricula: '418106', cargo: 'ANALISTA DE REDE SENIOR', admissao: '2024-04-15', telefone: '' },
+          { id: 34, nome: 'ANDRE DA COSTA DOS SANTOS EPAMINONDAS', matricula: '422103', cargo: 'TECNICO EM SEGURANÇA DO TRABALHO', admissao: '2026-06-01', telefone: '94992125268' },
+          { id: 35, nome: 'ROBSON LUIZ ALBUQUERQUE DO CARMO', matricula: '', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '2024-11-01', telefone: '' },
+          { id: 36, nome: 'RONALD DEISON VALENTE MENDES', matricula: '', cargo: 'TECNICO DE CABEAMENTO', admissao: '2026-03-18', telefone: '' },
+          { id: 37, nome: 'MOIZES GARCIA', matricula: '', cargo: 'OPERACIONAL', admissao: '', telefone: '' },
+          { id: 38, nome: 'TALES AUGUSTO ROSA', matricula: '', cargo: 'TÉCNICO DE AUTOMAÇÃO INDUSTRIAL PLENO', admissao: '2024-12-19', telefone: '' },
+          { id: 39, nome: 'RILDON LORENO', matricula: '', cargo: 'OPERACIONAL', admissao: '', telefone: '' },
+          { id: 40, nome: 'EUCLESIO RAFAEL DE SOUZA', matricula: '', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SENIOR', admissao: '2026-03-30', telefone: '' },
+          { id: 41, nome: 'JOAO VITOR DO CARMO MENDES', matricula: '', cargo: 'TECNICO DE FIBRA OPTICA', admissao: '2026-05-19', telefone: '' },
+          { id: 42, nome: 'SILVIO BOTELHO DA SILVA', matricula: '', cargo: 'TÉCNICO EM TECNOLOGIA INDUSTRIAL SENIOR', admissao: '2025-10-02', telefone: '' },
+          { id: 43, nome: 'THIAGO RAMOS PINHEIRO PARANHOS', matricula: '', cargo: 'TECNICO DE AUTOMACAO INDUSTRIAL SÊNIOR', admissao: '2026-03-13', telefone: '' }
         ], epis: [
           { id: 1, nome: 'Capacete de Segurança Classe B 3M', ca: '12345', caVal: '2028-06-30', tamanhos: ['Único'], estoque: { 'Único': 30 } },
           { id: 2, nome: 'Abafador Concha Acuplastic 3M', ca: '34567', caVal: '2027-12-15', tamanhos: ['Único'], estoque: { 'Único': 30 } },
@@ -478,7 +488,7 @@ async function connectFirebase() {
       b.className = 'sync-badge' + (syncStatus === 'error' || syncStatus === 'offline' ? ' sync-warn' : syncStatus === 'ok' && !pending.length ? ' sync-ok' : '');
     }
     function esc(s) { const d = document.createElement('div'); d.textContent = (s == null ? '' : String(s)); return d.innerHTML; }
-    function fmtDate(s) { if (!s) return ''; try { return new Date(s).toLocaleDateString('pt-BR'); } catch (e) { return s; } }
+    function fmtDate(s) { if (!s) return ''; try { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s); if (m) return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString('pt-BR'); return new Date(s).toLocaleDateString('pt-BR'); } catch (e) { return s; } }
     function fmtDateTime(s) { if (!s) return ''; try { return new Date(s).toLocaleString('pt-BR'); } catch (e) { return s; } }
     function parseDate(s) { if (!s) return null; const m = String(s).match(/^(\d{4})-(\d{2})-(\d{2})/); if (m) return new Date(+m[1], +m[2] - 1, +m[3]); const d = new Date(s); return isNaN(d.getTime()) ? null : d; }
     function todayStart() { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
@@ -1977,7 +1987,14 @@ async function connectFirebase() {
       const doc = new jsPDF('p', 'mm', 'a4');
       const d = state.lastDelivery;
       if (!d) { showToast('❌ Entrega não encontrada'); return; }
-      const e = d;
+      const emp = state.employees.find(x => x.id === d.employeeId);
+      const e = {
+        ...d,
+        employeeName: d.employeeName || (emp && emp.nome) || '',
+        matricula: d.matricula || (emp && emp.matricula) || '',
+        cargo: d.cargo || (emp && emp.cargo) || '',
+        admissao: d.admissao || (emp && emp.admissao) || ''
+      };
       const pw = 210, ph = 297;
       const ml = 12, mr = pw - 12;
       const now = new Date();
