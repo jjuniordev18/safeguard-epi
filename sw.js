@@ -1,9 +1,10 @@
 ﻿/* global self, caches, fetch, URL */
-const CACHE = 'safeguard-epi-v4';
+const CACHE = 'safeguard-epi-v5';
 const STATICS = [
   './',
   './index.html',
   './app.js',
+  './domain.js',
   './styles.css',
   './ficha.html',
   './logo.png',
@@ -41,16 +42,12 @@ self.addEventListener('fetch', e => {
   if (url.origin !== self.location.origin) return;
 
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      const fetchPromise = fetch(e.request).then(res => {
-        if (res && res.status === 200) {
-          const copy = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, copy));
-        }
-        return res;
-      }).catch(() => cached);
-
-      return cached || fetchPromise;
-    })
+    fetch(e.request).then(res => {
+      if (res && res.status === 200) {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(e.request, copy));
+      }
+      return res;
+    }).catch(() => caches.match(e.request).then(cached => cached || caches.match('./index.html')))
   );
 });

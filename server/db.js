@@ -7,6 +7,7 @@
 // os dados são importados automaticamente.
 
 const Database = require('better-sqlite3');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { SEED_EMPLOYEES, SEED_EPIS } = require('./seed');
@@ -41,6 +42,7 @@ function init() {
       cargo TEXT NOT NULL DEFAULT '',
       telefone TEXT NOT NULL DEFAULT '',
       admissao TEXT NOT NULL DEFAULT '',
+      public_token TEXT NOT NULL DEFAULT '',
       updated_at TEXT NOT NULL,
       deleted INTEGER NOT NULL DEFAULT 0
     );
@@ -75,11 +77,13 @@ function init() {
     CREATE INDEX IF NOT EXISTS idx_entregas_data ON entregas(data);
     CREATE INDEX IF NOT EXISTS idx_epis_ca ON epis(ca);
   `);
+  const employeeColumns = db.prepare('PRAGMA table_info(employees)').all();
+  if (!employeeColumns.some(column => column.name === 'public_token')) db.exec('ALTER TABLE employees ADD COLUMN public_token TEXT NOT NULL DEFAULT ""');
   migrateOrSeed();
 }
 
 // ---------- mapeamento de linhas ----------
-function e2o(r) { return r ? { id: r.id, nome: r.nome, matricula: r.matricula, cargo: r.cargo, telefone: r.telefone, admissao: r.admissao, updatedAt: r.updated_at } : null; }
+function e2o(r) { return r ? { id: r.id, nome: r.nome, matricula: r.matricula, cargo: r.cargo, telefone: r.telefone, admissao: r.admissao, publicToken: r.public_token || '', updatedAt: r.updated_at } : null; }
 function ep2o(r) { return r ? { id: r.id, nome: r.nome, ca: r.ca, caVal: r.ca_val, tamanhos: JSON.parse(r.tamanhos || '[]'), estoque: JSON.parse(r.estoque || '{}'), renovacaoDias: r.renovacao_dias, estoqueMin: r.estoque_min, updatedAt: r.updated_at } : null; }
 function en2o(r) { return r ? { id: r.id, data: r.data, employeeId: r.employee_id, employeeName: r.employee_name, matricula: r.matricula, cargo: r.cargo, admissao: r.admissao, itens: JSON.parse(r.itens || '[]'), sig1: r.sig1 || null, sig2: r.sig2 || null, createdAt: r.created_at, createdBy: r.created_by, updatedAt: r.updated_at } : null; }
 
@@ -168,8 +172,9 @@ function listEmployees() { return db.prepare('SELECT * FROM employees WHERE dele
 function getEmployee(id) { return e2o(db.prepare('SELECT * FROM employees WHERE id = ? AND deleted = 0').get(id)); }
 function createEmployee(d) {
   const now = new Date().toISOString();
-  const info = db.prepare('INSERT INTO employees (nome, matricula, cargo, telefone, admissao, updated_at) VALUES (?,?,?,?,?,?)')
-    .run(d.nome, d.matricula, d.cargo || '', d.telefone || '', d.admissao || '', now);
+  const publicToken = d.publicToken || crypto.randomBytes(24).toString('hex');
+  const info = db.prepare('INSERT INTO employees (nome, matricula, cargo, telefone, admissao, public_token, updated_at) VALUES (?,?,?,?,?,?,?)')
+    .run(d.nome, d.matricula, d.cargo || '', d.telefone || '', d.admissao || '', publicToken, now);
   return { employee: getEmployee(info.lastInsertRowid), updatedAt: now };
 }
 function updateEmployee(id, d, baseVersion) {

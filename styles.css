@@ -1806,3 +1806,106 @@
       .static-grid { grid-template-columns: repeat(3, 1fr); }
       .search-bar { max-width: 640px; }
     }
+
+    html.dark {
+      --color-ink: #f8fafc;
+      --color-text: #e2e8f0;
+      --color-muted: #cbd5e1;
+      --color-border: #475569;
+      --color-surface: #0f172a;
+      --color-surface-raised: #1e293b;
+      --color-bg: #0b1220;
+      --color-brand-soft: #1e1b4b;
+      --color-accent-soft: #2e1065;
+      color-scheme: dark;
+    }
+
+    html.dark body,
+    html.dark .app {
+      color: var(--color-text);
+    }
+
+    html.dark .card,
+    html.dark .item-row,
+    html.dark .modal {
+      color: var(--color-text);
+    }
+
+    html.dark .section-title,
+    html.dark .input-label,
+    html.dark .empty,
+    html.dark .modal input.readonly,
+    html.dark .readonly {
+      color: var(--color-muted);
+    }
+
+    html.dark .alert {
+      border: 1px solid currentColor;
+    }
+
+    html.dark .box-btn {
+      color: #f8fafc;
+    }
+
+    html.dark .box-btn:hover {
+      color: #fff;
+    }
+
+    html.dark .btn-secondary {
+      color: #f8fafc;
+    }
+
+    html.dark .btn-secondary:hover {
+      color: #fff;
+    }
+
+    html.dark .badge {
+      color: #f8fafc;
+    }
+
+    html.dark .toast {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    html.dark .search-bar input::placeholder,
+    html.dark input::placeholder,
+    html.dark textarea::placeholder {
+      color: #cbd5e1;
+      opacity: .85;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    #kioskExit {
+      min-width: 64px;
+      min-height: 44px;
+      color: #fff;
+      background: rgba(239, 68, 68, .3);
+    }
+
+    @media (pointer: coarse) {
+      .btn.small,
+      .btn.btn-sm,
+      .btn.btn-xs,
+      .delete-btn,
+      .kiosk-nav button {
+        min-width: 44px;
+        min-height: 44px;
+      }
+
+      .delete-btn {
+        width: 44px;
+        height: 44px;
+      }
+    }

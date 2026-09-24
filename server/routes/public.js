@@ -1,16 +1,12 @@
-// ============ Rotas públicas (/api/public) ============
-// Destinadas ao QR Code: permitem ver a ficha de UM colaborador
-// sem exigir login (somente leitura, dados mínimos, sem assinaturas - LGPD).
-
 const express = require('express');
+const crypto = require('crypto');
 const db = require('../db');
 
 const router = express.Router();
-
-// GET /api/public/employee/:id -> { employee, entregas }
 router.get('/employee/:id', (req, res) => {
+  const token = String(req.query.token || '');
   const emp = db.getEmployee(req.params.id);
-  if (!emp) return res.status(404).json({ error: 'Colaborador não encontrado' });
+  if (!emp || !emp.publicToken || !token || token.length !== emp.publicToken.length || !crypto.timingSafeEqual(Buffer.from(token), Buffer.from(emp.publicToken))) return res.status(404).json({ error: 'Ficha não encontrada' });
   const entregas = db.entregasByEmployee(emp.id).map(d => ({
     id: d.id, data: d.data, itens: d.itens,
     employeeName: d.employeeName, matricula: d.matricula,

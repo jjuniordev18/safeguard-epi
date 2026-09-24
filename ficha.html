@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>Ficha de EPI · SondaGuard</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231d4ed8'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='Arial'>🦺</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -100,6 +101,7 @@
 <body>
   <div class="container" id="app"></div>
 
+  <script src="domain.js"></script>
   <script>
     const LS_KEY = 'epi_app_v7';
     const app = document.getElementById('app');
@@ -123,26 +125,32 @@
       return Number(p.get('emp'));
     }
 
+    function getPublicToken() {
+      return new URLSearchParams(location.search).get('token') || '';
+    }
+
     function render() {
       const id = getEmpId();
-      if (!id) { app.innerHTML = errorHTML('ID não informado', 'Acesse via QR Code.'); return; }
+      const token = getPublicToken();
+      if (!id || !token) { app.innerHTML = errorHTML('Link inválido', 'Acesse pela ficha vinculada ao QR Code.'); return; }
       const state = getState();
       if (!state) { app.innerHTML = errorHTML('Dados não encontrados', 'Abra o app SondaGuard primeiro para popular os dados.'); return; }
       const emp = state.employees.find(e => e.id === id);
-      if (!emp) { app.innerHTML = errorHTML('Colaborador não encontrado', 'ID ' + id + ' não existe na base.'); return; }
-      const entregas = (state.entregas || []).filter(d => d.employeeId === id);
+      if (!emp || !emp.publicToken || emp.publicToken !== token) { app.innerHTML = errorHTML('Link inválido', 'Esta ficha não está autorizada.'); return; }
+      migrateLegacyReturns(state);
+      const outstanding = getOutstanding(state, id);
       const agg = {};
-      entregas.forEach(d => {
+      getDeliveries(state).filter(d => d.employeeId === id).forEach(d => {
         (d.itens || []).forEach(it => {
-          if (!agg[it.epiId]) agg[it.epiId] = { nome: it.nome, ca: it.ca, qty: 0, last: d.data, tam: it.tam };
-          agg[it.epiId].qty += it.qty;
-          if (!agg[it.epiId].last || new Date(d.data) > new Date(agg[it.epiId].last)) {
-            agg[it.epiId].last = d.data;
-            agg[it.epiId].tam = it.tam;
+          const key = itemKey(id, it.epiId, it.tam);
+          if (!agg[key]) agg[key] = { nome: it.nome, ca: it.ca, qty: outstanding[key] || 0, last: d.data, tam: it.tam };
+          if (!agg[key].last || new Date(d.data) > new Date(agg[key].last)) {
+            agg[key].last = d.data;
+            agg[key].tam = it.tam;
           }
         });
       });
-      const epis = Object.values(agg).sort((a, b) => b.qty - a.qty);
+      const epis = Object.values(agg).filter(a => a.qty > 0).sort((a, b) => b.qty - a.qty);
       app.innerHTML = `
         <div class="header">
           <div class="logo">🦺</div>
@@ -164,7 +172,7 @@
               <div>
                 <div class="epi-name">${esc(a.nome)}</div>
                 <div class="epi-meta">CA: ${esc(a.ca || '-')} · Tam: ${esc(a.tam || 'Único')}</div>
-                <span class="badge-date">Última entrega: ${fmtDate(a.last)}</span>
+                <span class="badge-date">Última entrega: ${esc(fmtDate(a.last))}</span>
               </div>
               <div class="epi-qty">${a.qty}x</div>
             </div>

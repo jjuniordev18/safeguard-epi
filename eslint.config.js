@@ -28,6 +28,14 @@ module.exports = [
     }
   },
   {
+    files: ['domain.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'script',
+      globals: { ...globals.browser, module: 'readonly' }
+    }
+  },
+  {
     files: ['server/**/*.js'],
     languageOptions: {
       ecmaVersion: 2022,

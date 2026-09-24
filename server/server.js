@@ -21,6 +21,13 @@ db.init();
 backup.start();
 
 const app = express();
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('Permissions-Policy', 'camera=(self)');
+  next();
+});
 app.use(cors({ origin: ALLOWED_ORIGIN }));
 app.use(express.json({ limit: '1mb' }));
 
@@ -33,8 +40,13 @@ app.use('/api/entregas', require('./routes/entregas'));
 app.use('/api/reports', require('./routes/reports'));
 app.use('/api/public', require('./routes/public'));
 
-// Front (arquivos estáticos da raiz do projeto)
-app.use(express.static(path.join(__dirname, '..')));
+const publicRoot = path.join(__dirname, '..');
+const publicFiles = new Set(['index.html', 'app.js', 'domain.js', 'styles.css', 'ficha.html', 'sw.js', 'logo.png', 'manifest.webmanifest', 'firebase-config.js']);
+app.get('*', (req, res, next) => {
+  const file = req.path === '/' ? 'index.html' : req.path.replace(/^\//, '');
+  if (!publicFiles.has(file)) return next();
+  res.sendFile(path.join(publicRoot, file));
+});
 
 // Rotas não encontradas na API
 app.use('/api', (req, res) => res.status(404).json({ error: 'Rota não encontrada' }));

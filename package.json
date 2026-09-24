@@ -4,8 +4,9 @@
   "description": "App de controle de entrega de EPI (SONDA PROCWORK)",
   "main": "app.js",
   "scripts": {
-    "lint": "eslint app.js server",
-    "lint:fix": "eslint --fix app.js server"
+    "lint": "eslint app.js domain.js server",
+    "lint:fix": "eslint --fix app.js domain.js server",
+    "test": "node --test tests/domain.test.js"
   },
   "keywords": [],
   "author": "",

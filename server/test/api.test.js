@@ -18,6 +18,7 @@ let child;
 let token = '';
 let epiId = null;
 let empId = null;
+let empPublicToken = '';
 
 function req(method, url, body, headers = {}) {
   const opts = { method, headers: { ...headers } };
@@ -82,6 +83,7 @@ test('cria colaborador com nome/matrícula', async () => {
   const r = await auth('POST', '/api/employees', { nome: 'TESTE FUNCIONARIO', matricula: '777777' });
   assert.equal(r.status, 201);
   empId = r.json.employee.id;
+  empPublicToken = r.json.employee.publicToken;
   assert.ok(empId);
 });
 
@@ -141,10 +143,22 @@ test('export CSV', async () => {
   assert.match(txt, /EPI/);
 });
 
-test('rota pública por id não exige auth', async () => {
-  const r = await req('GET', '/api/public/employee/' + empId);
+test('rota pública exige token', async () => {
+  const semToken = await req('GET', '/api/public/employee/' + empId);
+  assert.equal(semToken.status, 404);
+  const r = await req('GET', '/api/public/employee/' + empId + '?token=' + encodeURIComponent(empPublicToken));
   assert.equal(r.status, 200);
   assert.equal(r.json.employee.id, empId);
+});
+
+test('arquivos sensíveis não são servidos pelo backend', async () => {
+  const r = await fetch(BASE + '/server/.env');
+  assert.equal(r.status, 404);
+});
+
+test('service worker é servido pelo backend', async () => {
+  const r = await fetch(BASE + '/sw.js');
+  assert.equal(r.status, 200);
 });
 
 // ========== NOVOS TESTES ==========

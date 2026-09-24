@@ -7,7 +7,6 @@
     const LEIS = 'Ciente da Lei 623, § 1º, inciso I, do artigo 158 da CLT, que dispõe sobre a obrigação do empregado de utilizar o EPI fornecido pela empresa, sujeito às penalidades previstas em lei (NR-1, subitem 1.8.11).';
 
     const REASONS = ['Admissão', 'Troca por Desgaste', 'Troca por Vencimento', 'Perda/Extravio', 'Danos por Acidente'];
-    const ADMIN_PWD = '2121';
 
     const LOGO_B64 = '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';
     function setLogo() {
@@ -21,7 +20,7 @@
     const SEED_VER_KEY = 'epi_seed_ver';
     const SEED_VER = 3;
     const MAX_ENTREGAS = 500;
-    let state = { employees: [], epis: [], entregas: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: [] };
+    let state = { employees: [], epis: [], entregas: [], returns: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: [] };
     let counters = { emp: 1, epi: 1 };
     let syncStatus = 'idle'; // idle | syncing | ok | error | offline
     let _wasSeeded = false;
@@ -35,6 +34,9 @@
     let _reconnectAttempts = 0;
     let db, auth, fbUser;
     let _listenersAttached = false;
+    let _authUser = null;
+    let _authAdmin = false;
+    let _authReady = false;
 
     function load() {
       try { const s = JSON.parse(localStorage.getItem(LS_KEY)); if (s) state = s; } catch (e) { }
@@ -42,14 +44,23 @@
       if (!localStorage.getItem(LS_KEY) || savedVer < SEED_VER) {
         _wasSeeded = true;
         const entregasAntigas = state.entregas || [];
+        const devolucoesAntigas = state.returns || [];
         seed();
         state.entregas = entregasAntigas;
+        state.returns = devolucoesAntigas;
         save();
         try { localStorage.setItem(SEED_VER_KEY, String(SEED_VER)); } catch (e) { }
       }
+      state.returns = state.returns || [];
+      state.archivedEntregas = state.archivedEntregas || [];
+      migrateLegacyReturns(state);
+      const archivedReturns = state.archivedEntregas.filter(isReturn);
+      state.archivedEntregas = state.archivedEntregas.filter(isDelivery);
+      state.returns.push(...archivedReturns.filter(r => !state.returns.some(existing => String(existing.id) === String(r.id))));
       recomputeCounters();
       migrateNumericEpiNames();
       cleanupEmptyEpis();
+      save();
     }
     function migrateNumericEpiNames() {
       let numericOnly = state.epis.filter(function(e) { return /^\d+$/.test((e.nome || '').trim()); });
@@ -93,26 +104,32 @@
       try { return JSON.parse(localStorage.getItem(PEND_KEY)) || []; } catch (e) { return []; }
     }
     function savePending(p) { try { localStorage.setItem(PEND_KEY, JSON.stringify(p)); } catch (e) { } }
-    async function processPending() {
+    let _pendingProcessing = null;
+    function samePendingOperation(left, right) {
+      if (left.opId && right.opId) return left.opId === right.opId;
+      return left.type === right.type && left.action === right.action && JSON.stringify(left.data) === JSON.stringify(right.data);
+    }
+    async function processPendingInternal() {
       if (!db) return;
-      let p = loadPending();
-      if (!p.length) return;
+      const pending = loadPending();
+      if (!pending.length) return;
+      const processed = pending.slice();
       const ops = [];
-      p.forEach(({ type, action, data }) => {
+      processed.forEach(({ type, action, data }) => {
         if (type === 'employee') {
           const ref = db.collection('employees').doc(String(data.id));
           if (action === 'delete') ops.push({ ref, type: 'delete' });
-          else ops.push({ ref, data: { ...data, updatedAt: new Date().toISOString() } });
+          else ops.push({ ref, data: { ...data, updatedAt: data.updatedAt || new Date().toISOString(), revision: Date.now() } });
         }
         if (type === 'epi') {
           const ref = db.collection('epis').doc(String(data.id));
           if (action === 'delete') ops.push({ ref, type: 'delete' });
-          else ops.push({ ref, data: { ...data, updatedAt: new Date().toISOString() } });
+          else ops.push({ ref, data: { ...data, updatedAt: data.updatedAt || new Date().toISOString(), revision: Date.now() } });
         }
         if (type === 'entrega') {
           const ref = db.collection('entregas').doc(String(data.id));
           if (action === 'delete') ops.push({ ref, type: 'delete' });
-          else ops.push({ ref, data: { ...data } });
+          else ops.push({ ref, data: { ...data, updatedAt: data.updatedAt || new Date().toISOString(), revision: Date.now() } });
         }
       });
       if (ops.length > 0) {
@@ -125,22 +142,27 @@
           await batch.commit();
         }
       }
-      savePending([]);
+      savePending(loadPending().filter(operation => !processed.some(done => samePendingOperation(operation, done))));
       updateSyncBadge();
     }
+    function processPending() {
+      if (_pendingProcessing) return _pendingProcessing;
+      _pendingProcessing = processPendingInternal().finally(() => { _pendingProcessing = null; });
+      return _pendingProcessing;
+    }
     function addPending(type, action, data) {
-      let p = loadPending();
-      p.push({ type, action, data, ts: Date.now() });
+      const p = loadPending();
+      p.push({ opId: 'op-' + Date.now() + '-' + Math.random().toString(36).slice(2), type, action, data, ts: Date.now() });
       savePending(p);
       updateSyncBadge();
     }
     function save() {
       try {
-        const toSave = { employees: state.employees, epis: state.epis, entregas: state.entregas, cart: state.cart, cur: state.cur, notifications: state.notifications, archivedEntregas: state.archivedEntregas };
+        const toSave = { employees: state.employees, epis: state.epis, entregas: state.entregas, returns: state.returns, cart: state.cart, cur: state.cur, notifications: state.notifications, archivedEntregas: state.archivedEntregas };
         localStorage.setItem(LS_KEY, JSON.stringify(toSave));
       } catch (e) { showToast('⚠️ Armazenamento cheio — exporte um backup (JSON)'); }
       processPending().catch(e => console.warn('[FB] Erro ao processar pendências:', e));
-      if (db) { console.log('[FB] save() → pushToFirebase, employees:', state.employees.length); pushToFirebase(); }
+      if (db) { console.log('[FB] save() → fila local persistida, employees:', state.employees.length); }
     }
     function recomputeCounters() {
       counters.emp = state.employees.reduce((m, e) => Math.max(m, e.id || 0), 0) + 1;
@@ -174,7 +196,7 @@
       container.innerHTML = notif.slice().reverse().map(function(n) {
         return '<div class="card static" style="border-left:3px solid ' + (n.type === 'warning' ? '#d97706' : n.type === 'danger' ? '#dc2626' : '#16a34a') + ';">' +
           '<div style="display:flex;justify-content:space-between;align-items:start;">' +
-          '<div><div style="font-size:12px;color:var(--gray);font-weight:600;">' + fmtDateTime(new Date(n.ts)) + '</div>' +
+          '<div><div style="font-size:12px;color:var(--gray);font-weight:600;">' + esc(fmtDateTime(new Date(n.ts))) + '</div>' +
           '<div style="font-size:13px;margin-top:4px;">' + esc(n.msg) + '</div></div>' +
           '<div style="font-size:11px;color:var(--gray);">' + esc(n.tag || '') + '</div>' +
           '</div></div>';
@@ -239,7 +261,7 @@
           { id: 7, nome: 'Luva Anti-corte EPI', ca: '89012', caVal: '2028-04-18', tamanhos: ['P', 'M', 'G', 'GG'], estoque: { P: 20, M: 25, G: 20, GG: 10 } },
           { id: 8, nome: 'Luva Anti-impacto', ca: '90123', caVal: '2028-03-10', tamanhos: ['P', 'M', 'G', 'GG'], estoque: { P: 10, M: 12, G: 10, GG: 6 } },
           { id: 9, nome: 'Touca Balaclava Hercules', ca: '90234', caVal: '2028-05-01', tamanhos: ['Único'], estoque: { 'Único': 20 } }
-        ], entregas: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: []
+        ],         entregas: [], returns: [], cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: []
       };
       save();
     }
@@ -252,6 +274,17 @@
       firebase.initializeApp(firebaseConfig);
       auth = firebase.auth();
       db = firebase.firestore();
+      auth.onAuthStateChanged(async user => {
+        _authUser = user;
+        _authReady = true;
+        if (user) {
+          const token = await user.getIdTokenResult();
+          _authAdmin = token.claims && token.claims.admin === true;
+          await connectFirebase();
+        } else if (db) {
+          _authAdmin = false;
+        }
+      });
       db.enablePersistence({ experimentalTabSynchronization: true }).catch(e => {
         if (e && (e.code === 'failed-precondition' || e.code === 'unimplemented')) {
           console.warn('[FB] Persistência offline indisponível (' + e.code + ') — usando memória');
@@ -261,12 +294,12 @@
       });
       return true;
     }
-async function connectFirebase() {
+    async function connectFirebase() {
       if (!auth) { console.warn('[FB] auth não disponível'); return false; }
+      if (!_authUser) return false;
       try {
         console.log('[FB] Conectando...');
-        await auth.signInAnonymously();
-        fbUser = auth.currentUser;
+        fbUser = _authUser;
         console.log('[FB] Auth OK, uid:', fbUser.uid);
         if (_wasSeeded) console.log('[FB] Seed detectado — reconciliando sem sobrescrever o servidor');
         await reconcileWithFirestore();
@@ -298,7 +331,9 @@ async function connectFirebase() {
         });
       }, fbListenerError);
       db.collection('entregas').onSnapshot(snap => {
-        state.entregas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        const records = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        state.entregas = records.filter(isDelivery);
+        state.returns = records.filter(isReturn);
         try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
         if (curScreen === 'history' || curScreen === 'employee' || curScreen === 'empview' || curScreen === 'dashboard' || curScreen === 'delivered' || curScreen === 'report' || curScreen === 'devolution') go(curScreen);
       }, fbListenerError);
@@ -325,25 +360,34 @@ async function connectFirebase() {
         if (empSnap.size === 0 && epiSnap.size === 0) {
           console.log('[FB] Firebase vazio — enviando estado local');
         }
-        await pushToFirebaseNow();
+        if (empSnap.size === 0 && epiSnap.size === 0) await pushToFirebaseNow(true);
       } catch (e) {
         console.warn('[FB] Offline — usando cache local até reconectar:', e);
         attachListeners();
       }
     }
     function mergeFromServer(fbEmps, fbEpis, fbEnts) {
+      const allLocal = getDeliveries(state).concat(getReturns(state));
       const merge = (local, fb, keyOf) => {
         const keys = {};
         local.forEach(x => { keys[keyOf(x)] = 1; });
         fb.forEach(x => { keys[keyOf(x)] = 1; });
         const byKey = {};
+        const versionOf = value => Number(value.revision || Date.parse(value.updatedAt || '') || 0);
         local.forEach(x => { byKey[keyOf(x)] = x; });
-        fb.forEach(x => { byKey[keyOf(x)] = x; });
+        fb.forEach(x => {
+          const key = keyOf(x);
+          if (!byKey[key] || versionOf(x) >= versionOf(byKey[key])) byKey[key] = x;
+        });
         return Object.keys(keys).map(k => byKey[k]);
       };
       if (fbEmps.length) state.employees = merge(state.employees, fbEmps, x => String(x.id));
       if (fbEpis.length) state.epis = merge(state.epis, fbEpis, x => String(x.id));
-      if (fbEnts.length) state.entregas = merge(state.entregas, fbEnts, x => String(x.id));
+      if (fbEnts.length) {
+        const merged = merge(allLocal, fbEnts, x => String(x.id));
+        state.entregas = merged.filter(isDelivery);
+        state.returns = merged.filter(isReturn);
+      }
       recomputeCounters();
       try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
     }
@@ -360,8 +404,7 @@ async function connectFirebase() {
     }
     function flushSync() {
       if (!db) return;
-      processPending();
-      pushToFirebaseNow();
+      processPending().catch(e => console.warn('[FB] Erro ao sincronizar fila:', e));
     }
     function onAppOnline() {
       console.log('[FB] Conexão restaurada — sincronizando');
@@ -382,25 +425,28 @@ async function connectFirebase() {
       let bar = document.getElementById('offlineBar');
       if (!bar) { bar = document.createElement('div'); bar.id = 'offlineBar'; bar.textContent = '📡 Sem conexão — dados salvos localmente'; bar.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#ef4444;color:#fff;text-align:center;padding:6px;font-size:13px;font-weight:600;'; document.body.appendChild(bar); }
     }
-    async function pushToFirebaseNow() {
+    async function pushToFirebaseNow(full = false) {
       if (!db) { console.warn('[FB] db não disponível'); return; }
+      if (!full) return;
       try {
         const ops = [];
+        const pushRevision = Date.now();
         const MAX_STR = 500;
         state.employees.forEach(e => {
           if (!e || typeof e.id === 'undefined' || !e.nome) return;
           const ref = db.collection('employees').doc(String(e.id));
-          ops.push({ ref, data: { id: Number(e.id) || 0, nome: String(e.nome || '').trim().slice(0, MAX_STR), matricula: String(e.matricula || '').trim().slice(0, 50), cargo: String(e.cargo || '').trim().slice(0, MAX_STR), telefone: String(e.telefone || '').trim().slice(0, 20), admissao: String(e.admissao || '').slice(0, 10), updatedAt: String(e.updatedAt || new Date().toISOString()).slice(0, 30) } });
+          ops.push({ ref, data: { schemaVersion: 2, revision: pushRevision, id: Number(e.id) || 0, nome: String(e.nome || '').trim().slice(0, MAX_STR), matricula: String(e.matricula || '').trim().slice(0, 50), cargo: String(e.cargo || '').trim().slice(0, MAX_STR), telefone: String(e.telefone || '').trim().slice(0, 20), admissao: String(e.admissao || '').slice(0, 10), publicToken: String(e.publicToken || '').slice(0, 64), updatedAt: String(e.updatedAt || new Date().toISOString()).slice(0, 30) } });
         });
         state.epis.forEach(p => {
           if (!p || typeof p.id === 'undefined' || !p.nome || !p.ca) return;
           const ref = db.collection('epis').doc(String(p.id));
-          ops.push({ ref, data: { id: Number(p.id) || 0, nome: String(p.nome || '').trim().slice(0, MAX_STR), fabricante: String(p.fabricante || '').trim().slice(0, MAX_STR), ca: String(p.ca || '').trim().slice(0, 30), caVal: String(p.caVal || '').slice(0, 10), tamanhos: Array.isArray(p.tamanhos) ? p.tamanhos.map(t => String(t).slice(0, 20)) : ['Único'], estoque: p.estoque && typeof p.estoque === 'object' ? p.estoque : {}, renovacaoDias: Math.min(Number(p.renovacaoDias) || 0, 9999), estoqueMin: Math.min(Number(p.estoqueMin) || 0, 9999), updatedAt: String(p.updatedAt || new Date().toISOString()).slice(0, 30) } });
+          ops.push({ ref, data: { schemaVersion: 2, revision: pushRevision, id: Number(p.id) || 0, nome: String(p.nome || '').trim().slice(0, MAX_STR), fabricante: String(p.fabricante || '').trim().slice(0, MAX_STR), ca: String(p.ca || '').trim().slice(0, 30), caVal: String(p.caVal || '').slice(0, 10), tamanhos: Array.isArray(p.tamanhos) ? p.tamanhos.map(t => String(t).slice(0, 20)) : ['Único'], estoque: p.estoque && typeof p.estoque === 'object' ? p.estoque : {}, renovacaoDias: Math.min(Math.max(Number(p.renovacaoDias) || 0, 0), 9999), estoqueMin: Math.min(Math.max(Number(p.estoqueMin) || 0, 0), 9999), updatedAt: String(p.updatedAt || new Date().toISOString()).slice(0, 30) } });
         });
-        state.entregas.forEach(d => {
+        getDeliveries(state).concat(getReturns(state)).forEach(d => {
           if (!d || typeof d.id !== 'string' || !d.id) return;
+          const returned = isReturn(d);
           const ref = db.collection('entregas').doc(d.id);
-          ops.push({ ref, data: { id: String(d.id).slice(0, 50), employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), matricula: String(d.matricula || '').trim().slice(0, 50), cargo: String(d.cargo || '').trim().slice(0, MAX_STR), admissao: String(d.admissao || '').slice(0, 10), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), ca: String(it.ca || '').trim().slice(0, 30), tam: String(it.tam || '').slice(0, 20), qty: Math.min(Number(it.qty) || 1, 999), motivo: String(it.motivo || it.reason || '').trim().slice(0, MAX_STR), obs: String(it.obs || '').trim().slice(0, MAX_STR), reason: String(it.reason || it.motivo || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null, itemSigs: Array.isArray(d.itemSigs) ? d.itemSigs.map(s => typeof s === 'string' ? s.slice(0, 50000) : null) : [] } });
+          ops.push({ ref, data: { schemaVersion: 2, revision: pushRevision, id: String(d.id).slice(0, 50), type: returned ? 'return' : 'delivery', tipo: returned ? 'devolucao' : 'entrega', employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), matricula: String(d.matricula || '').trim().slice(0, 50), cargo: String(d.cargo || '').trim().slice(0, MAX_STR), admissao: String(d.admissao || '').slice(0, 10), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), ca: String(it.ca || '').trim().slice(0, 30), tam: String(it.tam || '').slice(0, 20), qty: normalizeQuantity(it.qty, 999) || 1, motivo: String(it.motivo || it.reason || '').trim().slice(0, MAX_STR), obs: String(it.obs || '').trim().slice(0, MAX_STR), reason: String(it.reason || it.motivo || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), motivo: String(d.motivo || '').trim().slice(0, MAX_STR), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null, itemSigs: Array.isArray(d.itemSigs) ? d.itemSigs.map(s => typeof s === 'string' ? s.slice(0, 50000) : null) : [] } });
         });
         for (let i = 0; i < ops.length; i += 500) {
           const batch = db.batch();
@@ -420,13 +466,10 @@ async function connectFirebase() {
       clearTimeout(_pushTimer);
       _pushTimer = setTimeout(() => pushToFirebaseNow(), 300);
     }
-    let _isAdmin = false;
-    function isAdmin() { return _isAdmin; }
+    function isAdmin() { return _authAdmin; }
     function requireAdmin() {
-      if (_isAdmin) return true;
-      const pwd = prompt('Digite a senha de administrador:');
-      if (pwd === ADMIN_PWD) { _isAdmin = true; return true; }
-      showToast('❌ Senha incorreta');
+      if (_authAdmin) return true;
+      showToast('Acesso restrito a administradores autenticados.');
       return false;
     }
     async function syncEmpPublic(id) {
@@ -438,13 +481,20 @@ async function connectFirebase() {
         let entregasSnap = null;
         try { entregasSnap = await db.collection('entregas').where('employeeId', '==', Number(id)).get(); } catch (e) { }
         state.cur.emp = emp;
-        state._empPublic = entregasSnap ? entregasSnap.docs.map(d => ({ id: d.id, ...d.data() })) : state.entregas.filter(d => d.employeeId === Number(id));
+        state._empPublic = (entregasSnap ? entregasSnap.docs.map(d => ({ id: d.id, ...d.data() })) : getDeliveries(state).concat(getReturns(state)).filter(d => d.employeeId === Number(id))).filter(isDelivery);
         go('empview');
       } catch (e) { go('home'); showToast('❌ Erro ao buscar dados'); }
     }
 
     // ==================== UTILS ====================
     function debounce(fn, ms) { let t; return function () { clearTimeout(t); const a = arguments, ctx = this; t = setTimeout(function () { fn.apply(ctx, a); }, ms); }; }
+    function enhanceInteractiveElements() {
+      document.querySelectorAll('.screen.active [onclick]').forEach(element => {
+        if (element.tagName === 'BUTTON' || element.tagName === 'INPUT' || element.tagName === 'A') return;
+        if (!element.hasAttribute('role')) element.setAttribute('role', 'button');
+        if (!element.hasAttribute('tabindex')) element.setAttribute('tabindex', '0');
+      });
+    }
     function go(id) {
       curScreen = id;
       if (document.documentElement.classList.contains('kiosk')) {
@@ -461,9 +511,10 @@ async function connectFirebase() {
       if (id === 'signature') renderSig();
       if (id === 'history') renderHistory('');
       if (id === 'delivered') renderDelivered('');
+      if (id === 'fichas') renderFichas('');
       if (id === 'employees') renderEmps('');
       if (id === 'epis') renderEpiMgmt('');
-      if (id === 'recover') { document.getElementById('recoverPwd').value = ''; document.getElementById('recoverAuth').style.display = ''; document.getElementById('recoverContent').style.display = 'none'; }
+      if (id === 'recover') { document.getElementById('recoverAuth').style.display = ''; document.getElementById('recoverContent').style.display = 'none'; }
       if (id === 'report') { if (!document.getElementById('reportFrom').value) { const d = new Date(); d.setDate(1); document.getElementById('reportFrom').value = d.toISOString().slice(0, 10); document.getElementById('reportTo').value = new Date().toISOString().slice(0, 10); } renderReport(); }
       if (id === 'devolution') renderDevolution();
       if (id === 'dashboard') renderDashboard();
@@ -473,6 +524,9 @@ async function connectFirebase() {
         const el = document.getElementById('nv-' + s);
         if (el) el.classList.toggle('active', s === id);
       });
+      enhanceInteractiveElements();
+      const nav = document.querySelector('.bottom-nav');
+      if (nav) nav.style.display = '';
       updateKioskUI();
       window.scrollTo(0, 0);
     }
@@ -524,9 +578,9 @@ async function connectFirebase() {
     // ==================== HOME ====================
     function renderHome() {
       const today = new Date().toDateString();
-      const todayD = state.entregas.filter(d => new Date(d.data).toDateString() === today);
+      const todayD = getDeliveries(state).filter(d => new Date(d.data).toDateString() === today);
       document.getElementById('stToday').textContent = todayD.length;
-      document.getElementById('stTotal').textContent = state.entregas.length;
+      document.getElementById('stTotal').textContent = getDeliveries(state).length;
       document.getElementById('stEmp').textContent = state.employees.length;
       document.getElementById('stEpi').textContent = state.epis.length;
 
@@ -567,7 +621,7 @@ async function connectFirebase() {
           <div style="font-weight:600;">${esc(e.nome)}</div>
           <div style="color:var(--gray);font-size:12px;">Mat: ${esc(e.matricula)} | ${esc(e.cargo || '-')}</div>
         </div>
-        <span class="badge badge-info">${state.entregas.filter(d => d.employeeId === e.id).length} entregas</span>
+        <span class="badge badge-info">${getDeliveries(state).filter(d => d.employeeId === e.id).length} entregas</span>
       </div>
     </div>`).join('') || '<p class="empty">Nenhum colaborador encontrado</p>';
     }
@@ -583,7 +637,7 @@ async function connectFirebase() {
     // ==================== FUNCIONÁRIO ====================
     function renderEmployee() {
       const e = state.cur.emp;
-      const entregas = state.entregas.filter(d => d.employeeId === e.id);
+      const entregas = getDeliveries(state).filter(d => d.employeeId === e.id);
       const hoje = new Date().toDateString();
       const entregueHoje = entregas.filter(d => new Date(d.data).toDateString() === hoje).length;
 
@@ -594,7 +648,7 @@ async function connectFirebase() {
         <div style="flex:1;">
           <div style="font-size:17px;font-weight:700;">${esc(e.nome)}</div>
           <div style="color:var(--gray);font-size:13px;">Mat: ${esc(e.matricula)} | Cargo: ${esc(e.cargo || '-')}</div>
-          <div style="color:var(--gray);font-size:12px;">Admissão: ${fmtDate(e.admissao)} · ${entregas.length} entregas totais · ${entregueHoje} hoje</div>
+          <div style="color:var(--gray);font-size:12px;">Admissão: ${esc(fmtDate(e.admissao))} · ${entregas.length} entregas totais · ${entregueHoje} hoje</div>
         </div>
         <button class="btn btn-warning small" onclick="openQR(${e.id})" title="QR Code da ficha">🔳 QR</button>
       </div>
@@ -611,14 +665,19 @@ async function connectFirebase() {
       state.epis.forEach(ep => {
         if (isDueRenewal(ep.id)) {
           const d = renovacaoDueDate(ep.id);
-          alerts.push({ t: 'warning', msg: `♻️ Renovar: ${esc(ep.nome)} (venc. ${fmtDate(d)})` });
+          alerts.push({ t: 'warning', msg: `♻️ Renovar: ${esc(ep.nome)} (venc. ${esc(fmtDate(d))})` });
         }
       });
       document.getElementById('empAlerts').innerHTML = alerts.length
         ? alerts.map(a => `<div class="alert alert-${a.t}">${a.msg}</div>`).join('')
         : '';
 
-      document.getElementById('empDelivered').innerHTML = empDeliveredHTML(state.entregas.filter(d => d.employeeId === e.id));
+      document.getElementById('empDelivered').innerHTML = empDeliveredHTML(getDeliveries(state).filter(d => d.employeeId === e.id), e.id);
+      const returns = getReturns(state).filter(d => d.employeeId === e.id).slice().reverse();
+      document.getElementById('empReturns').innerHTML = returns.length ? returns.map(d => {
+        const total = (d.itens || []).reduce((a, it) => a + Number(it.qty || 0), 0);
+        return `<div class="item-row"><div><div style="font-weight:600;">${esc(fmtDateTime(d.data))} · ${total} item(ns) devolvido(s)</div><div style="font-size:12px;color:var(--gray);">${esc(d.motivo || 'Devolução')}</div></div></div>`;
+      }).join('') : '<p class="empty">Nenhuma devolução registrada.</p>';
 
       renderCart(); updateFinish();
     }
@@ -651,9 +710,9 @@ async function connectFirebase() {
       <div style="display:flex;justify-content:space-between;align-items:start;">
         <div>
           <div style="font-weight:600;">${esc(e.nome)}</div>
-           <div style="font-size:12px;color:var(--gray);">${e.fabricante ? esc(e.fabricante) + ' | ' : ''}CA: ${esc(e.ca)} | Tam: ${e.tamanhos.join(', ')} | Est: ${estLabel}</div>
+            <div style="font-size:12px;color:var(--gray);">${e.fabricante ? esc(e.fabricante) + ' | ' : ''}CA: ${esc(e.ca)} | Tam: ${esc((e.tamanhos || []).join(', '))} | Est: ${estLabel}</div>
           ${venc ? '<div style="font-size:12px;color:var(--red);font-weight:600;margin-top:4px;">🚫 CA VENCIDO — entrega bloqueada</div>'
-            : e.caVal ? `<div style="font-size:12px;color:var(--green);margin-top:4px;">✓ CA válido até ${fmtDate(e.caVal)}</div>` : ''}
+            : e.caVal ? `<div style="font-size:12px;color:var(--green);margin-top:4px;">✓ CA válido até ${esc(fmtDate(e.caVal))}</div>` : ''}
         </div>
       </div>
     </div>`;
@@ -663,7 +722,7 @@ async function connectFirebase() {
     function lastDeliveryDate(epiId) {
       const emp = state.cur.emp;
       if (!emp) return null;
-      const last = state.entregas
+      const last = getDeliveries(state)
         .filter(d => d.employeeId === emp.id && d.itens.some(i => i.epiId === epiId))
         .sort((a, b) => new Date(b.data) - new Date(a.data))[0];
       return last ? new Date(last.data) : null;
@@ -692,8 +751,9 @@ async function connectFirebase() {
         const lim = stockLim(epi, t);
         const disabled = lim === 0 ? 'disabled style="opacity:.35"' : '';
         const label = lim === Infinity ? '∞' : lim;
-        return `<button class="size-btn" onclick="pickSize('${t}',this)" ${disabled}>${t}<br><span style="font-size:10px;font-weight:400;">(${label})</span></button>`;
+        return `<button class="size-btn" data-size="${esc(t)}" ${disabled}>${esc(t)}<br><span style="font-size:10px;font-weight:400;">(${label})</span></button>`;
       }).join('');
+      document.querySelectorAll('#sizeGrid .size-btn').forEach(button => button.addEventListener('click', () => pickSize(button.dataset.size, button)));
       bindReasons();
       const dueRenew = isDueRenewal(id);
       document.querySelectorAll('#reasonGroup .radio-option').forEach(o => {
@@ -886,13 +946,13 @@ async function connectFirebase() {
       const _now = new Date().toISOString();
       state.cart.forEach(it => {
         const epi = state.epis.find(x => x.id === it.epiId);
-        if (estoqueLimitado(epi)) { epi.estoque[it.tam] = (epi.estoque[it.tam] || 0) - it.qty; epi.updatedAt = _now; }
+        if (estoqueLimitado(epi)) { epi.estoque[it.tam] = (epi.estoque[it.tam] || 0) - it.qty; epi.updatedAt = _now; addPending('epi', 'upsert', { ...epi }); }
       });
       delivery.createdAt = _now; delivery.updatedAt = _now;
       state.entregas.push(delivery);
-      if (state.entregas.length > MAX_ENTREGAS) {
+      if (getDeliveries(state).length > MAX_ENTREGAS) {
         state.archivedEntregas = state.archivedEntregas || [];
-        const toArchive = state.entregas.splice(0, state.entregas.length - MAX_ENTREGAS);
+        const toArchive = state.entregas.splice(0, getDeliveries(state).length - MAX_ENTREGAS);
         state.archivedEntregas.push(...toArchive);
         if (state.archivedEntregas.length > 2000) state.archivedEntregas = state.archivedEntregas.slice(-2000);
       }
@@ -910,7 +970,7 @@ async function connectFirebase() {
     function renderHistory(q) {
       q = (q || '').toLowerCase();
       const agg = {};
-      state.entregas.forEach(d => {
+      getDeliveries(state).forEach(d => {
         if (!agg[d.employeeId]) agg[d.employeeId] = { employeeId: d.employeeId, employeeName: d.employeeName, matricula: d.matricula, epiMap: {}, qty: 0, entregas: 0, lastData: '', lastId: d.id };
         const a = agg[d.employeeId];
         d.itens.forEach(it => {
@@ -923,7 +983,6 @@ async function connectFirebase() {
         if (!a.lastData || new Date(d.data) > new Date(a.lastData)) { a.lastData = d.data; a.lastId = d.id; }
       });
       const list = Object.values(agg).filter(a => a.employeeName.toLowerCase().includes(q));
-      const admin = _isAdmin;
       const totalUnicos = list.filter(a => a.employeeId && a.employeeName).length;
       const totalQtyGeral = list.reduce((a, x) => a + x.qty, 0);
       const totaisHtml = `<div class="card static" style="display:flex;justify-content:space-around;text-align:center;padding:12px;">
@@ -938,7 +997,7 @@ async function connectFirebase() {
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
           <div style="font-weight:600;">👤 ${esc(a.employeeName)}${a.matricula ? ` <span class="badge badge-info">${esc(a.matricula)}</span>` : ''}</div>
-          <div style="font-size:12px;color:var(--gray);">📅 ${fmtDateTime(a.lastData)} · ${a.entregas} entrega(s) · ${a.qty} itens</div>
+          <div style="font-size:12px;color:var(--gray);">📅 ${esc(fmtDateTime(a.lastData))} · ${a.entregas} entrega(s) · ${a.qty} itens</div>
           <div style="font-size:12px;color:var(--gray);">${epis}</div>
         </div>
         <div style="display:flex;gap:6px;align-items:center;">
@@ -950,26 +1009,48 @@ async function connectFirebase() {
     }
 
     function viewDelivery(id) {
-      state.lastDelivery = state.entregas.find(d => d.id === id);
+      state.lastDelivery = getDeliveries(state).find(d => d.id === id);
       if (state.lastDelivery) generatePDF();
     }
     function viewEmployeeFicha(employeeId) {
-      const entregas = state.entregas.filter(d => d.employeeId === Number(employeeId));
-      if (!entregas.length) { showToast('❌ Nenhuma ficha para este colaborador'); return; }
+      const entregas = getAllDeliveries(state).filter(d => String(d.employeeId) === String(employeeId));
+      if (!entregas.length) { showToast('Nenhuma ficha para este colaborador'); return; }
       const agg = {};
-      entregas.forEach(d => d.itens.forEach(it => {
-        const key = (it.nome || '') + '|' + (it.tam || '') + '|' + (it.ca || '');
+      entregas.forEach(d => (d.itens || []).forEach(it => {
+        const key = itemKey(employeeId, it.epiId, it.tam);
         if (!agg[key]) agg[key] = { nome: it.nome, tam: it.tam, ca: it.ca, qty: Number(it.qty) || 0, dataReceb: it.dataReceb || d.data || '', motivo: '', obs: '' };
         else { agg[key].qty += Number(it.qty) || 0; if ((it.dataReceb || d.data) > agg[key].dataReceb) agg[key].dataReceb = it.dataReceb || d.data; }
       }));
       const last = entregas[entregas.length - 1];
-      state.lastDelivery = Object.assign({}, last, { id: 'FICHA-AGG-' + employeeId, itens: Object.values(agg), sig1: null });
+      state.lastDelivery = Object.assign({}, last, { id: 'FICHA-AGG-' + employeeId, itens: Object.values(agg), sig1: null, itemSigs: [] });
       generatePDF();
+    }
+    function openEmployeeFicha(employeeId) {
+      const employee = state.employees.find(item => String(item.id) === String(employeeId));
+      const delivery = getAllDeliveries(state).find(item => String(item.employeeId) === String(employeeId));
+      if (!employee && !delivery) { showToast('Colaborador não encontrado'); return; }
+      state.cur.emp = employee || { id: Number(employeeId), nome: delivery.employeeName, matricula: delivery.matricula || '', cargo: delivery.cargo || '', admissao: delivery.admissao || '' };
+      state.cart = [];
+      go('empview');
+    }
+    function renderFichas(q) {
+      q = (q || '').toLowerCase();
+      const employees = new Map();
+      getAllDeliveries(state).forEach(delivery => {
+        const id = String(delivery.employeeId);
+        if (!employees.has(id)) employees.set(id, { id: delivery.employeeId, nome: delivery.employeeName, matricula: delivery.matricula || '', cargo: delivery.cargo || '', deliveries: 0, items: 0, epis: new Set(), last: '' });
+        const employee = employees.get(id);
+        employee.deliveries++;
+        (delivery.itens || []).forEach(item => { employee.items += Number(item.qty) || 0; employee.epis.add(item.epiId + '|' + normalizeSize(item.tam)); });
+        if (!employee.last || new Date(delivery.data) > new Date(employee.last)) employee.last = delivery.data;
+      });
+      const list = Array.from(employees.values()).filter(employee => String(employee.nome || '').toLowerCase().includes(q) || String(employee.matricula || '').includes(q)).sort((a, b) => String(a.nome || '').localeCompare(String(b.nome || '')));
+      document.getElementById('fichasList').innerHTML = list.length ? list.map(employee => `<div class="card static"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div><div style="font-weight:600;">${esc(employee.nome)}</div><div style="font-size:12px;color:var(--gray);">Mat: ${esc(employee.matricula || '-')} · ${employee.deliveries} entrega(s) · ${employee.items} item(ns) · ${employee.epis.size} EPI/tamanho</div><div style="font-size:11px;color:var(--gray);">Última: ${esc(fmtDate(employee.last))}</div></div><div style="display:flex;gap:6px;"><button class="btn btn-primary small" onclick="openEmployeeFicha(${Number(employee.id) || 0})">Ver</button><button class="btn btn-success small" onclick="viewEmployeeFicha(${Number(employee.id) || 0})">Baixar PDF</button></div></div></div>`).join('') : '<p class="empty">Nenhum colaborador com ficha encontrada.</p>';
     }
     function delEntrega(id) {
       if (!requireAdmin()) { showToast('❌ Apenas administradores podem excluir entregas.'); return; }
       if (!confirmDelete('Excluir esta entrega? O estoque será devolvido.')) return;
-      const d = state.entregas.find(x => x.id === id);
+      const d = getDeliveries(state).find(x => x.id === id);
       if (d) {
         const _now = new Date().toISOString();
         (d.itens || []).forEach(it => {
@@ -977,12 +1058,13 @@ async function connectFirebase() {
           if (epi && epi.estoque && epi.estoque[it.tam] !== undefined) {
             epi.estoque[it.tam] = (epi.estoque[it.tam] || 0) + it.qty;
             epi.updatedAt = _now;
+            addPending('epi', 'upsert', { ...epi });
           }
         });
         state.deletedEntregas = state.deletedEntregas || [];
         state.deletedEntregas.push({ ...d });
       }
-      state.entregas = state.entregas.filter(x => x.id !== id);
+      state.entregas = getDeliveries(state).filter(x => x.id !== id);
       addPending('entrega', 'delete', { id });
       save();
       renderHistory('');
@@ -990,28 +1072,39 @@ async function connectFirebase() {
     }
 
     // ==================== EPIs ENTREGUES ====================
-    function empDeliveredHTML(entregas) {
+    function empDeliveredHTML(entregas, employeeId) {
       const agg = {};
-      (entregas || []).forEach(d => {
-        d.itens.forEach(it => {
-          if (!agg[it.epiId]) agg[it.epiId] = { nome: it.nome, ca: it.ca, qty: 0, last: d.data };
-          agg[it.epiId].qty += it.qty;
-          if (!agg[it.epiId].last || new Date(d.data) > new Date(agg[it.epiId].last)) agg[it.epiId].last = d.data;
+      if (employeeId !== undefined) {
+        const outstanding = getOutstanding(state, employeeId);
+        Object.keys(outstanding).forEach(key => {
+          const parts = key.split('|');
+          const epiId = parts[1];
+          const epi = state.epis.find(x => String(x.id) === epiId);
+          const source = (entregas || []).flatMap(d => d.itens || []).find(it => String(it.epiId) === epiId && normalizeSize(it.tam) === parts[2]);
+          if (!source || outstanding[key] <= 0) return;
+          agg[key] = { nome: source.nome, ca: source.ca, qty: outstanding[key], last: (entregas || []).find(d => (d.itens || []).some(it => String(it.epiId) === epiId && normalizeSize(it.tam) === parts[2]))?.data || '' };
         });
-      });
+      } else {
+        (entregas || []).forEach(d => (d.itens || []).forEach(it => {
+          const key = itemKey(d.employeeId, it.epiId, it.tam);
+          if (!agg[key]) agg[key] = { nome: it.nome, ca: it.ca, qty: 0, last: d.data, tam: it.tam };
+          agg[key].qty += Number(it.qty || 0);
+          if (!agg[key].last || new Date(d.data) > new Date(agg[key].last)) agg[key].last = d.data;
+        }));
+      }
       const list = Object.values(agg).sort((a, b) => b.qty - a.qty);
       if (!list.length) return '<p class="empty">Nenhum EPI entregue para este colaborador.</p>';
       return list.map(a => `
     <div class="item-row" style="font-size:13px;">
       <div><div style="font-weight:600;">${a.qty}x ${esc(a.nome)}</div>
-      <div style="font-size:11px;color:var(--gray);">CA: ${esc(a.ca || '-')} · último: ${fmtDate(a.last)}</div></div>
+      <div style="font-size:11px;color:var(--gray);">CA: ${esc(a.ca || '-')} · último: ${esc(fmtDate(a.last))}</div></div>
     </div>`).join('');
     }
 
     function renderDelivered(q) {
       q = (q || '').toLowerCase();
       const agg = {};
-      state.entregas.forEach(d => {
+      getDeliveries(state).forEach(d => {
         if (!agg[d.employeeId]) agg[d.employeeId] = { employeeId: d.employeeId, employeeName: d.employeeName, qty: 0, epiList: {}, lastData: '' };
         const a = agg[d.employeeId];
         d.itens.forEach(it => {
@@ -1031,7 +1124,7 @@ async function connectFirebase() {
     <div class="card static">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
         <div style="font-weight:600;">👤 ${esc(a.employeeName)} <span class="badge badge-info">${a.qty}x</span></div>
-        <div style="font-size:12px;color:var(--gray);">${totalTipos} EPI(s) · últ. ${fmtDate(a.lastData)}</div>
+        <div style="font-size:12px;color:var(--gray);">${totalTipos} EPI(s) · últ. ${esc(fmtDate(a.lastData))}</div>
       </div>
       <div style="font-size:12px;color:var(--gray);margin:4px 0;">${epis}</div>
     </div>`;
@@ -1079,7 +1172,7 @@ async function connectFirebase() {
         return `
     <div class="card static"><div style="display:flex;justify-content:space-between;align-items:center;">
       <div><div style="font-weight:600;">${esc(e.nome)} ${venc ? '<span class="badge badge-danger">CA vencido</span>' : ''}</div>
-      <div style="font-size:12px;color:var(--gray);">CA: ${esc(e.ca)} | ${e.fabricante ? 'Fab: ' + esc(e.fabricante) + ' | ' : ''}Estoque: ${estLabel} | Válido: ${fmtDate(e.caVal) || '-'}</div></div>
+      <div style="font-size:12px;color:var(--gray);">CA: ${esc(e.ca)} | ${e.fabricante ? 'Fab: ' + esc(e.fabricante) + ' | ' : ''}Estoque: ${estLabel} | Válido: ${esc(fmtDate(e.caVal) || '-')}</div></div>
       <div style="display:flex;gap:6px;align-items:center;">
         <button class="btn btn-primary small" onclick="editEpi(${e.id})">✏️</button>
         <button class="delete-btn" onclick="delEpi(${e.id})" title="Excluir">${TRASH_SVG}</button>
@@ -1130,7 +1223,7 @@ async function connectFirebase() {
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(empData), 'Funcionários');
       const epiData = state.epis.map(e => ({ ID: e.id, Nome: e.nome, Fabricante: e.fabricante, CA: e.ca, Validade: e.caVal, Estoque: e.estoque ? Object.values(e.estoque).reduce((a, b) => a + b, 0) : 0, Renovação: e.renovacaoDias }));
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(epiData), 'EPIs');
-      const entData = state.entregas.flatMap(d => d.itens.map(i => ({ Colaborador: d.employeeName, Matrícula: d.matricula, Data: d.data ? d.data.slice(0, 10) : '', EPI: i.nome, CA: i.ca, Tamanho: i.tam, Qtd: i.qty, Motivo: i.reason })));
+      const entData = getDeliveries(state).flatMap(d => d.itens.map(i => ({ Colaborador: d.employeeName, Matrícula: d.matricula, Data: d.data ? d.data.slice(0, 10) : '', EPI: i.nome, CA: i.ca, Tamanho: i.tam, Qtd: i.qty, Motivo: i.reason })));
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(entData), 'Entregas');
       XLSX.writeFile(wb, 'entregas_epi_' + new Date().toISOString().slice(0, 10) + '.xlsx');
       showToast('✅ Planilha Excel exportada!');
@@ -1145,10 +1238,21 @@ async function connectFirebase() {
           const data = JSON.parse(r.result);
           if (!data || !Array.isArray(data.employees) || !Array.isArray(data.epis)) { showToast('❌ Arquivo de backup inválido. Use um arquivo JSON exportado pelo app.'); return; }
           const MAX_STR = 500;
-          const validEmps = data.employees.filter(e => e && typeof e.id !== 'undefined' && typeof e.nome === 'string' && e.nome.trim() && typeof e.matricula === 'string' && e.matricula.trim()).map(e => ({ id: Number(e.id) || 0, nome: String(e.nome || '').trim().slice(0, MAX_STR), matricula: String(e.matricula || '').trim().slice(0, 50), cargo: String(e.cargo || '').trim().slice(0, MAX_STR), telefone: String(e.telefone || '').trim().slice(0, 20), admissao: String(e.admissao || '').slice(0, 10), updatedAt: String(e.updatedAt || '').slice(0, 30) }));
-          const validEpis = data.epis.filter(p => p && typeof p.id !== 'undefined' && typeof p.nome === 'string' && p.nome.trim() && typeof p.ca === 'string' && p.ca.trim()).map(p => ({ id: Number(p.id) || 0, nome: String(p.nome || '').trim().slice(0, MAX_STR), fabricante: String(p.fabricante || '').trim().slice(0, MAX_STR), ca: String(p.ca || '').trim().slice(0, 30), caVal: String(p.caVal || '').slice(0, 10), tamanhos: Array.isArray(p.tamanhos) ? p.tamanhos.map(t => String(t).slice(0, 20)) : ['Único'], estoque: p.estoque && typeof p.estoque === 'object' ? p.estoque : {}, renovacaoDias: Number(p.renovacaoDias) || 0, estoqueMin: Number(p.estoqueMin) || 0, updatedAt: String(p.updatedAt || '').slice(0, 30) }));
-          const validEnts = Array.isArray(data.entregas) ? data.entregas.filter(d => d && typeof d.id === 'string' && typeof d.employeeName === 'string').map(d => ({ id: String(d.id).slice(0, 50), employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), tam: String(it.tam || '').slice(0, 20), qty: Math.min(Number(it.qty) || 1, 999), reason: String(it.reason || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null })) : [];
-          state = { employees: validEmps, epis: validEpis, entregas: validEnts, cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: state.notifications || [] };
+          const validEmps = data.employees.filter(e => e && typeof e.id !== 'undefined' && typeof e.nome === 'string' && e.nome.trim() && typeof e.matricula === 'string' && e.matricula.trim()).map(e => ({ id: Number(e.id) || 0, nome: String(e.nome || '').trim().slice(0, MAX_STR), matricula: String(e.matricula || '').trim().slice(0, 50), cargo: String(e.cargo || '').trim().slice(0, MAX_STR), telefone: String(e.telefone || '').trim().slice(0, 20), admissao: String(e.admissao || '').slice(0, 10), publicToken: String(e.publicToken || '').slice(0, 64), updatedAt: String(e.updatedAt || '').slice(0, 30) }));
+           const validEpis = data.epis.filter(p => p && typeof p.id !== 'undefined' && typeof p.nome === 'string' && p.nome.trim() && typeof p.ca === 'string' && p.ca.trim()).map(p => { const tamanhos = Array.isArray(p.tamanhos) ? p.tamanhos.map(t => String(t).trim().slice(0, 20)).filter(Boolean) : ['Único']; const estoque = {}; if (p.estoque && typeof p.estoque === 'object') Object.entries(p.estoque).forEach(([key, value]) => { const qty = normalizeQuantity(value, 999999); if (qty !== null && tamanhos.some(size => normalizeSize(size) === normalizeSize(key))) estoque[key] = qty; }); return { id: Number(p.id) || 0, nome: String(p.nome || '').trim().slice(0, MAX_STR), fabricante: String(p.fabricante || '').trim().slice(0, MAX_STR), ca: String(p.ca || '').trim().slice(0, 30), caVal: String(p.caVal || '').slice(0, 10), tamanhos, estoque, renovacaoDias: Math.max(0, Number(p.renovacaoDias) || 0), estoqueMin: Math.max(0, Number(p.estoqueMin) || 0), updatedAt: String(p.updatedAt || '').slice(0, 30) }; });
+          const rawRecords = (Array.isArray(data.entregas) ? data.entregas : []).concat(Array.isArray(data.returns) ? data.returns : []).filter(d => d && typeof d.id === 'string' && typeof d.employeeName === 'string');
+          const recordsById = {};
+          let conflictingRecord = false;
+          rawRecords.forEach(d => {
+            const id = String(d.id);
+            if (recordsById[id] && isReturn(recordsById[id]) !== isReturn(d)) conflictingRecord = true;
+            else if (!recordsById[id]) recordsById[id] = d;
+          });
+          if (conflictingRecord) { showToast('❌ Backup inválido: mesmo ID aparece como entrega e devolução'); return; }
+          const validRecords = Object.values(recordsById).map(d => ({ id: String(d.id).slice(0, 50), tipo: isReturn(d) ? 'devolucao' : 'entrega', type: isReturn(d) ? 'return' : 'delivery', employeeId: Number(d.employeeId) || 0, employeeName: String(d.employeeName || '').trim().slice(0, MAX_STR), matricula: String(d.matricula || '').trim().slice(0, 50), cargo: String(d.cargo || '').trim().slice(0, MAX_STR), admissao: String(d.admissao || '').slice(0, 10), itens: Array.isArray(d.itens) ? d.itens.map(it => ({ epiId: Number(it.epiId) || 0, nome: String(it.nome || '').trim().slice(0, MAX_STR), ca: String(it.ca || '').trim().slice(0, 30), tam: String(it.tam || '').slice(0, 20), qty: normalizeQuantity(it.qty, 999) || 1, motivo: String(it.motivo || it.reason || '').trim().slice(0, MAX_STR), obs: String(it.obs || '').trim().slice(0, MAX_STR) })) : [], data: String(d.data || '').slice(0, 30), motivo: String(d.motivo || '').trim().slice(0, MAX_STR), sig1: typeof d.sig1 === 'string' ? d.sig1.slice(0, 50000) : null, sig2: typeof d.sig2 === 'string' ? d.sig2.slice(0, 50000) : null, itemSigs: Array.isArray(d.itemSigs) ? d.itemSigs.map(s => typeof s === 'string' ? s.slice(0, 50000) : null) : [] }));
+          const validEnts = validRecords.filter(isDelivery);
+          const validReturns = validRecords.filter(isReturn);
+          state = { employees: validEmps, epis: validEpis, entregas: validEnts, returns: validReturns, cart: [], cur: {}, sig1: null, sig2: null, itemSigs: [], notifications: state.notifications || [] };
           save();
           recomputeCounters();
           showToast('✅ Backup restaurado: ' + validEmps.length + ' emp, ' + validEpis.length + ' EPIs, ' + validEnts.length + ' entregas');
@@ -1161,9 +1265,7 @@ async function connectFirebase() {
 
     // ==================== RECUPERAÇÃO DE ITENS EXCLUÍDOS ====================
     function authRecover() {
-      const pwd = document.getElementById('recoverPwd').value;
-      if (pwd !== ADMIN_PWD) { showToast('❌ Senha incorreta'); return; }
-      _isAdmin = true;
+      if (!requireAdmin()) return;
       document.getElementById('recoverAuth').style.display = 'none';
       document.getElementById('recoverContent').style.display = '';
       renderRecover();
@@ -1186,7 +1288,7 @@ async function connectFirebase() {
         ? delEpis.map((e, i) => `
     <div class="card static"><div style="display:flex;justify-content:space-between;align-items:center;">
       <div><div style="font-weight:600;">${esc(e.nome)}</div>
-      <div style="font-size:12px;color:var(--gray);">CA: ${esc(e.ca)} | Válido: ${fmtDate(e.caVal) || '-'}</div></div>
+      <div style="font-size:12px;color:var(--gray);">CA: ${esc(e.ca)} | Válido: ${esc(fmtDate(e.caVal) || '-')}</div></div>
       <button class="btn btn-success small" onclick="restoreEpi(${i})">♻️ Restaurar</button>
     </div></div>`).join('')
         : '<p class="empty">Nenhum EPI excluído</p>';
@@ -1195,7 +1297,7 @@ async function connectFirebase() {
         ? delEntregas.map((d, i) => `
     <div class="card static"><div style="display:flex;justify-content:space-between;align-items:center;">
       <div><div style="font-weight:600;">👤 ${esc(d.employeeName)}</div>
-      <div style="font-size:12px;color:var(--gray);">📅 ${fmtDateTime(d.data)} · ${(d.itens || []).length} item(s)</div></div>
+      <div style="font-size:12px;color:var(--gray);">📅 ${esc(fmtDateTime(d.data))} · ${(d.itens || []).length} item(s)</div></div>
       <button class="btn btn-success small" onclick="restoreEntrega(${i})">♻️ Restaurar</button>
     </div></div>`).join('')
         : '<p class="empty">Nenhuma entrega excluída</p>';
@@ -1238,7 +1340,7 @@ async function connectFirebase() {
     function renderReport() {
       const from = document.getElementById('reportFrom').value;
       const to = document.getElementById('reportTo').value;
-      let list = [...state.entregas];
+      let list = getDeliveries(state).slice();
       if (from) list = list.filter(d => d.data >= from);
       if (to) list = list.filter(d => d.data <= to + 'T23:59:59');
       _reportData = list;
@@ -1260,7 +1362,7 @@ async function connectFirebase() {
         const total = d.itens.reduce((a, i) => a + i.qty, 0);
         return `<div class="card static">
       <div style="font-weight:600;font-size:13px;">👤 ${esc(d.employeeName)} <span class="badge badge-info">${esc(d.matricula)}</span></div>
-      <div style="font-size:11px;color:var(--gray);">📅 ${fmtDateTime(d.data)} · ${total} itens</div>
+      <div style="font-size:11px;color:var(--gray);">📅 ${esc(fmtDateTime(d.data))} · ${total} itens</div>
       <div style="font-size:11px;color:var(--gray);">${d.itens.map(i => `${i.qty}x ${esc(i.nome)} (${esc(i.tam)})`).join(' · ')}</div>
     </div>`;
       }).join('') : '<p class="empty">Nenhuma entrega no período</p>';
@@ -1338,14 +1440,14 @@ async function connectFirebase() {
     }
     function searchDevEmp(q) {
       q = (q || '').toLowerCase();
-      const r = state.employees.filter(e => e.nome.toLowerCase().includes(q) || e.matricula.includes(q));
+      const r = state.employees.filter(e => String(e.nome || '').toLowerCase().includes(q) || String(e.matricula || '').includes(q));
       document.getElementById('devResults').innerHTML = r.map(e => {
-        const entregas = state.entregas.filter(d => d.employeeId === e.id);
-        const epiCount = entregas.reduce((a, d) => a + d.itens.length, 0);
+        const owned = getOutstanding(state, e.id);
+        const epiCount = Object.values(owned).filter(qty => qty > 0).length;
         return `<div class="card" onclick="selectDevEmp(${e.id})">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div><div style="font-weight:600;">${esc(e.nome)}</div>
-        <div style="font-size:11px;color:var(--gray);">Mat: ${esc(e.matricula)} · ${epiCount} EPIs</div></div>
+        <div style="font-size:11px;color:var(--gray);">Mat: ${esc(e.matricula)} · ${epiCount} EPIs em possession</div></div>
         <span class="badge badge-info">→</span>
       </div>
     </div>`;
@@ -1354,15 +1456,15 @@ async function connectFirebase() {
     function selectDevEmp(id) {
       _devEmp = state.employees.find(e => e.id === id);
       _devItens = [];
-      const entregas = state.entregas.filter(d => d.employeeId === id);
-      const agg = {};
-      entregas.forEach(d => {
-        d.itens.forEach(it => {
-          if (!agg[it.epiId]) agg[it.epiId] = { ...it, qty: 0 };
-          agg[it.epiId].qty += it.qty;
-        });
-      });
-      const epiList = Object.values(agg).filter(a => a.qty > 0);
+      if (!_devEmp) return;
+      const outstanding = getOutstanding(state, id);
+      const items = {};
+      getDeliveries(state).filter(d => d.employeeId === id).forEach(d => (d.itens || []).forEach(it => {
+        const key = itemKey(id, it.epiId, it.tam);
+        if (!items[key]) items[key] = { ...it, key: key, entregaIds: [] };
+        if (!items[key].entregaIds.includes(d.id)) items[key].entregaIds.push(d.id);
+      }));
+      const epiList = Object.values(items).filter(it => Number(outstanding[it.key] || 0) > 0);
       document.getElementById('devEmpInfo').innerHTML = `
     <div class="card static">
       <div style="font-weight:600;">👤 ${esc(_devEmp.nome)}</div>
@@ -1370,67 +1472,73 @@ async function connectFirebase() {
     </div>`;
       document.getElementById('devEpiList').innerHTML = epiList.length
         ? epiList.map((it, i) => '<div class="card static" id="devItem' + i + '" onclick="toggleDevItem(' + i + ')" style="cursor:pointer;">'
-          + '<div style="display:flex;justify-content:space-between;align-items:center;">'
-          + '<div><div style="font-weight:600;">' + it.qty + 'x ' + esc(it.nome) + '</div>'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">'
+          + '<div><div style="font-weight:600;">' + outstanding[it.key] + 'x ' + esc(it.nome) + '</div>'
           + '<div style="font-size:11px;color:var(--gray);">CA: ' + esc(it.ca) + ' · Tam: ' + esc(it.tam) + '</div></div>'
+          + '<label style="display:flex;align-items:center;gap:4px;font-size:11px;">Qtd. <input type="number" min="1" max="' + outstanding[it.key] + '" value="1" id="devQty' + i + '" onclick="event.stopPropagation()" oninput="setDevQty(' + i + ',this.value)"></label>'
           + '<span class="badge" id="devBadge' + i + '">Selecionar</span>'
           + '</div></div>').join('')
         + '<button class="btn btn-success" id="btnDevConfirm" onclick="showDevForm()" disabled style="margin-top:8px;">📥 DEVOLVER SELECIONADOS</button>'
-        : '<p class="empty">Nenhum EPI para devolver</p>';
+        : '<p class="empty">Nenhum EPI em possession para devolver</p>';
       document.getElementById('devForm').style.display = 'none';
-      _devItens = epiList.map(() => false);
+      _devItens = epiList.map(it => ({ selected: false, qty: 1, max: outstanding[it.key], ...it }));
+    }
+    function setDevQty(i, value) {
+      const item = _devItens[i];
+      if (!item) return;
+      item.qty = Math.max(1, Math.min(Number(value) || 1, item.max));
+      if (item.selected) document.getElementById('devQty' + i).value = item.qty;
+      updateDevConfirmButton();
     }
     function toggleDevItem(i) {
-      _devItens[i] = !_devItens[i];
+      const item = _devItens[i];
+      if (!item) return;
+      item.selected = !item.selected;
       const el = document.getElementById('devItem' + i);
       const badge = document.getElementById('devBadge' + i);
-      if (_devItens[i]) { el.style.borderColor = 'var(--color-success)'; el.style.background = '#f0fdf4'; badge.textContent = '✓ Selecionado'; badge.className = 'badge badge-ok'; }
+      if (item.selected) { el.style.borderColor = 'var(--color-success)'; el.style.background = '#f0fdf4'; badge.textContent = '✓ Selecionado'; badge.className = 'badge badge-ok'; }
       else { el.style.borderColor = ''; el.style.background = ''; badge.textContent = 'Selecionar'; badge.className = 'badge'; }
-      document.getElementById('btnDevConfirm').disabled = !_devItens.some(x => x);
+      updateDevConfirmButton();
+    }
+    function updateDevConfirmButton() {
+      const button = document.getElementById('btnDevConfirm');
+      if (button) button.disabled = !_devItens.some(item => item.selected && item.qty > 0 && item.qty <= item.max);
     }
     function showDevForm() {
-      if (!_devItens.some(x => x)) return;
+      if (!_devItens.some(item => item.selected && item.qty > 0 && item.qty <= item.max)) return;
       document.getElementById('devForm').style.display = '';
       document.querySelectorAll('#devReasonGroup .radio-option').forEach(o => o.onclick = () => { document.querySelectorAll('#devReasonGroup .radio-option').forEach(x => x.classList.remove('selected')); o.classList.add('selected'); o.querySelector('input').checked = true; });
     }
     function confirmDevolution() {
-      if (!_devEmp || !_devItens.some(x => x)) return;
-      const reason = document.querySelector('input[name="devReason"]:checked').value;
+      if (!_devEmp) return;
+      const selected = _devItens.filter(item => item.selected && item.qty > 0 && item.qty <= item.max);
+      if (!selected.length) { showToast('Selecione ao menos um EPI para devolver'); return; }
+      const reasonEl = document.querySelector('input[name="devReason"]:checked');
+      const reason = reasonEl ? reasonEl.value : 'Desligamento';
       const obs = document.getElementById('devObs').value;
-      const agg = {};
-      state.entregas.filter(d => d.employeeId === _devEmp.id).forEach(d => {
-        d.itens.forEach(it => {
-          if (!agg[it.epiId]) agg[it.epiId] = { ...it, qty: 0, entregaIds: [] };
-          agg[it.epiId].qty += it.qty;
-          agg[it.epiId].entregaIds.push(d.id);
-        });
-      });
-      const epiList = Object.values(agg);
-      const selected = epiList.filter((_, i) => _devItens[i]);
-      selected.forEach(it => {
-        const epi = state.epis.find(x => x.id === it.epiId);
-        if (epi && epi.estoque && epi.estoque[it.tam] !== undefined) {
-          epi.estoque[it.tam] = (epi.estoque[it.tam] || 0) + it.qty;
-          epi.updatedAt = new Date().toISOString();
-        }
-      });
-      const devEntrega = {
-        id: 'DEV-' + Date.now(),
-        data: new Date().toISOString(),
+      const outstanding = getOutstanding(state, _devEmp.id);
+      if (selected.some(item => item.qty > Number(outstanding[item.key] || 0))) { showToast('A quantidade mudou. Atualize a seleção'); selectDevEmp(_devEmp.id); return; }
+      const now = new Date().toISOString();
+      const returnRecord = {
+        id: 'DEV-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        data: now,
+        createdAt: now,
+        updatedAt: now,
         employeeId: _devEmp.id,
         employeeName: _devEmp.nome,
         matricula: _devEmp.matricula,
         cargo: _devEmp.cargo,
         admissao: _devEmp.admissao,
-        itens: selected.map(it => ({ epiId: it.epiId, nome: it.nome, ca: it.ca, tam: it.tam, qty: it.qty, motivo: 'Devolução - ' + reason, obs })),
+        itens: selected.map(item => ({ epiId: item.epiId, nome: item.nome, ca: item.ca, tam: item.tam, qty: item.qty, motivo: 'Devolução - ' + reason, obs, entregaIds: item.entregaIds })),
         sig1: null, sig2: null, itemSigs: [],
         tipo: 'devolucao',
+        type: 'return',
         motivo: reason
       };
-      devEntrega.createdAt = new Date().toISOString();
-      devEntrega.updatedAt = new Date().toISOString();
-      state.entregas.push(devEntrega);
-      addPending('entrega', 'upsert', { ...devEntrega });
+      applyReturnToStock(state, returnRecord);
+      state.epis.filter(epi => returnRecord.itens.some(item => String(item.epiId) === String(epi.id))).forEach(epi => addPending('epi', 'upsert', { ...epi }));
+      state.returns.push(returnRecord);
+      addPending('entrega', 'upsert', { ...returnRecord });
       save();
       showToast('✅ Devolução registrada: ' + selected.length + ' EPI(s)');
       go('home');
@@ -1438,7 +1546,7 @@ async function connectFirebase() {
 
     // ==================== DASHBOARD COM GRÁFICOS (Item 6) ====================
     function renderDashboard() {
-      const entregas = state.entregas;
+      const entregas = getDeliveries(state);
       const canvas = document.getElementById('chartCanvas');
       const ctx = canvas.getContext('2d');
       const dpr = window.devicePixelRatio || 1;
@@ -1878,14 +1986,19 @@ async function connectFirebase() {
     }
 
     // ==================== QR CODE / FICHA DO COLABORADOR ====================
+    function createPublicToken() {
+      const bytes = new Uint8Array(24);
+      crypto.getRandomValues(bytes);
+      return Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('');
+    }
     function empQRUrl(e) {
       const base = location.href.split('#')[0].split('?')[0].replace(/index\.html$/, '').replace(/\/$/, '/');
-      const hash = ((e.id * 2654435761) >>> 0).toString(36);
-      return base + 'ficha.html?emp=' + e.id + '&k=' + hash;
+      return base + 'ficha.html?emp=' + encodeURIComponent(e.id) + '&token=' + encodeURIComponent(e.publicToken || '');
     }
     function openQR(id) {
       const e = state.employees.find(x => x.id === id);
       if (!e) return;
+      if (!e.publicToken) { e.publicToken = createPublicToken(); addPending('employee', 'upsert', { ...e }); save(); }
       const url = empQRUrl(e);
       document.getElementById('qrName').textContent = e.nome;
       document.getElementById('qrMat').textContent = 'Mat: ' + e.matricula;
@@ -1933,19 +2046,23 @@ async function connectFirebase() {
       if (_scanStream) { _scanStream.getTracks().forEach(t => t.stop()); _scanStream = null; }
       const v = document.getElementById('scannerVideo'); if (v) v.srcObject = null;
     }
+    function employeeFromQr(text) {
+      try {
+        const url = new URL(text);
+        const id = Number(url.searchParams.get('emp'));
+        const token = url.searchParams.get('token') || '';
+        const employee = state.employees.find(item => item.id === id);
+        return employee && employee.publicToken && employee.publicToken === token ? employee : null;
+      } catch (error) { return null; }
+    }
     function handleScanned(text) {
-      let id = 0;
-      try { id = parseInt(new URL(text).searchParams.get('emp') || '0', 10); } catch (err) { }
-      if (!id) { id = parseInt(text, 10) || 0; }
-      const e = state.employees.find(x => x.id === id);
+      const e = employeeFromQr(text);
       if (e) {
         state.cur.emp = e;
         state.cart = [];
         go('empview');
         showToast('✅ ' + e.nome);
-      }
-      else if (id && USE_API) { state.cur.emp = { id, nome: 'Carregando...', matricula: '' }; state.cart = []; go('empview'); syncEmpPublic(id); }
-      else showToast('❌ QR Code não corresponde a nenhum colaborador cadastrado');
+      } else showToast('❌ QR Code inválido ou não autorizado');
     }
 
     function renderEmpView() {
@@ -1957,27 +2074,29 @@ async function connectFirebase() {
         <div style="flex:1;">
           <div style="font-size:17px;font-weight:700;">${esc(e.nome)}</div>
           <div style="color:var(--gray);font-size:13px;">Mat: ${esc(e.matricula)} | Cargo: ${esc(e.cargo || '-')}</div>
-          <div style="color:var(--gray);font-size:12px;">Admissão: ${fmtDate(e.admissao)}</div>
+          <div style="color:var(--gray);font-size:12px;">Admissão: ${esc(fmtDate(e.admissao))}</div>
         </div>
       </div>
     </div>`;
-      const list = (state._empPublic || state.entregas.filter(d => d.employeeId === e.id)).slice().reverse();
-      document.getElementById('empDelivered2').innerHTML = empDeliveredHTML(state._empPublic || state.entregas.filter(d => d.employeeId === e.id));
+      const list = (state._empPublic || getDeliveries(state).filter(d => d.employeeId === e.id)).filter(isDelivery).filter(d => d.employeeId === e.id).slice().reverse();
+      document.getElementById('empDelivered2').innerHTML = empDeliveredHTML(state._empPublic || getDeliveries(state).filter(d => d.employeeId === e.id), e.id);
       document.getElementById('empViewHistory').innerHTML = list.length ? list.map(d => {
         const total = d.itens.reduce((a, i) => a + i.qty, 0);
         return `
     <div class="card static">
-      <div style="font-weight:600;">📅 ${fmtDateTime(d.data)} <span class="badge badge-info">${total} ${total === 1 ? 'item' : 'itens'}</span></div>
+      <div style="font-weight:600;">📅 ${esc(fmtDateTime(d.data))} <span class="badge badge-info">${total} ${total === 1 ? 'item' : 'itens'}</span></div>
       <div style="font-size:12px;color:var(--gray);margin:6px 0;">${d.itens.map(i => `${i.qty}x ${esc(i.nome)} (${esc(i.tam)}) — ${esc(i.motivo)}`).join('<br>')}</div>
       <div style="display:flex;gap:6px;">
-        <button class="btn btn-primary small" onclick="viewDelivery('${d.id}')">📄 Baixar Ficha</button>
-        <button class="btn btn-success small" onclick="viewDeliveryWA('${d.id}')">📤 WhatsApp</button>
+         <button class="btn btn-primary small" data-delivery-id="${esc(d.id)}">📄 Baixar Ficha</button>
+         <button class="btn btn-success small" data-delivery-wa-id="${esc(d.id)}">📤 WhatsApp</button>
       </div>
     </div>`;
       }).join('') : '<p class="empty">Nenhuma entrega de EPI registrada para este colaborador.</p>';
+      document.querySelectorAll('#empViewHistory [data-delivery-id]').forEach(button => button.addEventListener('click', () => viewDelivery(button.dataset.deliveryId)));
+      document.querySelectorAll('#empViewHistory [data-delivery-wa-id]').forEach(button => button.addEventListener('click', () => viewDeliveryWA(button.dataset.deliveryWaId)));
     }
     function viewDeliveryWA(id) {
-      state.lastDelivery = state.entregas.find(d => d.id === id);
+      state.lastDelivery = getDeliveries(state).find(d => d.id === id);
       if (state.lastDelivery) sendWhatsApp();
     }
 
@@ -2194,7 +2313,7 @@ async function connectFirebase() {
     window.addEventListener('online', onAppOnline);
     window.addEventListener('offline', onAppOffline);
     document.addEventListener('keydown', function (e) {
-      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('flip-card')) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button') {
         e.preventDefault(); e.target.click();
       }
     });
@@ -2206,12 +2325,14 @@ async function connectFirebase() {
       const qp = new URLSearchParams(location.search);
       const empId = parseInt(qp.get('emp') || '0', 10);
       if (empId) {
+        const employee = employeeFromQr(location.href);
+        if (!employee) { go('home'); showToast('❌ QR Code inválido ou não autorizado'); return; }
         if (fbReady && db) {
-          connectFirebase().then(() => syncEmpPublic(empId));
+          connectFirebase().then(ok => { if (ok) syncEmpPublic(empId); });
         } else {
-          const e = state.employees.find(x => x.id === empId);
-          if (e) { state.cur.emp = e; state.cart = []; go('empview'); }
-          else { go('home'); showToast('❌ Colaborador não encontrado'); }
+          state.cur.emp = employee;
+          state.cart = [];
+          go('empview');
         }
       } else {
         if (fbReady && db) {
