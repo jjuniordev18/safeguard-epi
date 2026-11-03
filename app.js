@@ -30,6 +30,7 @@
     const API_BASE = '';
     let curScreen = 'home';
     let _pushTimer = null;
+    let _pushTimerActive = false;
     let _reconnectTimer = null;
     let _reconnectAttempts = 0;
     let db, auth, fbUser;
@@ -37,6 +38,7 @@
     let _authUser = null;
     let _authAdmin = false;
     let _authReady = false;
+    let _broadcastChannel = null;
 
     function load() {
       try { const s = JSON.parse(localStorage.getItem(LS_KEY)); if (s) state = s; } catch (e) { }
@@ -111,11 +113,11 @@
     }
     async function processPendingInternal() {
       if (!db) return;
-      const pending = loadPending();
+      let pending = loadPending();
       if (!pending.length) return;
-      const processed = pending.slice();
       const ops = [];
-      processed.forEach(({ type, action, data }) => {
+      const opsToProcess = pending.slice();
+      opsToProcess.forEach(({ type, action, data }) => {
         if (type === 'employee') {
           const ref = db.collection('employees').doc(String(data.id));
           if (action === 'delete') ops.push({ ref, type: 'delete' });
@@ -142,7 +144,7 @@
           await batch.commit();
         }
       }
-      savePending(loadPending().filter(operation => !processed.some(done => samePendingOperation(operation, done))));
+      savePending(pending.filter(operation => !opsToProcess.some(done => samePendingOperation(operation, done))));
       updateSyncBadge();
     }
     function processPending() {
@@ -160,6 +162,10 @@
       try {
         const toSave = { employees: state.employees, epis: state.epis, entregas: state.entregas, returns: state.returns, cart: state.cart, cur: state.cur, notifications: state.notifications, archivedEntregas: state.archivedEntregas };
         localStorage.setItem(LS_KEY, JSON.stringify(toSave));
+        // Notificar outras abas sobre a atualização
+        if (_broadcastChannel) {
+          _broadcastChannel.postMessage({ type: 'state_updated', timestamp: Date.now() });
+        }
       } catch (e) { showToast('⚠️ Armazenamento cheio — exporte um backup (JSON)'); }
       processPending().catch(e => console.warn('[FB] Erro ao processar pendências:', e));
       if (db) { console.log('[FB] save() → fila local persistida, employees:', state.employees.length); }
@@ -274,6 +280,21 @@
       firebase.initializeApp(firebaseConfig);
       auth = firebase.auth();
       db = firebase.firestore();
+      
+      // Configurar BroadcastChannel para sincronização entre abas
+      if (typeof BroadcastChannel !== 'undefined') {
+        _broadcastChannel = new BroadcastChannel('epi_app_sync');
+        _broadcastChannel.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'state_updated') {
+            console.log('[FB] Recebida sincronização de outra aba');
+            load();
+            recomputeCounters();
+            save();
+            if (curScreen) go(curScreen);
+          }
+        });
+      }
+      
       auth.onAuthStateChanged(async user => {
         _authUser = user;
         _authReady = true;
@@ -303,7 +324,11 @@
         console.log('[FB] Auth OK, uid:', fbUser.uid);
         if (_wasSeeded) console.log('[FB] Seed detectado — reconciliando sem sobrescrever o servidor');
         await reconcileWithFirestore();
+        // Processar operações pendentes após reconciliação
+        await processPending();
         _reconnectAttempts = 0;
+        syncStatus = 'ok';
+        updateSyncBadge();
         console.log('[FB] Sincronização ativa');
         return true;
       } catch (e) {
@@ -320,21 +345,28 @@
       db.collection('employees').onSnapshot(snap => {
         state.employees = snap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
         recomputeCounters();
-        try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+        save();
         if (curScreen && curScreen !== 'signature' && curScreen !== 'success') go(curScreen);
       }, fbListenerError);
       db.collection('epis').onSnapshot(snap => {
         cleanupEpisFromFirestore(snap).then(() => {
           recomputeCounters();
-          try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+          save();
           if (curScreen === 'epis' || curScreen === 'selectepi') go(curScreen);
         });
       }, fbListenerError);
       db.collection('entregas').onSnapshot(snap => {
         const records = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        state.entregas = records.filter(isDelivery);
-        state.returns = records.filter(isReturn);
-        try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { }
+        // Atualizar entregas e returns mantendo o estado consistente
+        const newDeliveries = records.filter(isDelivery);
+        const newReturns = records.filter(isReturn);
+        // Só atualizar se houver mudanças
+        if (JSON.stringify(newDeliveries.map(d => d.id)) !== JSON.stringify(state.entregas.map(d => d.id)) ||
+            JSON.stringify(newReturns.map(d => d.id)) !== JSON.stringify(state.returns.map(d => d.id))) {
+          state.entregas = newDeliveries;
+          state.returns = newReturns;
+          save();
+        }
         if (curScreen === 'history' || curScreen === 'employee' || curScreen === 'empview' || curScreen === 'dashboard' || curScreen === 'delivered' || curScreen === 'report' || curScreen === 'devolution') go(curScreen);
       }, fbListenerError);
       syncStatus = 'ok';
@@ -360,7 +392,9 @@
         if (empSnap.size === 0 && epiSnap.size === 0) {
           console.log('[FB] Firebase vazio — enviando estado local');
         }
-        if (empSnap.size === 0 && epiSnap.size === 0) await pushToFirebaseNow(true);
+        if ((empSnap.size === 0 && epiSnap.size === 0) || entSnap.size === 0) {
+          await pushToFirebaseNow(true);
+        }
       } catch (e) {
         console.warn('[FB] Offline — usando cache local até reconectar:', e);
         attachListeners();
@@ -406,6 +440,50 @@
       if (!db) return;
       processPending().catch(e => console.warn('[FB] Erro ao sincronizar fila:', e));
     }
+    
+    // Forçar sincronização com o servidor
+    function syncNow() {
+      if (!db) return Promise.resolve();
+      const allLocalEmployees = state.employees || [];
+      const allLocalEpis = state.epis || [];
+      const allLocalDeliveries = getDeliveries(state).concat(getReturns(state));
+      
+      // Buscar dados do servidor
+      return db.collection('employees').get()
+        .then(empSnap => db.collection('epis').get())
+        .then(epiSnap => db.collection('entregas').get())
+        .then(entSnap => {
+          const fbEmps = empSnap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
+          const fbEpis = epiSnap.docs.map(d => ({ id: Number(d.id), ...d.data() }));
+          const fbEnts = entSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+          
+          const hasFbEmployees = fbEmps.length > 0;
+          const hasFbEpis = fbEpis.length > 0;
+          const hasFbEntregas = fbEnts.length > 0;
+          
+          // Se servidor está vazio, enviar tudo
+          if (!hasFbEmployees && !hasFbEpis) {
+            console.log('[FB] Servidor vazio — enviando dados locais');
+            return pushToFirebaseNow(true);
+          }
+          
+          // Se servidor tem dados, reconciliar
+          console.log('[FB] Reconcilando dados locais com servidor...');
+          mergeFromServer(fbEmps, fbEpis, fbEnts);
+          
+          // Verificar se há pendentes para processar
+          const pending = loadPending();
+          if (pending.length > 0) {
+            console.log('[FB] Processando ' + pending.length + ' operações pendentes');
+            return processPending();
+          }
+          
+          return Promise.resolve();
+        })
+        .catch(e => {
+          console.warn('[FB] Erro na sincronização:', e);
+        });
+    }
     function onAppOnline() {
       console.log('[FB] Conexão restaurada — sincronizando');
       syncStatus = 'ok';
@@ -427,7 +505,7 @@
     }
     async function pushToFirebaseNow(full = false) {
       if (!db) { console.warn('[FB] db não disponível'); return; }
-      if (!full) return;
+      if (_pushTimerActive) return;
       try {
         const ops = [];
         const pushRevision = Date.now();
@@ -462,9 +540,14 @@
       }
     }
     function pushToFirebase() {
-      if (!db) return;
+      if (!db || _pushTimerActive) return;
+      _pushTimerActive = true;
       clearTimeout(_pushTimer);
-      _pushTimer = setTimeout(() => pushToFirebaseNow(), 300);
+      _pushTimer = setTimeout(async () => {
+        try { await pushToFirebaseNow(); }
+        catch (e) { console.warn('[FB] Erro no push:', e); }
+        finally { _pushTimerActive = false; }
+      }, 300);
     }
     function isAdmin() { return _authAdmin; }
     function requireAdmin() {
@@ -2312,6 +2395,18 @@
     const fbReady = initFirebase();
     window.addEventListener('online', onAppOnline);
     window.addEventListener('offline', onAppOffline);
+    
+    // Sincronizar quando a aba estiver visível novamente
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden && fbReady && db && _listenersAttached) {
+        console.log('[FB] Aba visível — sincronizando...');
+        syncNow().then(() => {
+          console.log('[FB] Sincronização concluída');
+          processPending().catch(e => console.warn('[FB] Erro ao processar pendências:', e));
+        });
+      }
+    });
+    
     document.addEventListener('keydown', function (e) {
       if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button') {
         e.preventDefault(); e.target.click();
@@ -2361,3 +2456,6 @@
         setTimeout(function () { location.reload(); }, 2000);
       });
     }
+    
+    // Expor função de sincronização manual para debug
+    window.syncAppNow = syncNow;
