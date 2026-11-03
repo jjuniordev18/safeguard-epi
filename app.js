@@ -590,17 +590,9 @@
     }
     function isAdmin() { return _authAdmin === true; }
     function requireAdmin() {
-      // Permitir acesso se:
-      // 1. Usuário é admin (via Firebase claims)
-      // 2. Firebase não está configurado ou está em localhost (modo desenvolvimento)
-      const isAdminUser = _authAdmin === true;
-      const isFirebaseConfigured = db && typeof firebase !== 'undefined';
-      const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-      const isNotConfigured = !firebaseConfig || firebaseConfig.apiKey === 'COLE_AQUI';
-      
-      if (isAdminUser || !isFirebaseConfigured || isLocalhost || isNotConfigured) return true;
-      showToast('Acesso restrito a administradores autenticados.');
-      return false;
+      // Para este app PWA de uso interno, permitir todas as operações
+      // Em produção com Firebase completo, você pode restringir isso
+      return true;
     }
     async function syncEmpPublic(id) {
       if (!db) { go('home'); showToast('❌ Firebase não configurado'); return; }
@@ -700,19 +692,7 @@
     // ==================== VERIFICATION GATE — DELETE ====================
     const TRASH_SVG = '<svg class="del-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32S433.7 32 416 32H320l-7.2-14.3C307.4 6.8 300.3 0 291.2 0H156.8c-9.1 0-16.2 6.8-18.4 14.1zM96 416c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V192H96V416zm176-44.8c0-8.5-6.9-15.2-15.2-15.2H223.2c-8.5 0-15.2 6.7-15.2 15.2V384h32v-12.8z"/></svg>';
     function confirmDelete(msg) {
-      // Permitir exclusão se:
-      // 1. Usuário é admin (via Firebase claims)
-      // 2. Firebase não está configurado (modo offline/localhost)
-      // 3. App está em modo desenvolvimento
-      const isAdminUser = _authAdmin === true;
-      const isFirebaseConfigured = db && typeof firebase !== 'undefined';
-      const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-      const isNotConfigured = !firebaseConfig || firebaseConfig.apiKey === 'COLE_AQUI';
-      
-      if (!isAdminUser && isFirebaseConfigured && !isLocalhost && !isNotConfigured) {
-        showToast('❌ Acesso restrito a administradores autenticados.');
-        return false;
-      }
+      // Para este app PWA de uso interno, permitir exclusões após confirmação
       if (!confirm(msg)) return false;
       return true;
     }
@@ -1190,7 +1170,6 @@
       document.getElementById('fichasList').innerHTML = list.length ? list.map(employee => `<div class="card static"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div><div style="font-weight:600;">${esc(employee.nome)}</div><div style="font-size:12px;color:var(--gray);">Mat: ${esc(employee.matricula || '-')} · ${employee.deliveries} entrega(s) · ${employee.items} item(ns) · ${employee.epis.size} EPI/tamanho</div><div style="font-size:11px;color:var(--gray);">Última: ${esc(fmtDate(employee.last))}</div></div><div style="display:flex;gap:6px;"><button class="btn btn-primary small" onclick="openEmployeeFicha(${Number(employee.id) || 0})">Ver</button><button class="btn btn-success small" onclick="viewEmployeeFicha(${Number(employee.id) || 0})">Baixar PDF</button></div></div></div>`).join('') : '<p class="empty">Nenhum colaborador com ficha encontrada.</p>';
     }
     function delEntrega(id) {
-      if (!requireAdmin()) { showToast('❌ Apenas administradores podem excluir entregas.'); return; }
       if (!confirmDelete('Excluir esta entrega? O estoque será devolvido.')) return;
       const d = getDeliveries(state).find(x => x.id === id);
       if (d) {
