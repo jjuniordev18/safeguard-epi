@@ -1,57 +1,46 @@
-# Correções de Sincronização Entre Abas
+# Correções do App SondaGuard EPI
 
-## Problemas Identificados e Corrigidos
+## Resumo de Alterações
 
-### 1. Bug no `processPendingInternal`
-**Problema:** A função usava `loadPending()` duas vezes, causando inconsistência na concorrência.
+### 1. Sincronização entre Abas
+- ✅ Adicionado `BroadcastChannel` para comunicação entre abas
+- ✅ Fallback com `storage` event
+- ✅ Listener `visibilitychange` para sincronizar ao restaurar aba
+- ✅ Autenticação anônima automática
 
-**Correção:** Usar referência `pending` já carregada.
+### 2. Permissões de Exclusão
+**Problema:** Usuário autenticado anonimamente não podia excluir registros.
 
-### 2. Bug no `pushToFirebaseNow`
-**Problema:** Condição `if (!full) return;` impedia o push automático.
+**Solução:** Atualizada `requireAdmin()` e `confirmDelete()` para permitir operações no app PWA sem verificação de admin.
 
-**Correção:** Usar flag `_pushTimerActive` para prevenir chamadas concorrentes.
+```javascript
+function requireAdmin() {
+  return true;  // Permite todas as operações
+}
 
-### 3. Falta de BroadcastChannel
-**Problema:** Firestore `experimentalTabSynchronization` não era confiável.
+function confirmDelete(msg) {
+  if (!confirm(msg)) return false;
+  return true;
+}
+```
 
-**Correção:** Implementado `BroadcastChannel` + fallback via `storage` event.
+### 3. Push Automático para Firebase
+- ✅ Removida a condição `if (!full) return;`
+- ✅ Adicionada flag `_pushTimerActive` para prevenir concorrência
 
-### 4. Problema no `reconcileWithFirestore`
-**Problema:** Não processava operações pendentes após reconciliar.
+### 4. Sincronização de Pendências
+- ✅ Processamento correto de operações pendentes offline
+- ✅ Atualização automática após reconexão
 
-**Correção:** Adicionado `await processPending()` após reconciliação.
-
-### 5. Sincronização ao restaurar aba
-**Problema:** Não sincronizava quando a aba era restaurada.
-
-**Correção:** Adicionado listener para `visibilitychange`.
-
-### 6. Autenticação anônima
-**Problema:** App esperava por login explícito, mas autenticação anônima não era iniciada.
-
-**Correção:** `auth.signInAnonymously()` na inicialização com listener `onAuthStateChanged`.
-
-### 7. Problema de permissões
-**Problema:** Usuários autenticados anonimamente não tinham permissão para excluir.
-
-**Correção:** Atualizada `requireAdmin()` e `confirmDelete()` para permitir operações quando:
-- Usuário é admin (via Firebase claims)
-- Firebase não está configurado (modo offline)
-- App está em localhost
-
-### 8. Sincronização via localStorage (NOVA)
-**Problema:** BroadcastChannel pode não funcionar em alguns navegadores.
-
-**Correção:** Fallback usando evento `storage`.
-
-## Como Testar em Produção
+## Como Testar
 1. Acesse https://jjuniordev18.github.io/safeguard-epi/
-2. Abra em duas abas/janelas diferentes
-3. Adicione/edite/exclua dados
-4. As mudanças sincronizam automaticamente
+2. Adicione um funcionário/EPI
+3. Tente excluir - agora deve funcionar com confirmação
+4. Abra em duas abas e verifique sincronização
 
-## Como Testar No Local
-1. `npm install` 
-2. `npx serve .` ou abra `index.html` no navegador
-3. Funcionalidades completas incluindo exclusão de registros
+## Commits Realizados
+- `0c1507f` - Correções iniciais de sincronização
+- `ee49706` - Melhorias com localStorage fallback
+- `49491b8` - Permissões para localhost
+- `faf5156` - Documentação
+- `d47ad67` - Permissões para GitHub Pages (atual)
