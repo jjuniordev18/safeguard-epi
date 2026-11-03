@@ -15,40 +15,43 @@
 ### 3. Falta de BroadcastChannel
 **Problema:** Firestore `experimentalTabSynchronization` não era confiável.
 
-**Correção:** Implementado `BroadcastChannel` para notificar outras abas.
+**Correção:** Implementado `BroadcastChannel` + fallback via `storage` event.
 
 ### 4. Problema no `reconcileWithFirestore`
 **Problema:** Não processava operações pendentes após reconciliar.
 
 **Correção:** Adicionado `await processPending()` após reconciliação.
 
-### 5. Listener de entregas
-**Problema:** Redenfinição de arrays sem verificar mudanças.
-
-**Correção:** Verificação de mudanças antes de atualizar.
-
-### 6. Sincronização ao restaurar aba
+### 5. Sincronização ao restaurar aba
 **Problema:** Não sincronizava quando a aba era restaurada.
 
-**Correcao:** Adicionado listener para `visibilitychange`.
+**Correção:** Adicionado listener para `visibilitychange`.
 
-### 7. Autenticação anônima
+### 6. Autenticação anônima
 **Problema:** App esperava por login explícito, mas autenticação anônima não era iniciada.
 
 **Correção:** `auth.signInAnonymously()` na inicialização com listener `onAuthStateChanged`.
 
+### 7. Problema de permissões
+**Problema:** Usuários autenticados anonimamente não tinham permissão para excluir.
+
+**Correção:** Atualizada `requireAdmin()` e `confirmDelete()` para permitir operações quando:
+- Usuário é admin (via Firebase claims)
+- Firebase não está configurado (modo offline)
+- App está em localhost
+
 ### 8. Sincronização via localStorage (NOVA)
 **Problema:** BroadcastChannel pode não funcionar em alguns navegadores.
 
-**Correção:** Fallback usando evento `storage`:
-- Cada `save()` grava em `epi_sync_broadcast`
-- Outras abas escutam e recarregam o estado
-
-## Arquivos Modificados
-- `app.js` - Correções de sincronização
+**Correção:** Fallback usando evento `storage`.
 
 ## Como Testar em Produção
 1. Acesse https://jjuniordev18.github.io/safeguard-epi/
 2. Abra em duas abas/janelas diferentes
-3. Faça uma alteração em uma aba
-4. A mudança deve aparecer automaticamente na outra aba em 1-2 segundos
+3. Adicione/edite/exclua dados
+4. As mudanças sincronizam automaticamente
+
+## Como Testar No Local
+1. `npm install` 
+2. `npx serve .` ou abra `index.html` no navegador
+3. Funcionalidades completas incluindo exclusão de registros
