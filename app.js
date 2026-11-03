@@ -39,6 +39,19 @@
     let _authAdmin = false;
     let _authReady = false;
     let _broadcastChannel = null;
+    
+    // Listener global de sincronização via localStorage (fallback para BroadcastChannel)
+    function setupStorageSyncListener() {
+      window.addEventListener('storage', function(e) {
+        if (e.key === LS_KEY || (e.key === 'epi_sync_broadcast' && e.newValue)) {
+          console.log('[FB] Recebido storage event de sincronização de outra aba');
+          load();
+          recomputeCounters();
+          save();
+          if (curScreen) go(curScreen);
+        }
+      });
+    }
 
     function load() {
       try { const s = JSON.parse(localStorage.getItem(LS_KEY)); if (s) state = s; } catch (e) { }
@@ -162,10 +175,14 @@
       try {
         const toSave = { employees: state.employees, epis: state.epis, entregas: state.entregas, returns: state.returns, cart: state.cart, cur: state.cur, notifications: state.notifications, archivedEntregas: state.archivedEntregas };
         localStorage.setItem(LS_KEY, JSON.stringify(toSave));
-        // Notificar outras abas sobre a atualização
+        // Notificar outras abas sobre a atualização via BroadcastChannel
         if (_broadcastChannel) {
           _broadcastChannel.postMessage({ type: 'state_updated', timestamp: Date.now() });
         }
+        // Também via localStorage (funciona entre abas diferentes)
+        try {
+          localStorage.setItem('epi_sync_broadcast', String(Date.now()));
+        } catch (e) { }
       } catch (e) { showToast('⚠️ Armazenamento cheio — exporte um backup (JSON)'); }
       processPending().catch(e => console.warn('[FB] Erro ao processar pendências:', e));
       if (db) { console.log('[FB] save() → fila local persistida, employees:', state.employees.length); }
@@ -295,17 +312,37 @@
         });
       }
       
-      auth.onAuthStateChanged(async user => {
+      // Configurar listener de storage para fallback
+      setupStorageSyncListener();
+      
+      // Escutar mudanças de autenticação
+      auth.onAuthStateChanged(function(user) {
         _authUser = user;
         _authReady = true;
         if (user) {
-          const token = await user.getIdTokenResult();
-          _authAdmin = token.claims && token.claims.admin === true;
-          await connectFirebase();
-        } else if (db) {
+          console.log('[FB] Usuário autenticado, uid:', user.uid);
+          fbUser = user;
+          // Conectar e sincronizar
+          reconcileWithFirestore().then(() => {
+            attachListeners();
+            processPending();
+            syncStatus = 'ok';
+            updateSyncBadge();
+          }).catch(e => {
+            console.warn('[FB] Erro na reconciliação:', e);
+            attachListeners();
+          });
+        } else {
+          console.log('[FB] Usuário não autenticado');
           _authAdmin = false;
         }
       });
+      
+      // Conectar autenticação anônima automaticamente
+      auth.signInAnonymously().catch(e => {
+        console.warn('[FB] Falha ao conectar autenticação anônima:', e);
+      });
+      
       db.enablePersistence({ experimentalTabSynchronization: true }).catch(e => {
         if (e && (e.code === 'failed-precondition' || e.code === 'unimplemented')) {
           console.warn('[FB] Persistência offline indisponível (' + e.code + ') — usando memória');
@@ -315,6 +352,7 @@
       });
       return true;
     }
+    
     async function connectFirebase() {
       if (!auth) { console.warn('[FB] auth não disponível'); return false; }
       if (!_authUser) return false;
@@ -324,6 +362,7 @@
         console.log('[FB] Auth OK, uid:', fbUser.uid);
         if (_wasSeeded) console.log('[FB] Seed detectado — reconciliando sem sobrescrever o servidor');
         await reconcileWithFirestore();
+        attachListeners();
         // Processar operações pendentes após reconciliação
         await processPending();
         _reconnectAttempts = 0;
